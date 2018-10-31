@@ -12,7 +12,7 @@ $query = $db->prepare($sql);
 // query wordt uitgevoerd, aantal resultaten worden geteld en als dit niet 0 is
 // gaat hij de resultaten in de lege array hierboven zetten. In de views laat hij deze zien
 if($query->execute()) {
-  $rowCount = $arrayProducts->rowCount();
+  $rowCount = $query->rowCount();
   if($rowCount !== 0) {
     while($products = $query->fetch()) {
         array_push($arrayProducts, $products);
