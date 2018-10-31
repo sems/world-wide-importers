@@ -11,9 +11,9 @@
     <title>Hello, world!</title>
   </head>
   <body>
-        
+
     <div class="container">
-      
+
       <?php
         include("inc/navigation.php");
         include $view;

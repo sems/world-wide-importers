@@ -8,10 +8,10 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
           <?php
+            // Add new pages in array, "filename.php" => "Name",
             $pages = array(
               "login.php" => "Login",
               "products.php" => "Producten",
-              "index.php" => "Index"
             );
 
             foreach ($pages as $key => $value) {
