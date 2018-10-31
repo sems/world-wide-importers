@@ -2,15 +2,12 @@
 groep project 'world wide importers'
 
 ## Requirements
-You need to install ...
-#### Install ...
-* You may need to install ... first (if not already installed):
-  * `some executable code`
-* Then install ... with:
-  * `some executable code`
+* NodeJs
+* SASS
+* Local development environment
 
-## Todo
-- [x] Made repository
-- [x] Made trello
-- [x] Connected slack to trello
-- [ ] Create onedrive
+#### Install ...
+* You may need to install NodeJs first (if not already installed):
+* Then install Sass with:
+  * `npm install -g sass`
+
