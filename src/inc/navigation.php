@@ -14,6 +14,7 @@
               "products.php" => "Producten",
             );
 
+            // For every page defined in $pages array, add to navigation
             foreach ($pages as $key => $value) {
               print("<li class='nav-item active'>
                   <a class='nav-link' href='$key'>$value</a>
