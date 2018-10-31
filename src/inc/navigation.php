@@ -7,12 +7,22 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-                <a class="nav-link" href="login.php">Login</a>
-            </li>
-            <li class="nav-item active">
-                <a class="nav-link" href="products.php">Producten</a>
-            </li>
+          <?php
+            $pages = array(
+              "login.php" => "Login",
+              "products.php" => "Producten",
+              "index.php" => "Index"
+            );
+
+            foreach ($pages as $key => $value) {
+              print("<li class='nav-item active'>
+                  <a class='nav-link' href='$key'>$value</a>
+              </li>");
+            }
+          ?>
+            <!-- <li class="nav-item active">
+                <a class="nav-link" href="test.php">Test</a>
+            </li> -->
         </ul>
         <form class="form-inline my-2 my-lg-0">
             <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">

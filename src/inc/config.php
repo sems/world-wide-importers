@@ -2,7 +2,7 @@
     session_start();
 
     //database credentials
-    define('DBHOST','localhost:3307');
+    define('DBHOST','localhost');
     define('DBNAME','wideworldimporters');
     define('DBUSER','root');
     define('DBPASS','root');
