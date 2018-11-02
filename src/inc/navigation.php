@@ -24,6 +24,14 @@
             <!-- <li class="nav-item active">
                 <a class="nav-link" href="test.php">Test</a>
             </li> -->
+            <?php
+                if(!isset($_SESSION['logged_in']) || ($_SESSION['logged_in'] == false)) {
+
+                } else {
+                    echo "<li class='nav-item'><a class='nav-link' href='profile.php'>Profiel</a></li>";
+                    echo "<li class='nav-item'><a class='nav-link' href='logout.php'>Logout</a></li>";
+                };
+            ?>
         </ul>
         <form class="form-inline my-2 my-lg-0">
             <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
