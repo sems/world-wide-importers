@@ -1,4 +1,17 @@
 <?php
+function IsNullOrEmptyString($str){
+    return (!isset($str) || trim($str) === '' || strlen($str) == 0 || !is_null($str) || !empty($str));
+}
+
+if (!(strlen($product) < 5)) {
+
+} else {
+    print("Er is geen product geselecteerd!");
+}
+?>
+
+
+<?php
 // For each produc print product photo (null) and add product name
 if(sizeOf($arrayProducts) < 1) {
   echo 'Geen resultaten';
@@ -11,12 +24,4 @@ if(sizeOf($arrayProducts) < 1) {
   }
 }
 
-?>
-
-
-<?php
-// // Use to validate photo extension
-// print("<script type='text/javascript'>
-//   (/\.(gif|jpg|jpeg|tiff|png)$/i).test(".$row['Photo'].")
-// </script>");
 ?>

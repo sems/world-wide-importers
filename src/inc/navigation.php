@@ -12,6 +12,7 @@
             $pages = array(
               "login.php" => "Login",
               "products.php" => "Producten",
+              "register.php" => "Register",
             );
 
             // For every page defined in $pages array, add to navigation
