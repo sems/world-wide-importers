@@ -1,10 +1,19 @@
 <?php
 require('inc/config.php');
 
+// lege sql variabele die later ingevuld wordt
+$sql = '';
+
+// kijkt of er gezocht is of dat de productenpagina gewoon bezocht wordt en geeft een query ob basis hiervan
+if(isSet($_GET['search'])) {
+  // resultaat uit de URL
+  $request = $_GET['search'];
+  $sql = 'SELECT * FROM stockitems WHERE SearchDetails LIKE "%'.$request.'%"';
+} else {
+  $sql = 'SELECT * FROM stockitems';
+}
 // lege array die later gevuld wordt
 $arrayProducts = array();
-// query die hier onder gebruikt wordt
-$sql = 'SELECT * FROM stockitems';
 
 // query wordt voorbereid
 $query = $db->prepare($sql);
