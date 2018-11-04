@@ -13,10 +13,14 @@ if (isset($_GET['id'])) {
     // Wijs 'id' toe aan StockItemID variabele
     $StockItemID = $_GET['id'];
     // Wijs sql toe
-    $sql = 'SELECT * FROM stockitems WHERE StockItemID = 1';
-print("HOI");
+    $sql = 'SELECT * FROM stockitems s 
+        LEFT JOIN colors c 
+            ON s.ColorID = c.ColorID
+        WHERE s.StockItemID = :stockItemID';
     // Query wordt voorbereid
     $query = $db->prepare($sql);
+    // Insert StockItemID from _GET in query
+    $query->bindParam(':stockItemID', $StockItemID, PDO::PARAM_STR);
     // De query wordt uitgevoerd
     if ($query->execute()) {
         $product = $query->fetch();
