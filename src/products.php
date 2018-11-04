@@ -10,7 +10,7 @@ if(isSet($_GET['search'])) {
   $request = $_GET['search'];
   $sql = 'SELECT * FROM stockitems WHERE SearchDetails LIKE "%'.$request.'%"';
 } else {
-  $sql = 'SELECT * FROM stockitems';
+  $sql = 'SELECT StockItemID, StockItemName, Photo, UnitPrice FROM stockitems LIMIT 0, 18';
 }
 // lege array die later gevuld wordt
 $arrayProducts = array();
