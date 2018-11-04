@@ -1,7 +1,7 @@
 <?php
     require('inc/config.php');
 
-    $view = "views/profile.php";
+    $view = "profile.php";
     
     include_once $template;
 ?>

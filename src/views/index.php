@@ -1,1 +1,3 @@
-<h1>Welkom, bij World Wide Importers.</h1>
+<div class="jumbotron jumbotron-fluid bg-img">
+    <img src="img/homepage-logo.png" />
+</div>

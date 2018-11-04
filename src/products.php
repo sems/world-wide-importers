@@ -29,6 +29,6 @@ if($query->execute()) {
   }
 }
 
-$view = "views/products.php";
+$view = "products.php";
 include_once $template;
 ?>

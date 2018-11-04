@@ -27,6 +27,6 @@ if (isset($_GET['id'])) {
     }
 }
 
-$view = "views/product.php";
+$view = "product.php";
 include_once $template;
 ?>
