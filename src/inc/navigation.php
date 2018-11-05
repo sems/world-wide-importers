@@ -13,32 +13,28 @@
                 $pages = array(
                     "index.php" => "Home",
                     "products.php" => "Producten",
-                    "login.php" => "Login",
-                    "register.php" => "Register",
                 );
 
                 // For every page defined in $pages array, add to navigation
                 foreach ($pages as $key => $value) {
-                print("<li class='nav-item ".($view == $key ? "active":"")."'>
-                    <a class='nav-link' href='$key'>$value</a>
-                </li>");
+                    print("<li class='nav-item ".($view == $key ? "active":"")."'>
+                        <a class='nav-link' href='$key'>$value</a>
+                    </li>");
                 }
-            ?>
-                <!-- <li class="nav-item active">
-                    <a class="nav-link" href="test.php">Test</a>
-                </li> -->
-                <?php
-                    if(!isset($_SESSION['logged_in']) || ($_SESSION['logged_in'] == false)) {
 
-                    } else {
-                        echo "<li class='nav-item'><a class='nav-link' href='profile.php'>Profiel</a></li>";
-                        echo "<li class='nav-item'><a class='nav-link' href='logout.php'>Logout</a></li>";
-                    };
-                ?>
+                // Checks if user is logged in or not.
+                if(!isset($_SESSION['logged_in']) || ($_SESSION['logged_in'] == false)) {
+                    echo "<li class='nav-item'><a class='nav-link' href='login.php'>Login</a></li>";
+                    echo "<li class='nav-item'><a class='nav-link' href='register.php'>Registeer</a></li>";
+                } else {
+                    echo "<li class='nav-item'><a class='nav-link' href='profile.php'>Profiel</a></li>";
+                    echo "<li class='nav-item'><a class='nav-link' href='logout.php'>Uitloggen</a></li>";
+                };
+            ?>
             </ul>
             <form action="products.php" method="get" class="form-inline my-2 my-lg-0">
-                <input class="form-control mr-sm-2" name="search" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
+                <input class="form-control mr-sm-2" name="search" type="search" placeholder="Zoeken" aria-label="Zoeken">
+                <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Zoek</button>
             </form>
         </div>
     </div>
