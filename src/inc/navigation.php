@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-    <div class="container-fluid navbar-margin">
+    <div class="container navbar-margin">
         <a class="navbar-brand" href="index.php">World Wide Importers</a>
 
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -13,6 +13,7 @@
                 $pages = array(
                     "index.php" => "Home",
                     "products.php" => "Producten",
+                    "basket.php" => "Winkelwagen",
                 );
 
                 // For every page defined in $pages array, add to navigation
