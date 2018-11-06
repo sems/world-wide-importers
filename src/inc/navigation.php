@@ -24,7 +24,7 @@
                 }
               ?>
                 <a class="nav-link" href="products.php?filter=Clothing">Kleren</a>
-                <a class="nav-link" href="products.php?filter=Novelty Items">Snufjes</a>
+                <a class="nav-link" href="products.php?filter=Novelty">Snufjes</a>
                 <a class="nav-link" href="products.php?filter=Toys">Speelgoed</a>
                 <a class="nav-link" href="products.php?filter=Packaging Materials">Verpakking</a>
               <?php
