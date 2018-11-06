@@ -12,7 +12,7 @@
                 // Add new pages in array, "filename.php" => "Name",
                 $pages = array(
                     "index.php" => "Home",
-                    "products.php" => "Producten",
+                    "products.php" => "Alle producten",
                     "basket.php" => "Winkelwagen",
                 );
 
@@ -22,7 +22,12 @@
                         <a class='nav-link' href='$key'>$value</a>
                     </li>");
                 }
-
+              ?>
+                <a class="nav-link" href="products.php?filter=Clothing">Kleren</a>
+                <a class="nav-link" href="products.php?filter=Novelty Items">Snufjes</a>
+                <a class="nav-link" href="products.php?filter=Toys">Speelgoed</a>
+                <a class="nav-link" href="products.php?filter=Packaging Materials">Verpakking</a>
+              <?php
                 // Checks if user is logged in or not.
                 if(!isset($_SESSION['logged_in']) || ($_SESSION['logged_in'] == false)) {
                     echo "<li class='nav-item'><a class='nav-link' href='login.php'>Login</a></li>";
