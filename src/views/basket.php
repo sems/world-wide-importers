@@ -15,7 +15,7 @@ if(isset($_COOKIE['basket'])) {
         $naam = $db->prepare("SELECT StockItemName FROM Stockitems WHERE StockItemID = ($key)");
         $size = $db->prepare("SELECT Size FROM Stockitems WHERE StockItemID = ($key)");
         $photo = $db->prepare("SELECT Photo FROM Stockitems WHERE StockItemID = ($key)");
-        $price = $db->prepare("SELECT RecommendedRetailPrice FROM Stockitems WHERE StockItemID = ($key)");
+        $price = $db->prepare("SELECT UnitPrice FROM Stockitems WHERE StockItemID = ($key)");
         $naam->execute();
         $naam = $naam->fetch();
         $size->execute();
