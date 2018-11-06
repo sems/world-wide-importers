@@ -1,3 +1,11 @@
+<form action='products.php' method='get'>
+  <select name='order'>
+    <option value='ASC'>Van laag naar hoog</option>
+    <option value='DESC'>Van hoog naar laag</option>
+  </select>
+  <button type='submit'>Zoek</button>
+</form>
+
 <?php
 // For each produc print product photo (null) and add product name
 if(sizeOf($arrayProducts) < 1) {
@@ -18,7 +26,7 @@ if(sizeOf($arrayProducts) < 1) {
       "</a></td><td class='product-price'>".
       "&euro;".$row['UnitPrice'].
       "</td></tr></table>");
-    
+
     print("</div></div></div>");
   }
   print("</div>");

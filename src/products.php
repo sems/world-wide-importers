@@ -14,6 +14,7 @@ if(isSet($_GET['search'])) {
   $sql = 'SELECT * FROM stockitems WHERE SearchDetails LIKE "%'.$request.'%"';
 } else if(isSet($_GET['filter'])){
   $request = $_GET['filter'];
+  $order = isSet($_GET['order']) ? $_GET['order'] : 'ASC';
   if ($_GET['filter'] == "Clothing") {
     $title = "Kleren";
   } elseif ($_GET['filter'] == "Toys") {
@@ -24,9 +25,9 @@ if(isSet($_GET['search'])) {
     $title = "Verpakking";
   }
   if($request === 'Clothing') {
-    $sql = 'SELECT * FROM stockitems si JOIN stockitemstockgroups sisg ON sisg.StockItemID = si.StockItemID JOIN stockgroups sg ON sg.StockGroupID = sisg.StockGroupID WHERE sg.StockGroupName = "Clothing" OR sg.StockGroupName = "Furry Footwear" OR sg.StockGroupName = "T-Shirts"';
+    $sql = 'SELECT * FROM stockitems si JOIN stockitemstockgroups sisg ON sisg.StockItemID = si.StockItemID JOIN stockgroups sg ON sg.StockGroupID = sisg.StockGroupID WHERE sg.StockGroupName = "Clothing" OR sg.StockGroupName = "Furry Footwear" OR sg.StockGroupName = "T-Shirts" ORDER BY si.UnitPrice '.$order.'';
   } else {
-    $sql = 'SELECT * FROM stockitems si JOIN stockitemstockgroups sisg ON sisg.StockItemID = si.StockItemID JOIN stockgroups sg ON sg.StockGroupID = sisg.StockGroupID WHERE sg.StockGroupName LIKE "%'.$request.'%"';
+    $sql = 'SELECT * FROM stockitems si JOIN stockitemstockgroups sisg ON sisg.StockItemID = si.StockItemID JOIN stockgroups sg ON sg.StockGroupID = sisg.StockGroupID WHERE sg.StockGroupName LIKE "%'.$request.'%" ORDER BY si.UnitPrice '.$order.'';
   }
 } else {
   $sql = 'SELECT StockItemID, StockItemName, Photo, UnitPrice FROM stockitems LIMIT 0, 18';
