@@ -35,6 +35,7 @@
                 $IsSystemUser               = 0;
                 $IsEmployee                 = 0;
                 $IsSalesperson              = 0;
+                $lastEditedBy               = 1;
     
                 if ($userPasswordInput == $userPasswordReEnter) {
                     $userPassConfInput = $userPasswordInput;
@@ -48,8 +49,8 @@
                     // Autoincrement ID
                     $aiID = $maxID['id'] + 1;
         
-                    $query = "INSERT INTO people (`PersonId`, `FullName`, `PreferredName`, `SearchName`, `IsPermittedToLogon`, `LogonName`, `IsExternalLogonProvider`, `HashedPassword`, `IsSystemUser`, `IsEmployee`, `IsSalesperson`) 
-                            VALUES (:id, :fullUsername, :userName, :userSearchName, :permittedTo, :userLogonMail, :externalLogon, :userHashedPassword, :userSystemUser, :userEmployee, :userSalesPerson )";
+                    $query = "INSERT INTO people (`PersonId`, `FullName`, `PreferredName`, `SearchName`, `IsPermittedToLogon`, `LogonName`, `IsExternalLogonProvider`, `HashedPassword`, `IsSystemUser`, `IsEmployee`, `IsSalesperson`, `LastEditedBy`) 
+                            VALUES (:id, :fullUsername, :userName, :userSearchName, :permittedTo, :userLogonMail, :externalLogon, :userHashedPassword, :userSystemUser, :userEmployee, :userSalesPerson, :lastEdit )";
                     
                     //Prepares statement and bind parameters
                     $dbinsert = $db->prepare($query);
@@ -65,6 +66,7 @@
                     $dbinsert->bindParam(':userSystemUser', $IsSystemUser, PDO::PARAM_STR);
                     $dbinsert->bindParam(':userEmployee', $IsEmployee, PDO::PARAM_STR);
                     $dbinsert->bindParam(':userSalesPerson', $IsSalesperson, PDO::PARAM_STR);
+                    $dbinsert->bindParam(':lastEdit', $lastEditedBy, PDO::PARAM_STR);
                     
                     // Execute call
                     $dbinsert-> execute();
