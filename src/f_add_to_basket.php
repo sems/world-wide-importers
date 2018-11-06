@@ -9,18 +9,15 @@
                 // If there is no cookie namend..
                 echo  "hij bestaat nog niet";
                 $cleanArrayOfIDs = array($_POST['itemID']);
-                setcookie('basket', serialize($cleanArrayOfIDs), time()+3600);
+                setcookie('basket', json_encode($cleanArrayOfIDs), time()+3600);
                 
                 $_SESSION['msg'] = "Product toegevoegd.";
                 header('Location: basket.php');
             } else {
                 // Add item to basket
-                $data = unserialize($_COOKIE['basket']);
+                $data = json_decode($_COOKIE['basket']);
                 array_push($data, $_POST['itemID']);
-
-                setcookie('basket', serialize($data), time()+3600);
-                print_r(unserialize($_COOKIE['basket']));
-
+                setcookie('basket', json_encode($data), time()+3600);
                 $_SESSION['msg'] = "Product toegevoegd.";
                 header('Location: basket.php');
             }
