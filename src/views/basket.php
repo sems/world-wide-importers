@@ -2,6 +2,7 @@
 if(isset($_COOKIE['basket'])) {
     //start code
     $winkelmand = json_decode($_COOKIE['basket'], true);
+    $totalePrijs = 0;
 
     //voorbereiden queries voor naam, eventuele grootte, foto en prijs
     $naam = $db->prepare("SELECT StockItemName FROM Stockitems WHERE StockItemID = ($key)");
@@ -42,7 +43,10 @@ if(isset($_COOKIE['basket'])) {
         </form>
         <?php
         print("<br> Prijs: €" . ($value * $price[0]) . "<br><br>");
-    }       
+        $totalePrijs = $totalePrijs + ($value * $price[0]);
+        print("<br><br> Totale prijs: €" . $totalePrijs);
+    }    
+    
 }
 else{
     print("Je hebt nog geen artikelen in je winkelmand");
