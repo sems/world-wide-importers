@@ -6,12 +6,12 @@ function IsNullOrEmptyString($str){
 if (strlen($product['StockItemName']) < 1) {
     print("Er is geen product geselecteerd!");
 } else {
-    print("<table><tr>");
+    print("<table><tr>".$product['StockItemID']);
     print("<td>".(strlen($product['Photo']) < 1 ? "<img id='productImage' src='img/image_not_found.png' />":"<img id='productImage' src='data:image/gif;base64,".base64_encode($product['Photo'])."'/>")."</td>");
     print("<td>".$product['StockItemName']);
     print("<br />".$product['UnitPrice']);
     print("<br />".($product['ColorID'] == 0 ? "Geen kleur":$product['ColorName']));
-    print("<form method='post' action='f_add_to_basket.php'><input type='hidden' id='".$product['StockItemID']."' name='itemID' value='".$product['StockItemID']."'><button type='submit'>Plaats in winkelmand</button></form>");
+    print("<form method='post' action='f_add_to_basket.php'><input type='number' name='itemAmount' id='itemAmount' min='1'> <input type='hidden' id='".$product['StockItemID']."' name='itemID' value='".$product['StockItemID']."'><button type='submit'>Plaats in winkelmand</button></form>");
     print("</td>");
     print("</tr></table>");
 }
