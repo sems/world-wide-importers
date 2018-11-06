@@ -28,7 +28,7 @@
                 $userPasswordReEnter   =    $_POST['repassword'];
                 $userFullnameInput     =    $_POST['full_name'];
                 $PreferredName         =    $_POST['preferred_name'];
-    
+                
                 // Setting default user settings
                 $IsPermittedToLogon         = 1;
                 $IsExternalLogonProvider    = 0;
@@ -39,49 +39,58 @@
                 $validFrom                  = "2016-05-31 23:14:00";
                 $validUntil                 = "9999-12-31 23:59:59";
     
-                if ($userPasswordInput == $userPasswordReEnter) {
-                    $userPassConfInput = $userPasswordInput;
-                    $hashedPwd = password_hash($userPassConfInput, PASSWORD_DEFAULT);
+                $stmt = $db->prepare("SELECT PersonID FROM people WHERE LogonName=:mail");
+                $stmt->execute(['mail' => $LogonName]); 
+                $row = $stmt->fetch();
 
-                    // Getting first next PerSonID before assigning new one 
-                    $qry = $db->prepare("SELECT max(PersonID) as id FROM people");
-                    $qry->execute(); 
-                    $maxID = $qry->fetch();
-        
-                    // Autoincrement ID
-                    $aiID = $maxID['id'] + 1;
-        
-                    $query = "INSERT INTO people (`PersonId`, `FullName`, `PreferredName`, `SearchName`, `IsPermittedToLogon`, `LogonName`, `IsExternalLogonProvider`, `HashedPassword`, `IsSystemUser`, `IsEmployee`, `IsSalesperson`, `LastEditedBy`, `ValidFrom`, `ValidTo`) 
-                            VALUES (:id, :fullUsername, :userName, :userSearchName, :permittedTo, :userLogonMail, :externalLogon, :userHashedPassword, :userSystemUser, :userEmployee, :userSalesPerson, :lastEdit, :validFrom, :validUntil )";
-                    
-                    //Prepares statement and bind parameters
-                    $dbinsert = $db->prepare($query);
-        
-                    $dbinsert->bindParam(':id', $aiID, PDO::PARAM_STR);
-                    $dbinsert->bindParam(':fullUsername', $userFullnameInput, PDO::PARAM_STR);
-                    $dbinsert->bindParam(':userName', $PreferredName, PDO::PARAM_STR);
-                    $dbinsert->bindParam(':userSearchName', $userFullnameInput, PDO::PARAM_STR);
-                    $dbinsert->bindParam(':permittedTo', $IsPermittedToLogon, PDO::PARAM_STR);
-                    $dbinsert->bindParam(':userLogonMail', $LogonName, PDO::PARAM_STR);
-                    $dbinsert->bindParam(':externalLogon', $IsExternalLogonProvider, PDO::PARAM_STR);
-                    $dbinsert->bindParam(':userHashedPassword', $hashedPwd, PDO::PARAM_STR);
-                    $dbinsert->bindParam(':userSystemUser', $IsSystemUser, PDO::PARAM_STR);
-                    $dbinsert->bindParam(':userEmployee', $IsEmployee, PDO::PARAM_STR);
-                    $dbinsert->bindParam(':userSalesPerson', $IsSalesperson, PDO::PARAM_STR);
-                    $dbinsert->bindParam(':lastEdit', $lastEditedBy, PDO::PARAM_STR);
-                    $dbinsert->bindParam(':validFrom', $validFrom, PDO::PARAM_STR);
-                    $dbinsert->bindParam(':validUntil', $validUntil, PDO::PARAM_STR);
-                    
-                    // Execute call
-                    $dbinsert-> execute();
-                    
-                    // Set message and redirect to login
-                    $_SESSION['msg'] = 'Account is met succes aangemaakt!';
-                    header('Refresh: 0.1; url=login.php');
+                if (empty($row)) {
+                    if ($userPasswordInput == $userPasswordReEnter) {
+                        $userPassConfInput = $userPasswordInput;
+                        $hashedPwd = password_hash($userPassConfInput, PASSWORD_DEFAULT);
+    
+                        // Getting first next PerSonID before assigning new one 
+                        $qry = $db->prepare("SELECT max(PersonID) as id FROM people");
+                        $qry->execute(); 
+                        $maxID = $qry->fetch();
+            
+                        // Autoincrement ID
+                        $aiID = $maxID['id'] + 1;
+            
+                        $query = "INSERT INTO people (`PersonId`, `FullName`, `PreferredName`, `SearchName`, `IsPermittedToLogon`, `LogonName`, `IsExternalLogonProvider`, `HashedPassword`, `IsSystemUser`, `IsEmployee`, `IsSalesperson`, `LastEditedBy`, `ValidFrom`, `ValidTo`) 
+                                VALUES (:id, :fullUsername, :userName, :userSearchName, :permittedTo, :userLogonMail, :externalLogon, :userHashedPassword, :userSystemUser, :userEmployee, :userSalesPerson, :lastEdit, :validFrom, :validUntil )";
+                        
+                        //Prepares statement and bind parameters
+                        $dbinsert = $db->prepare($query);
+            
+                        $dbinsert->bindParam(':id', $aiID, PDO::PARAM_STR);
+                        $dbinsert->bindParam(':fullUsername', $userFullnameInput, PDO::PARAM_STR);
+                        $dbinsert->bindParam(':userName', $PreferredName, PDO::PARAM_STR);
+                        $dbinsert->bindParam(':userSearchName', $userFullnameInput, PDO::PARAM_STR);
+                        $dbinsert->bindParam(':permittedTo', $IsPermittedToLogon, PDO::PARAM_STR);
+                        $dbinsert->bindParam(':userLogonMail', $LogonName, PDO::PARAM_STR);
+                        $dbinsert->bindParam(':externalLogon', $IsExternalLogonProvider, PDO::PARAM_STR);
+                        $dbinsert->bindParam(':userHashedPassword', $hashedPwd, PDO::PARAM_STR);
+                        $dbinsert->bindParam(':userSystemUser', $IsSystemUser, PDO::PARAM_STR);
+                        $dbinsert->bindParam(':userEmployee', $IsEmployee, PDO::PARAM_STR);
+                        $dbinsert->bindParam(':userSalesPerson', $IsSalesperson, PDO::PARAM_STR);
+                        $dbinsert->bindParam(':lastEdit', $lastEditedBy, PDO::PARAM_STR);
+                        $dbinsert->bindParam(':validFrom', $validFrom, PDO::PARAM_STR);
+                        $dbinsert->bindParam(':validUntil', $validUntil, PDO::PARAM_STR);
+                        
+                        // Execute call
+                        $dbinsert-> execute();
+                        
+                        // Set message and redirect to login
+                        $_SESSION['msg'] = 'Account is met succes aangemaakt!';
+                        header('Refresh: 0.1; url=login.php');
+                    } else {
+                        $_SESSION['msg'] = "De wachtwoorden komen niet overeen";
+                        header('Location: register.php');
+                        exit();
+                    }
                 } else {
-                    $_SESSION['msg'] = "De wachtwoorden komen niet overeen";
+                    $_SESSION['msg'] = "Dit email is al ingebruik.";
                     header('Location: register.php');
-                    exit();
                 }
             } else {
                 $_SESSION['msg'] = 'Een vereist veld is niet ingevuld niet!';
