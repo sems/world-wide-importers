@@ -28,11 +28,11 @@
                 }
                 // Checks if user is logged in or not.
                 if(!isset($_SESSION['logged_in']) || ($_SESSION['logged_in'] == false)) {
-                    echo "<li class='nav-item'><a class='nav-link' href='login.php'>Login</a></li>";
-                    echo "<li class='nav-item'><a class='nav-link' href='register.php'>Registeer</a></li>";
+                    echo "<li class='nav-item ".($title == "Login" ? "active":"")."'><a class='nav-link' href='login.php'>Login</a></li>";
+                    echo "<li class='nav-item ".($title == "Registreer" ? "active":"")."'><a class='nav-link' href='register.php'>Registeer</a></li>";
                 } else {
-                    echo "<li class='nav-item'><a class='nav-link' href='profile.php'>Profiel</a></li>";
-                    echo "<li class='nav-item'><a class='nav-link' href='logout.php'>Uitloggen</a></li>";
+                    echo "<li class='nav-item ".($title == "Profiel" ? "active":"")."'><a class='nav-link' href='profile.php'>Profiel</a></li>";
+                    echo "<li class='nav-item ".($title == "Uitloggen" ? "active":"")."'><a class='nav-link' href='logout.php'>Uitloggen</a></li>";
                 };
             ?>
             </ul>
