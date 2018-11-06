@@ -15,7 +15,7 @@
     <!-- Google Api -->
     <script src='https://www.google.com/recaptcha/api.js'></script>
     <!-- Title -->
-    <title>World Wide Importers</title>
+    <title>World Wide Importers | <?php print($title); ?></title>
 
     <!-- Favicon -->
     <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">

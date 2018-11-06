@@ -1,6 +1,9 @@
 <?php
 require('inc/config.php');
 
+// title variable (used in template)
+$title = "Producten";
+
 // lege sql variabele die later ingevuld wordt
 $sql = '';
 
@@ -11,6 +14,15 @@ if(isSet($_GET['search'])) {
   $sql = 'SELECT * FROM stockitems WHERE SearchDetails LIKE "%'.$request.'%"';
 } else if(isSet($_GET['filter'])){
   $request = $_GET['filter'];
+  if ($_GET['filter'] == "Clothing") {
+    $title = "Kleren";
+  } elseif ($_GET['filter'] == "Toys") {
+    $title = "Speelgoed";
+  } elseif ($_GET['filter'] == "Novelty Items") {
+    $title = "Snufjes";
+  } elseif ($_GET['filter'] == "Packaging Materials") {
+    $title = "Verpakking";
+  }
   $sql = 'SELECT * FROM stockitems si JOIN stockitemstockgroups sisg ON sisg.StockItemID = si.StockItemID JOIN stockgroups sg ON sg.StockGroupID = sisg.StockGroupID WHERE sg.StockGroupName="'.$request.'"';
 } else {
   $sql = 'SELECT StockItemID, StockItemName, Photo, UnitPrice FROM stockitems LIMIT 0, 18';
