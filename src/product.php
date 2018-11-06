@@ -1,5 +1,7 @@
 <?php
 require('inc/config.php');
+// title variable (used in template)
+$title = "Product";
 
 // lege StockItemID variabele die later ingevuld word (of niet)
 $StockItemID = "";
@@ -27,6 +29,7 @@ if (isset($_GET['id'])) {
     }
 }
 
+$title = $product['StockItemName'];
 $view = "product.php";
 include_once $template;
 ?>

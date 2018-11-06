@@ -11,13 +11,11 @@
             <?php
                 // Add new pages in array, "filename.php" => "Name",
                 $pages = array(
-                    "index.php" => "Home",
-                    "products.php" => "Producten",
-                    "basket.php" => "Winkelwagen",
                     "products.php?filter=Clothing" => "Kleren",
                     "products.php?filter=Novelty Items" => "Snufjes",
                     "products.php?filter=Toys" => "Speelgoed",
                     "products.php?filter=Packaging Materials" => "Verpakking",
+                    "basket.php" => "<i class='fas fa-shopping-basket basket'></i>",
                 );
 
                 // For every page defined in $pages array, add to navigation
