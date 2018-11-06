@@ -36,6 +36,8 @@
                 $IsEmployee                 = 0;
                 $IsSalesperson              = 0;
                 $lastEditedBy               = 1;
+                $validFrom                  = "2016-05-31 23:14:00";
+                $validUntil                 = "9999-12-31 23:59:59";
     
                 if ($userPasswordInput == $userPasswordReEnter) {
                     $userPassConfInput = $userPasswordInput;
@@ -49,8 +51,8 @@
                     // Autoincrement ID
                     $aiID = $maxID['id'] + 1;
         
-                    $query = "INSERT INTO people (`PersonId`, `FullName`, `PreferredName`, `SearchName`, `IsPermittedToLogon`, `LogonName`, `IsExternalLogonProvider`, `HashedPassword`, `IsSystemUser`, `IsEmployee`, `IsSalesperson`, `LastEditedBy`) 
-                            VALUES (:id, :fullUsername, :userName, :userSearchName, :permittedTo, :userLogonMail, :externalLogon, :userHashedPassword, :userSystemUser, :userEmployee, :userSalesPerson, :lastEdit )";
+                    $query = "INSERT INTO people (`PersonId`, `FullName`, `PreferredName`, `SearchName`, `IsPermittedToLogon`, `LogonName`, `IsExternalLogonProvider`, `HashedPassword`, `IsSystemUser`, `IsEmployee`, `IsSalesperson`, `LastEditedBy`, `ValidFrom`, `ValidTo`) 
+                            VALUES (:id, :fullUsername, :userName, :userSearchName, :permittedTo, :userLogonMail, :externalLogon, :userHashedPassword, :userSystemUser, :userEmployee, :userSalesPerson, :lastEdit, :validFrom, :validUntil )";
                     
                     //Prepares statement and bind parameters
                     $dbinsert = $db->prepare($query);
@@ -67,6 +69,8 @@
                     $dbinsert->bindParam(':userEmployee', $IsEmployee, PDO::PARAM_STR);
                     $dbinsert->bindParam(':userSalesPerson', $IsSalesperson, PDO::PARAM_STR);
                     $dbinsert->bindParam(':lastEdit', $lastEditedBy, PDO::PARAM_STR);
+                    $dbinsert->bindParam(':validFrom', $validFrom, PDO::PARAM_STR);
+                    $dbinsert->bindParam(':validUntil', $validUntil, PDO::PARAM_STR);
                     
                     // Execute call
                     $dbinsert-> execute();
