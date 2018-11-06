@@ -31,15 +31,14 @@ if(isset($_COOKIE['basket'])) {
             print("Geen grootte");
         }
         ?>
+        <br>
         <form method="post" action='f_change_amount_basket.php'>
-            <input type="number" <?php print("id='" . $key . "' name='" . $key . "'") ?> value="<?php
-            print("$value");
-            ?>" min="1">
-            <input type="submit" <?php print("id='" . $key . "'") ?> value="Bevestig">
+            <input type="number" <?php print("name='" . $key . "'") ?> value="<?php print("$value") ?>" min="1">
+            <input type="submit" value="Bevestig">
         </form>
         <form method="POST" action="f_delete_from_basket.php">
-            <input type="number" <?php print("id='" . $key . "' name='" . $key . "'") ?> <?php print("value='" . $winkelmand[$key] . "'")?>>
-            <input type='submit' <?php print("id='" . $key . "'") ?> <?php print("value='" . $key . "'") ?>>
+            <input type="hidden" <?php print("name='" . $key . "'") ?> <?php print("value='" . $winkelmand[$key] . "'")?>>
+            <button type='submit' <?php print("value='" . $key . "'") ?>>Verwijder product</button>
         </form>
         <?php
         print("<br> Prijs: €" . ($value * $price[0]) . "<br><br>");

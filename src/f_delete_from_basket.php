@@ -3,9 +3,9 @@ require('inc/config.php');
 
 $winkelmand1 = json_decode($_COOKIE['basket'], true);
 print_r($_POST);
-foreach($winkelmand1 as $key4 => $value4){
-    if(!empty($_POST[$key4])){
-        unset($winkelmand1[$key4]);
+foreach($winkelmand1 as $key => $value){
+    if(!empty($_POST[$key])){
+        unset($winkelmand1[$key]);
     }
     else{
         

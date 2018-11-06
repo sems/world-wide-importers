@@ -2,9 +2,9 @@
 require('inc/config.php');
 
 $winkelmand1 = json_decode($_COOKIE['basket'], true);
-foreach($winkelmand1 as $key4 => $value4){
-    if(!empty($_POST[$key4])){
-        $winkelmand1[$key4] = $_POST[$key4];
+foreach($winkelmand1 as $key => $value){
+    if(!empty($_POST[$key])){
+        $winkelmand1[$key] = $_POST[$key];
     }
     else{    
     }
