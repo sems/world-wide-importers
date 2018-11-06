@@ -11,7 +11,7 @@ if (strlen($product['StockItemName']) < 1) {
     print("<td>".$product['StockItemName']);
     print("<br />".$product['UnitPrice']);
     print("<br />".($product['ColorID'] == 0 ? "Geen kleur":$product['ColorName']));
-    print("<form method='post' action='f_add_to_basket.php'><input type='number' name='itemAmount' id='itemAmount' min='1' value='1'> <input type='hidden' id='".$product['StockItemID']."' name='itemID' value='".$product['StockItemID']."'><button type='submit'>Plaats in winkelmand</button></form>");
+    print("<form method='post' action='f_add_to_basket.php'><input class='form-control' type='number' name='itemAmount' id='itemAmount' min='1' value='1'> <input type='hidden' id='".$product['StockItemID']."' name='itemID' value='".$product['StockItemID']."'><button class='btn btn-primary btn-block' type='submit'>Plaats in winkelmand</button></form>");
     print("</td>");
     print("</tr></table>");
 }

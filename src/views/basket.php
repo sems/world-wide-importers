@@ -1,15 +1,10 @@
+<div class="row">
 <?php
 if(isset($_COOKIE['basket'])) {
     //start code
     $winkelmand = json_decode($_COOKIE['basket'], true);
     $totalePrijs = 0;
 
-    //voorbereiden queries voor naam, eventuele grootte, foto en prijs
-    $naam = $db->prepare("SELECT StockItemName FROM Stockitems WHERE StockItemID = ($key)");
-    $size = $db->prepare("SELECT Size FROM Stockitems WHERE StockItemID = ($key)");
-    $photo = $db->prepare("SELECT Photo FROM Stockitems WHERE StockItemID = ($key)");
-    $price = $db->prepare("SELECT RecommendedRetailPrice FROM Stockitems WHERE StockItemID = ($key)");
-    
     //printen van producten in artikelen array
     foreach ($winkelmand as $key => $value) {
         $naam = $db->prepare("SELECT StockItemName FROM Stockitems WHERE StockItemID = ($key)");
@@ -24,7 +19,11 @@ if(isset($_COOKIE['basket'])) {
         $photo = $photo->fetch();
         $price->execute();
         $price = $price->fetch();
-        print("<img src='data:image/gif;base64," . base64_encode($photo[0]) . "'/>" . $naam[0] . "<br>");
+
+        print("<div class='col-md-3'>");
+        print("<h5>".$naam[0]."</h5>");
+        print(strlen($photo[0]) < 1 ? "<img class='card-img-top' src='img/image_not_found.png' />":"<img class='card-img-top' src='data:image/gif;base64,".base64_encode($row['Photo'])."'/>");
+        
         //kijken of Size een waarde heeft
         if (!empty($size[0])) {
             print("Grootte: " . $size[0]);
@@ -32,23 +31,23 @@ if(isset($_COOKIE['basket'])) {
             print("Geen grootte");
         }
         ?>
-        <br>
         <form method="post" action='f_change_amount_basket.php'>
-            <input type="number" <?php print("name='" . $key . "'") ?> value="<?php print("$value") ?>" min="1">
-            <input type="submit" value="Bevestig">
+            <input class="form-control" type="number" <?php print("name='" . $key . "'") ?> value="<?php print("$value") ?>" min="1">
+            <input class="btn btn-warning" type="submit" value="Bevestig">
         </form>
-        <form method="POST" action="f_delete_from_basket.php">
+        <form method="post" action="f_delete_from_basket.php">
             <input type="hidden" <?php print("name='" . $key . "'") ?> <?php print("value='" . $winkelmand[$key] . "'")?>>
-            <button type='submit' <?php print("value='" . $key . "'") ?>>Verwijder product</button>
+            <button class="btn btn-primary" type='submit' <?php print("value='" . $key . "'") ?>>Verwijder product</button>
         </form>
         <?php
-        print("<br> Prijs: €" . ($value * $price[0]) . "<br><br>");
+        print("<br> Prijs: €" . ($value * $price[0]) . "<br><br></div>");
         $totalePrijs = $totalePrijs + ($value * $price[0]);
-        print("<br><br> Totale prijs: €" . $totalePrijs);
     }    
+    print("<hr/><p> Totale prijs: €" . $totalePrijs."</p>");
     
 }
 else{
     print("Je hebt nog geen artikelen in je winkelmand");
 }
 ?>
+</div>
