@@ -15,7 +15,7 @@
                     "products.php?filter=Novelty Items" => "Snufjes",
                     "products.php?filter=Toys" => "Speelgoed",
                     "products.php?filter=Packaging Materials" => "Verpakking",
-                    "basket.php" => "<i class='fas fa-shopping-basket basket'></i>",
+                    //"basket.php" => "<i class='fas fa-shopping-basket basket'></i>",
                 );
 
                 // For every page defined in $pages array, add to navigation
@@ -38,6 +38,8 @@
                 <input class="form-control mr-sm-2" name="search" type="search" placeholder="Zoeken" aria-label="Zoeken">
                 <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Zoek</button>
             </form>
+
+            <a class="btn btn-primary my-2 my-sm-0 basketBtn <?php print($title == "Winkelwagen" ? "basketActive":""); ?>" href="basket.php"><i class="fas fa-shopping-basket basket"></i></a>
         </div>
     </div>
 </nav>
