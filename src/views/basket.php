@@ -1,52 +1,51 @@
 <?php
+if(isset($_COOKIE['basket'])) {
     //start code
-    //Arrays voor test redenen
-    $winkelmand = array(123, 4, 34, 25);
-    $aantal = array(1,1,1,1);
-    $hoeveelheden = array_replace($aantal, $_POST);
+    $winkelmand = json_decode($_COOKIE['basket'], true);
 
-    //array omzetten in string
-    $producten = implode(', ', $winkelmand);
-
-    //voorbereiden query voor naam, eventuele grootte en prijs
-    $mysql = $db->prepare("SELECT StockItemName, Size, Photo, RecommendedRetailPrice FROM Stockitems WHERE StockItemID IN ($producten)");
-    $mysql->execute();
-
-    //array maken van de resultaten
-    $artikelen = $mysql->fetchAll(PDO::FETCH_ASSOC);
-
+    //voorbereiden queries voor naam, eventuele grootte, foto en prijs
+    $naam = $db->prepare("SELECT StockItemName FROM Stockitems WHERE StockItemID = ($key)");
+    $size = $db->prepare("SELECT Size FROM Stockitems WHERE StockItemID = ($key)");
+    $photo = $db->prepare("SELECT Photo FROM Stockitems WHERE StockItemID = ($key)");
+    $price = $db->prepare("SELECT RecommendedRetailPrice FROM Stockitems WHERE StockItemID = ($key)");
+    
     //printen van producten in artikelen array
-    foreach ($artikelen as $key => $value) {
-        print("<img src='data:image/gif;base64," . base64_encode($value['Photo']) . "'/>" . $value['StockItemName'] . "<br>");
+    foreach ($winkelmand as $key => $value) {
+        $naam = $db->prepare("SELECT StockItemName FROM Stockitems WHERE StockItemID = ($key)");
+        $size = $db->prepare("SELECT Size FROM Stockitems WHERE StockItemID = ($key)");
+        $photo = $db->prepare("SELECT Photo FROM Stockitems WHERE StockItemID = ($key)");
+        $price = $db->prepare("SELECT RecommendedRetailPrice FROM Stockitems WHERE StockItemID = ($key)");
+        $naam->execute();
+        $naam = $naam->fetch();
+        $size->execute();
+        $size = $size->fetch();
+        $photo->execute();
+        $photo = $photo->fetch();
+        $price->execute();
+        $price = $price->fetch();
+        print("<img src='data:image/gif;base64," . base64_encode($photo[0]) . "'/>" . $naam[0] . "<br>");
         //kijken of Size een waarde heeft
-        if (!empty($value['Size'])) {
-            print("Grootte: " . $value['Size']);
+        if (!empty($size[0])) {
+            print("Grootte: " . $size[0]);
         } else {
             print("Geen grootte");
         }
         ?>
-        <form method="post" action='basket.php'>
+        <form method="post" action='f_change_amount_basket.php'>
             <input type="number" <?php print("id='" . $key . "' name='" . $key . "'") ?> value="<?php
-            foreach ($hoeveelheden as $key1 => $value1) {
-                if ($key1 == $key) {
-                    print($value1);
-                } else {
-                    
-                }
-            }
+            print("$value");
             ?>" min="1">
-
             <input type="submit" <?php print("id='" . $key . "'") ?> value="Bevestig">
-
         </form>
-        <form action="basket.php">
-            <input type='submit' <?php print("id='verwijder" . $key . "'") ?> <?php print("value='verwijder" . $key . "'") ?>>
+        <form method="POST" action="f_delete_from_basket.php">
+            <input type="number" <?php print("id='" . $key . "' name='" . $key . "'") ?> <?php print("value='" . $winkelmand[$key] . "'")?>>
+            <input type='submit' <?php print("id='" . $key . "'") ?> <?php print("value='" . $key . "'") ?>>
         </form>
-
-
         <?php
-        print($key . "<br> Prijs per stuk: " . ($hoeveelheden[$key] * $value['RecommendedRetailPrice']) . "<br><br>");
+        print("<br> Prijs: €" . ($value * $price[0]) . "<br><br>");
     }       
-    //einde code
-    //check of value verander en zo ja, vraag een nieuwe andere query op met een calculatie van aantal x product. 
-    ?>
+}
+else{
+    print("Je hebt nog geen artikelen in je winkelmand");
+}
+?>
