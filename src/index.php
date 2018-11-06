@@ -1,7 +1,10 @@
 <?php
-    require('inc/config.php');
+require('inc/config.php');
 
-    $view = "index.php";
+// title variable (used in template)
+$title = "Home";
 
-    include_once $template;
+$view = "index.php";
+
+include_once $template;
 ?>

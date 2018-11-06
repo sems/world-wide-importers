@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-    <div class="container navbar-margin">
+    <div class="container">
         <a class="navbar-brand" href="index.php">World Wide Importers</a>
 
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -12,29 +12,27 @@
                 // Add new pages in array, "filename.php" => "Name",
                 $pages = array(
                     "index.php" => "Home",
-                    "products.php" => "Alle producten",
+                    "products.php" => "Producten",
                     "basket.php" => "Winkelwagen",
+                    "products.php?filter=Clothing" => "Kleren",
+                    "products.php?filter=Novelty Items" => "Snufjes",
+                    "products.php?filter=Toys" => "Speelgoed",
+                    "products.php?filter=Packaging Materials" => "Verpakking",
                 );
 
                 // For every page defined in $pages array, add to navigation
                 foreach ($pages as $key => $value) {
-                    print("<li class='nav-item ".($view == $key ? "active":"")."'>
-                        <a class='nav-link' href='$key'>$value</a>
-                    </li>");
+                    print("<li class='nav-item ".($title == $value ? "active":"")."'>
+                            <a class='nav-link' href='$key'>$value</a>
+                        </li>");
                 }
-              ?>
-                <a class="nav-link" href="products.php?filter=Clothing">Kleren</a>
-                <a class="nav-link" href="products.php?filter=Novelty Items">Snufjes</a>
-                <a class="nav-link" href="products.php?filter=Toys">Speelgoed</a>
-                <a class="nav-link" href="products.php?filter=Packaging Materials">Verpakking</a>
-              <?php
                 // Checks if user is logged in or not.
                 if(!isset($_SESSION['logged_in']) || ($_SESSION['logged_in'] == false)) {
-                    echo "<li class='nav-item'><a class='nav-link' href='login.php'>Login</a></li>";
-                    echo "<li class='nav-item'><a class='nav-link' href='register.php'>Registeer</a></li>";
+                    echo "<li class='nav-item ".($title == "Login" ? "active":"")."'><a class='nav-link' href='login.php'>Login</a></li>";
+                    echo "<li class='nav-item ".($title == "Registreer" ? "active":"")."'><a class='nav-link' href='register.php'>Registeer</a></li>";
                 } else {
-                    echo "<li class='nav-item'><a class='nav-link' href='profile.php'>Profiel</a></li>";
-                    echo "<li class='nav-item'><a class='nav-link' href='logout.php'>Uitloggen</a></li>";
+                    echo "<li class='nav-item ".($title == "Profiel" ? "active":"")."'><a class='nav-link' href='profile.php'>Profiel</a></li>";
+                    echo "<li class='nav-item ".($title == "Uitloggen" ? "active":"")."'><a class='nav-link' href='logout.php'>Uitloggen</a></li>";
                 };
             ?>
             </ul>
