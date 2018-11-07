@@ -3,7 +3,7 @@
     <form action='products.php' method='get'>
       <div class="input-group mb-3">
         <select name='order' class="custom-select" id="inputGroupSelect02">
-          <option selected>Sorteer...</option>
+          <option selected disabled>Sorteer...</option>
           <option value='ASC'>Van laag naar hoog</option>
           <option value='DESC'>Van hoog naar laag</option>
         </select>
