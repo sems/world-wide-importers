@@ -1,24 +1,11 @@
 <div class="row">
     <div class="col-md-10">
         <?php 
+        // Noty uses this div to display messages
+        echo '<div class="notyDiv" style="position: fixed; right: 40px; z-index: 9999;"></div>';
         if(isset($_COOKIE['basket'])) {
             //if cookie 'basket' exists, run this code
             echo "<h3>Winkelwagen</h3>";
-        }
-
-        $checkFor = array(
-            "basket_add" => "success",
-            "basket_changed" => "info",
-            "basket_remove" => "warning",
-        );
-        
-        foreach ($checkFor as $key => $value) {
-            if (isSet($_SESSION[$key])) {
-                // Access your session variable and print it
-                echo '<div class="alert alert-'.$value.'" role="alert">'.$_SESSION[$key].'</div>';
-                // Cleanup session variable
-                unset($_SESSION[$key]);
-            }
         }
         ?>
         <div class="row">
@@ -28,7 +15,6 @@
                 $basket = json_decode($_COOKIE['basket'], true);
                 //Variable for the total price
                 $totalPrice = 0;
-
                 foreach ($basket as $key => $value) {
                     //print the products from the basket array
                     $data = $db->prepare("SELECT StockItemName, Size, Photo, UnitPrice FROM Stockitems WHERE StockItemID = ($key)");

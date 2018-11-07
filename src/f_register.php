@@ -2,7 +2,7 @@
     require('inc/config.php');
 
     if($_SERVER['REQUEST_METHOD'] == 'POST') {
-        // Controle of het formulier verzonden is
+        // Check of form is send
         if(isset($_POST['g-recaptcha-response'])){
             // If it is responding set a variable
             $captcha= $_POST['g-recaptcha-response'];
@@ -17,7 +17,7 @@
     
         if(intval($responseKeys["success"]) !== 1) {
             // Something went wrong with the Captcha to redirect back w/ message. 
-            $_SESSION['msg'] = "Er gaat was mis met de Captcha";
+            $_SESSION['msg'] = "Er gaat wat mis met de Captcha";
             header('location: register.php');
         } else {
             // If the Captcha is okay procceed
@@ -41,7 +41,7 @@
                 $validFrom                  = "2016-05-31 23:14:00";
                 $validUntil                 = "9999-12-31 23:59:59";
     
-                // check if user already excits with the email
+                // check if user already exists with the email
                 $stmt = $db->prepare("SELECT PersonID FROM people WHERE LogonName=:mail");
                 $stmt->execute(['mail' => $LogonName]); 
                 $row = $stmt->fetch();
@@ -97,7 +97,7 @@
                     }
                 } else {
                     // Email already in use.
-                    $_SESSION['msg'] = "Dit email is al ingebruik.";
+                    $_SESSION['msg'] = "Dit email adres is al ingebruik.";
                     header('Location: register.php');
                 }
             } else {

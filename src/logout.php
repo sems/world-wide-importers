@@ -1,10 +1,12 @@
 <?php
     require('inc/config.php');
 
+    // Start, Unset, Destroy session
     session_start();
     session_unset();
     session_destroy();
 
-    header("location:index.php");
+    // Redirect to index
+    header("location: index.php");
     exit();
 ?>

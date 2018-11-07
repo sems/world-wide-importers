@@ -1,6 +1,12 @@
 <div class="row">
   <div class="col-md-4">
     <form action='products.php' method='get'>
+      <?php
+        if (isset($_GET['filter'])) {
+          // Check if filter isset, if so add hidden name and value of filter to form
+          echo '<input type="hidden" name="filter" value="'.$_GET['filter'].'" />';
+        }
+      ?>
       <div class="input-group mb-3">
         <select name='order' class="custom-select" id="inputGroupSelect02">
           <option selected disabled>Sorteer...</option>
@@ -16,14 +22,14 @@
 </div>
 
 <?php
-// For each produc print product photo (null) and add product name
+// For each produc print product photo (or fallback photo) and add product name
 if(sizeOf($arrayProducts) < 1) {
   echo 'Geen resultaten';
 } else {
   $i = 0;
-  print("<div class='row product-row-margin'>");
+  print("<div class='card-deck product-row-margin'>");
   foreach ($arrayProducts as $row) {
-    print("<div class='col-md-3 products-top-margin'>
+    print("<div class='col-md-4 products-top-margin '>
       <div class='card'>
         <a class='products-link' href='product.php?id=".$row['StockItemID']."'>
           ".(strlen($row['Photo']) < 1 ? "<img class='card-img-top' src='img/image_not_found.png' />":"<img class='card-img-top' src='data:image/gif;base64,".base64_encode($row['Photo'])."'/>")."
