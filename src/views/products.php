@@ -1,10 +1,19 @@
-<form action='products.php?filter=hoi' method='get'>
-  <select name='order'>
-    <option value='ASC'>Van laag naar hoog</option>
-    <option value='DESC'>Van hoog naar laag</option>
-  </select>
-  <button type='submit'>Zoek</button>
-</form>
+<div class="row">
+  <div class="col-md-4">
+    <form action='products.php' method='get'>
+      <div class="input-group mb-3">
+        <select name='order' class="custom-select" id="inputGroupSelect02">
+          <option selected>Sorteer...</option>
+          <option value='ASC'>Van laag naar hoog</option>
+          <option value='DESC'>Van hoog naar laag</option>
+        </select>
+        <div class="input-group-append">
+          <button class="input-group-text" for="inputGroupSelect02" type='submit'>Zoek</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
 
 <?php
 // For each produc print product photo (null) and add product name
