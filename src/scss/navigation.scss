@@ -7,21 +7,14 @@
     height: 50px;
     line-height: 50px;
   }
-  .basket {
-      font-size: 2em;
-      overflow: hidden;
-  }
   .basketBtn{
-      padding-top: 0;
-      padding-bottom: 0;
       color: #7FBDFE;
-      margin-left: 8px;
   }
   .basketBtn:hover {
       color: #BFDEFF;
   }
   .basketActive {
-      color: #BFDEFF;
+      color: #fff;
   }
   .basketActive:hover {
       color: #7FBDFE;
