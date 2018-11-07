@@ -10,7 +10,7 @@ $order = isSet($_GET['order']) ? $_GET['order'] : 'ASC';
 // kijkt of er gezocht is of dat de productenpagina gewoon bezocht wordt en geeft een query ob basis hiervan
 if(isSet($_GET['search'])) {
   // resultaat uit de URL
-  $request = $_GET['search'];
+  $request = filter_input(INPUT_GET,"search", FILTER_SANITIZE_STRING);
   $sql = 'SELECT * FROM stockitems WHERE SearchDetails LIKE "%'.$request.'%"';
 } else if(isSet($_GET['filter'])){
   $request = $_GET['filter'];
