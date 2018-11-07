@@ -23,7 +23,7 @@ if(sizeOf($arrayProducts) < 1) {
   $i = 0;
   print("<div class='row product-row-margin'>");
   foreach ($arrayProducts as $row) {
-    print("<div class='col-md-4 products-top-margin'>
+    print("<div class='col-md-3 products-top-margin'>
       <div class='card'>
         <a class='products-link' href='product.php?id=".$row['StockItemID']."'>
           ".(strlen($row['Photo']) < 1 ? "<img class='card-img-top' src='img/image_not_found.png' />":"<img class='card-img-top' src='data:image/gif;base64,".base64_encode($row['Photo'])."'/>")."
