@@ -150,7 +150,9 @@
 
 
             $dbinsertCustomer-> execute();
-
+           
+            $_SESSION['msg'] = "Adres is toegevoegd.";
+            header('Location: address.php');
         } else {
             $_SESSION['msg'] = "Een verplicht veld is niet ingevuld.";
             header('Location: address.php');

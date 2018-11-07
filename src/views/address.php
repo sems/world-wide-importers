@@ -1,4 +1,12 @@
 <h4>Adressen</h4>
+<?php
+if(isSet($_SESSION['msg'])){
+    //Access your Session variables
+    $temp = $_SESSION['msg'];
+    echo '<div class="alert alert-primary" role="alert">'.$temp."</div>";
+    //Unset the useless session variable
+    unset($_SESSION['msg']);
+}?>
 <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseAddAddress" aria-expanded="false" aria-controls="collapseAddAddress">
     Toevoegen
 </button>
@@ -89,14 +97,20 @@
     </tr>
     </thead>
     <tbody>
-    <tr>
-        <th scope="row">1</th>
-        <td>Mark Otto</td>
-        <td>Schoolstraat 2</td>
-        <td>8017 CA</td>
-        <td>Zwolle</td>
-        <td><a class="btn btn-primary" href="#">Bijwerken</a></td>
-        <td><form action="" method="post"><input class="btn btn-danger" type="submit" value="Verwijderen"></form></td>
-    </tr>
+    <?php
+        $personID = $_SESSION['PersonID'];
+        $stmt = $db->prepare("SELECT C.CustomerID, C.CustomerName, C.DeliveryAddressLine1, C.DeliveryPostalCode, Cs.CityName FROM customers C JOIN cities Cs ON C.DeliveryCityID = Cs.CityID WHERE PrimaryContactPersonID =:person_id");
+        $stmt->execute(['person_id' => $personID]); 
+        $results = $stmt->fetchAll();
+        foreach ($results as $CustomerName){
+            print("<tr><th scope='row'>".$CustomerName['CustomerID']."</th>");
+            print("<td>".$CustomerName['CustomerName']."</td>");
+            print("<td>".$CustomerName['DeliveryAddressLine1']."</td>");
+            print("<td>".$CustomerName['DeliveryPostalCode']."</td>");
+            print("<td>".$CustomerName['CityName']."</td>");
+            print("<td><a class='btn btn-primary' href='#'>Bijwerken</a></td>");
+            print("<td><form action='' method='post'><input class='btn btn-danger' type='submit' value='verwijderen'></form></td></tr>");
+        }
+    ?>
     </tbody>
 </table>
