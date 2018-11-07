@@ -5,9 +5,15 @@
 <div class="collapse" id="collapseAddAddress">
     <div class="card card-body">
         <form action="f_add_address.php" method="post">
-            <div class="form-group">
-                <label for="inputName">Volledige naam</label>
-                <input type="text" class="form-control" id="inputName" name="inputName" placeholder="Jan Jansen">
+            <div class="form-row">
+                <div class="form-group col-md-8">
+                    <label for="inputName">Volledige naam</label>
+                    <input type="text" class="form-control" id="inputName" name="inputName" placeholder="Jan Jansen">
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="inputPhone">Telfoon naam</label>
+                    <input type="text" class="form-control" id="inputPhone" name="inputPhone" placeholder="0612345678">
+                </div>
             </div>
             <div class="form-row">
                 <div class="form-group col-md-6">
