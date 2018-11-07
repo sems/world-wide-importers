@@ -7,26 +7,17 @@ if(isset($_COOKIE['basket'])) {
 
     //printen van producten in artikelen array
     foreach ($winkelmand as $key => $value) {
-        $naam = $db->prepare("SELECT StockItemName FROM Stockitems WHERE StockItemID = ($key)");
-        $size = $db->prepare("SELECT Size FROM Stockitems WHERE StockItemID = ($key)");
-        $photo = $db->prepare("SELECT Photo FROM Stockitems WHERE StockItemID = ($key)");
-        $price = $db->prepare("SELECT UnitPrice FROM Stockitems WHERE StockItemID = ($key)");
-        $naam->execute();
-        $naam = $naam->fetch();
-        $size->execute();
-        $size = $size->fetch();
-        $photo->execute();
-        $photo = $photo->fetch();
-        $price->execute();
-        $price = $price->fetch();
+        $data = $db->prepare("SELECT StockItemName, Size, Photo, UnitPrice FROM Stockitems WHERE StockItemID = ($key)");
+        $data->execute();
+        $data = $data->fetch();
 
         print("<div class='col-md-3'>");
-        print("<h5>".$naam[0]."</h5>");
-        print(strlen($photo[0]) < 1 ? "<img class='card-img-top' src='img/image_not_found.png' />":"<img class='card-img-top' src='data:image/gif;base64,".base64_encode($row['Photo'])."'/>");
+        print("<h5>".$data['StockItemName']."</h5>");
+        print(strlen($data['Photo']) < 1 ? "<img class='card-img-top' src='img/image_not_found.png' />":"<img class='card-img-top' src='data:image/gif;base64,".base64_encode($data['Photo'])."'/>");
         
         //kijken of Size een waarde heeft
-        if (!empty($size[0])) {
-            print("Grootte: " . $size[0]);
+        if (!empty($data['Size'])) {
+            print("Grootte: " . $data['Size']);
         } else {
             print("Geen grootte");
         }
@@ -40,8 +31,8 @@ if(isset($_COOKIE['basket'])) {
             <button class="btn btn-primary" type='submit' <?php print("value='" . $key . "'") ?>>Verwijder product</button>
         </form>
         <?php
-        print("<br> Prijs: €" . ($value * $price[0]) . "<br><br></div>");
-        $totalePrijs = $totalePrijs + ($value * $price[0]);
+        print("<br> Prijs: €" . ($value * $data['UnitPrice']) . "<br><br></div>");
+        $totalePrijs = $totalePrijs + ($value * $data['UnitPrice']);
     }    
     print("<hr/><p> Totale prijs: €" . $totalePrijs."</p>");
     
