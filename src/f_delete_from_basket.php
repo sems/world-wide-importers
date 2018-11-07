@@ -13,8 +13,7 @@
     }
     if(!empty($basket1)){
         //If there is something in basket1, make a cookie
-        $basket2 = json_encode($basket1);
-        setcookie('basket', json_encode($basket2));
+        setcookie('basket', json_encode($basket1));
     } 
     else{
         //Deletes cookie if basket1 is empty
