@@ -21,7 +21,7 @@ if(sizeOf($arrayProducts) < 1) {
   echo 'Geen resultaten';
 } else {
   $i = 0;
-  print("<div class='row'>");
+  print("<div class='row product-row-margin'>");
   foreach ($arrayProducts as $row) {
     print("<div class='col-md-4 products-top-margin'>
       <div class='card'>
