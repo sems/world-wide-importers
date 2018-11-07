@@ -1,4 +1,4 @@
-<form action='products.php' method='get'>
+<form action='products.php?filter=hoi' method='get'>
   <select name='order'>
     <option value='ASC'>Van laag naar hoog</option>
     <option value='DESC'>Van hoog naar laag</option>

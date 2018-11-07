@@ -6,7 +6,7 @@ $title = "Producten";
 
 // lege sql variabele die later ingevuld wordt
 $sql = '';
-
+$order = isSet($_GET['order']) ? $_GET['order'] : 'ASC';
 // kijkt of er gezocht is of dat de productenpagina gewoon bezocht wordt en geeft een query ob basis hiervan
 if(isSet($_GET['search'])) {
   // resultaat uit de URL
@@ -14,7 +14,6 @@ if(isSet($_GET['search'])) {
   $sql = 'SELECT * FROM stockitems WHERE SearchDetails LIKE "%'.$request.'%"';
 } else if(isSet($_GET['filter'])){
   $request = $_GET['filter'];
-  $order = isSet($_GET['order']) ? $_GET['order'] : 'ASC';
   if ($_GET['filter'] == "Clothing") {
     $title = "Kleren";
   } elseif ($_GET['filter'] == "Toys") {
@@ -30,7 +29,13 @@ if(isSet($_GET['search'])) {
     $sql = 'SELECT * FROM stockitems si JOIN stockitemstockgroups sisg ON sisg.StockItemID = si.StockItemID JOIN stockgroups sg ON sg.StockGroupID = sisg.StockGroupID WHERE sg.StockGroupName LIKE "%'.$request.'%" ORDER BY si.UnitPrice '.$order.'';
   }
 } else {
-  $sql = 'SELECT StockItemID, StockItemName, Photo, UnitPrice FROM stockitems LIMIT 0, 18';
+  if(isSet($_GET['order'])) {
+    $prevURL = $_SERVER['HTTP_REFERER'];
+    $request = substr($prevURL, strpos($prevURL, '=') + 1);
+    $sql = 'SELECT * FROM stockitems si JOIN stockitemstockgroups sisg ON sisg.StockItemID = si.StockItemID JOIN stockgroups sg ON sg.StockGroupID = sisg.StockGroupID WHERE sg.StockGroupName LIKE "%'.$request.'%" ORDER BY si.UnitPrice '.$order.'';
+  } else {
+    $sql = 'SELECT StockItemID, StockItemName, Photo, UnitPrice FROM stockitems LIMIT 0, 18';
+  }
 }
 // lege array die later gevuld wordt
 $arrayProducts = array();
