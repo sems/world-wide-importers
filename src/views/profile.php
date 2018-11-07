@@ -11,7 +11,7 @@
           <div class="card-body">
             <h5 class="card-title">Mijn adresen</h5>
             <p class="card-text">Wijzig hier de adressen die je hebt indegesteld in je account.</p>
-            <a href="#" class="btn btn-primary">Naar adressen</a>
+            <a href="address.php" class="btn btn-primary">Naar adressen</a>
           </div>
         </div>
         <div class="card">
