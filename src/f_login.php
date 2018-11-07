@@ -42,6 +42,7 @@
                         // Check if password is the same as entered
                         $_SESSION['logged_in'] = true;
                         $_SESSION['user'] = $row['PreferredName'];
+                        $_SESSION['PersonID'] = $row['PersonID'];
                         header('Location: profile.php');
                     } else {
                         // Combination of pwd and usrname is wrong
