@@ -31,7 +31,7 @@
 
                 foreach ($basket as $key => $value) {
                     //print the products from the basket array
-                    $data = $db->prepare("SELECT StockItemName, Size, Photo, UnitPrice FROM Stockitems WHERE StockItemID = ($key)");
+                    $data = $db->prepare("SELECT StockItemName, Size, Photo, UnitPrice FROM stockitems WHERE StockItemID = ($key)");
                     $data->execute();
                     $data = $data->fetch();
                     
