@@ -78,7 +78,7 @@
     <div class="col-md-2">
         <?php 
             if (isset($_COOKIE['basket'])) {
-                print("<p> Totale prijs: €".$totalePrijs."</p>"); 
+                print("<p> Totale prijs: €".$totalPrice."</p>"); 
                 ?> 
                 <form action="f_placeorder.php" method="post">
                     <input class="btn btn-primary" type="submit" value="Plaatsen">
