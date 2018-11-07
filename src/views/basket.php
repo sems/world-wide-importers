@@ -31,10 +31,11 @@ if(isset($_COOKIE['basket'])) {
             <button class="btn btn-primary" type='submit' <?php print("value='" . $key . "'") ?>>Verwijder product</button>
         </form>
         <?php
-        print("<br> Prijs: €" . ($value * $data['UnitPrice']) . "<br><br></div>");
-        $totalePrijs = $totalePrijs + ($value * $data['UnitPrice']);
+        $tussenprijs = ($value * $data['UnitPrice']);
+        print("<br> Prijs: €" . number_format((float)$tussenprijs, 2, ',', '') . "<br><br></div>");
+        $totalePrijs = $totalePrijs + $tussenprijs;
     }    
-    print("<hr/><p> Totale prijs: €" . $totalePrijs."</p>");
+    print("<hr/><p> Totale prijs: €" . number_format((float)$totalePrijs, 2, ',', '')."</p>");
     
 }
 else{
