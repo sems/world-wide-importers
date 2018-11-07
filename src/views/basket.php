@@ -70,6 +70,11 @@
         <?php 
             if (isset($_COOKIE['basket'])) {
                 print("<p> Totale prijs: €".$totalePrijs."</p>"); 
+                ?> 
+                <form action="f_placeorder.php" method="post">
+                    <input class="btn btn-primary" type="submit" value="Plaatsen">
+                </form>
+                <?php
             }
         ?>
     </div>
