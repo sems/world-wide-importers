@@ -1,13 +1,22 @@
 <div class="row">
     <div class="col-md-10">
-        <h3>Winkelwagen</h3>
-        <?php
+        <?php 
+        if(isset($_COOKIE['basket'])) {
+            echo "<h3>Winkelwagen</h3>";
+        }
         if(isSet($_SESSION['basket_add'])){
             //Access your Session variables
             $temp = $_SESSION['basket_add'];
-            echo '<div class="alert alert-primary" role="alert">'.$temp."</div>";
+            echo '<div class="alert alert-success" role="alert">'.$temp."</div>";
             //Unset the useless session variable
             unset($_SESSION['basket_add']);
+        }
+        if(isSet($_SESSION['basket_changed'])){
+            //Access your Session variables
+            $temp = $_SESSION['basket_changed'];
+            echo '<div class="alert alert-info" role="alert">'.$temp."</div>";
+            //Unset the useless session variable
+            unset($_SESSION['basket_changed']);
         }?>
         <div class="row">
             <?php
