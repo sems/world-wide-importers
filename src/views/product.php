@@ -6,7 +6,7 @@ function IsNullOrEmptyString($str){
 if (strlen($product['StockItemName']) < 1) {
     print("Er is geen product geselecteerd!");
 } else {
-    print("<table><tr>".$product['StockItemID']);
+    print("<table><tr>");
     print("<td>".(strlen($product['Photo']) < 1 ? "<img id='productImage' src='img/image_not_found.png' />":"<img id='productImage' src='data:image/gif;base64,".base64_encode($product['Photo'])."'/>")."</td>");
     print("<td>".$product['StockItemName']);
     print("<br />".$product['UnitPrice']);
