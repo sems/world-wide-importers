@@ -4,7 +4,7 @@
     //Turn cookie into array
     $basket1 = json_decode($_COOKIE['basket'], true);
     
-    foreach($basketd1 as $key => $value){
+    foreach($basket1 as $key => $value){
         //Check if value of delete button matches key in basket1
         if(!empty($_POST[$key])){
             unset($basket1[$key]);
