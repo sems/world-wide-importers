@@ -1,8 +1,8 @@
 <?php
     require('inc/config.php');
 
-    // Controle of het formulier verzonden is
     if($_SERVER['REQUEST_METHOD'] == 'POST') {
+        // Controle of het formulier verzonden is
         if(isset($_POST['g-recaptcha-response'])){
             // If it is responding set a variable
             $captcha= $_POST['g-recaptcha-response'];
@@ -10,17 +10,19 @@
         // Key got from the google account
         $secretKey = "6LcD2ngUAAAAAHklBisoATCYU1HyzxhrTIX_hxoa";
         $ip = $_SERVER['REMOTE_ADDR'];
+
+        // Get the response from google api
         $cresponse = file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=".$secretKey."&response=".$captcha."&remoteip=".$ip);
         $responseKeys = json_decode($cresponse,true);
     
         if(intval($responseKeys["success"]) !== 1) {
-            //Dump your POST variables
-            $message = "Er gaat was mis met de Captcha";
-            $_SESSION['msg'] = $message;
+            // Something went wrong with the Captcha to redirect back w/ message. 
+            $_SESSION['msg'] = "Er gaat was mis met de Captcha";
             header('location: register.php');
         } else {
-            // Controle of benodigde velden wel ingevuld zijn
+            // If the Captcha is okay procceed
             if( isset( $_POST['email'], $_POST['full_name'], $_POST['preferred_name'], $_POST['password'], $_POST['repassword'] )) {
+                // Check if all fields are filled in.
     
                 // Getting values from form
                 $LogonName             =    $_POST['email'];
@@ -39,12 +41,16 @@
                 $validFrom                  = "2016-05-31 23:14:00";
                 $validUntil                 = "9999-12-31 23:59:59";
     
+                // check if user already excits with the email
                 $stmt = $db->prepare("SELECT PersonID FROM people WHERE LogonName=:mail");
                 $stmt->execute(['mail' => $LogonName]); 
                 $row = $stmt->fetch();
 
                 if (empty($row)) {
+                    // If there is no result so no account with email
                     if ($userPasswordInput == $userPasswordReEnter) {
+                        // If passwords are the same
+                        // Setting password to new var for security and hasing it
                         $userPassConfInput = $userPasswordInput;
                         $hashedPwd = password_hash($userPassConfInput, PASSWORD_DEFAULT);
     
@@ -80,20 +86,23 @@
                         // Execute call
                         $dbinsert-> execute();
                         
-                        // Set message and redirect to login
+                        // Set message and redirect to login because is complete
                         $_SESSION['msg'] = 'Account is met succes aangemaakt!';
                         header('Refresh: 0.1; url=login.php');
                     } else {
+                        // Password is not the same as the reenterd one
                         $_SESSION['msg'] = "De wachtwoorden komen niet overeen";
                         header('Location: register.php');
                         exit();
                     }
                 } else {
+                    // Email already in use.
                     $_SESSION['msg'] = "Dit email is al ingebruik.";
                     header('Location: register.php');
                 }
             } else {
-                $_SESSION['msg'] = 'Een vereist veld is niet ingevuld niet!';
+                // Not all fields are filled in.
+                $_SESSION['msg'] = 'Een vereist veld is niet ingevuld!';
                 header('Refresh: 3; url=register.php');
             }
         }

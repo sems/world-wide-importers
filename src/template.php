@@ -27,11 +27,6 @@
   <body>
     <?php include("inc/navigation.php"); ?>
     <div class="body">
-      <!-- 
-        <div class="jumbotron jumbotron-inverse text-center bg-img">
-          <img src="img/homepage-logo.png" />
-        </div>
-      -->
       <div class="container">
         <?php include "views/".$view; ?>
       </div>
