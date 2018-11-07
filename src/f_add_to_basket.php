@@ -13,7 +13,7 @@
 
                 setcookie('basket', $encodedArray, time()+3600);
                 
-                $_SESSION['msg'] = "Product toegevoegd.";
+                $_SESSION['basket_add'] = "Product toegevoegd.";
                 header('Location: basket.php');
             } else {
                 // Add item to basket
@@ -32,7 +32,7 @@
                 }
                 setcookie('basket', json_encode($data), time()+3600);
                 
-                $_SESSION['msg'] = "Product toegevoegd.";
+                $_SESSION['basket_add'] = "Product toegevoegd.";
                 header('Location: basket.php');
             }
         } else {

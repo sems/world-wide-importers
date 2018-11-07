@@ -1,5 +1,14 @@
 <div class="row">
     <div class="col-md-10">
+        <h3>Winkelwagen</h3>
+        <?php
+        if(isSet($_SESSION['basket_add'])){
+            //Access your Session variables
+            $temp = $_SESSION['basket_add'];
+            echo '<div class="alert alert-primary" role="alert">'.$temp."</div>";
+            //Unset the useless session variable
+            unset($_SESSION['basket_add']);
+        }?>
         <div class="row">
             <?php
             if(isset($_COOKIE['basket'])) {
