@@ -5,15 +5,13 @@
     $title = "Profiel";
 
 
-    if(!isset($_SESSION['logged_in'])) {
+    if(!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] == false) {
         // Check if logged_in isset
-        if ($_SESSION['logged_in'] == false) {
-            // Check if not logged in
+        // Check if not logged in
 
-            // Redirect to login
-            header('Location: login.php');
-            exit();
-        }
+        // Redirect to login
+        header('Location: login.php');
+        exit();
     } 
 
     // Defining view location
