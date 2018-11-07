@@ -27,7 +27,7 @@
 
                 //printen van producten in artikelen array
                 foreach ($winkelmand as $key => $value) {
-                    $data = $db->prepare("SELECT StockItemName, Size, Photo, UnitPrice FROM Stockitems WHERE StockItemID = ($key)");
+                    $data = $db->prepare("SELECT StockItemName, Size, Photo, UnitPrice FROM stockitems WHERE StockItemID = ($key)");
                     $data->execute();
                     $data = $data->fetch();
 
