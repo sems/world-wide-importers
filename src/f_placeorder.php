@@ -33,7 +33,7 @@
                         // The next line is only for text not for the final version there need to be a address select
                         $customerID = $deliveryAddress;
                         $pickedByPersonID = 9;
-                        $contactPersonId = 0;
+                        $contactPersonId = 1;
                         $backorderID = 1;
                         $currentDate = date("Y-m-d");
                         $expectedDate = date('Y-m-d', strtotime($currentDate. ' + 2 days'));
@@ -62,6 +62,9 @@
         
                         // Execute call
                         $dbinsert-> execute();
+
+                        $_SESSION['msg'] = "Order is geplaatst.";
+                        header('Location: orders.php');
                     } else {
                         // No develivery address selected
                         $_SESSION['msg'] = "Selecteer een afleveradres.";

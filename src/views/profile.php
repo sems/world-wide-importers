@@ -19,7 +19,7 @@
           <div class="card-body">
             <h5 class="card-title">Mijn orders</h5>
             <p class="card-text">Hier vindt je alle informatie over je bestellingen.</p>
-            <a href="#" class="btn btn-primary">Naar orders</a>
+            <a href="orders.php" class="btn btn-primary">Naar orders</a>
           </div>
         </div>
         <div class="card">
