@@ -70,7 +70,7 @@
             $customerPaymentDays = 7;
             $customerPhoneFax = $_POST['inputPhone'];
             $google = "google.com";
-            $customerDeliveryAddressLine = $_POST['inputAddress']." ".$_POST['inputAddress2']." ".$_POST['inputAddress3'];
+            $customerDeliveryAddressLine = $_POST['inputAddress']." ".$_POST['inputAddress2'].$_POST['inputAddress3'];
             $customerPostalCode = $_POST['inputZip'];
 
             $insertCustomerQuery = "INSERT INTO customers (
