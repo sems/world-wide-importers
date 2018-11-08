@@ -24,7 +24,8 @@ if(isSet($_SESSION['msg'])){
                             JOIN customers C 
                                 ON O.CustomerID = C.CustomerID
                             WHERE C.PrimaryContactPersonID 
-                                IN(SELECT PrimaryContactPersonID FROM customers WHERE PrimaryContactPersonID = :person_id)");
+                                IN(SELECT PrimaryContactPersonID FROM customers WHERE PrimaryContactPersonID = :person_id)
+                            ORDER BY O.OrderID DESC");
         $stmt->execute(['person_id' => $personID]); 
         $results = $stmt->fetchAll();
         foreach ($results as $CustomerName){

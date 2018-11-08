@@ -47,7 +47,6 @@
                             $dbinsert = $db->prepare($query);
             
                             $dbinsert->bindParam(':order_id', $aiID, PDO::PARAM_STR);
-                            // need to add customer first
                             $dbinsert->bindParam(':customer_id', $customerID, PDO::PARAM_STR);
                             $dbinsert->bindParam(':salesperson_id', $salespersonID, PDO::PARAM_STR);
                             $dbinsert->bindParam(':picked_by_person_id', $pickedByPersonID, PDO::PARAM_STR);
@@ -63,22 +62,69 @@
             
                             // Execute call
                             $dbinsert-> execute();
+                            $orderID = $aiID;
+                            foreach ($basket as $article => $value) {
+                                try {
+                                    
+                                    $stmt = $db->prepare("SELECT * FROM stockitems WHERE StockItemID=:item_id");
+                                    $stmt->execute(['item_id' => $article]); 
+                                    $item = $stmt->fetch();
 
-                            $_SESSION['msg'] = "Order is geplaatst.";
-                            header('Location: orders.php');
+                                    try {
+                                        $packageType = 7;
+                                        $tax = 21;
+                                        $picked = 0;
+                                        $pickedWhen = '2013-01-02 11:00:00';
+                                        $lastEdited = '2013-01-02 11:00:00';
+                                        $insertOrderLine = "INSERT INTO orderlines (OrderlineID, OrderID, StockItemID, Description, PackageTypeID, Quantity, UnitPrice, TaxRate, PickedQuantity, PickingCompletedWhen, LastEditedBy, LastEditedWhen)
+                                                            SELECT 
+                                                                (max(OrderLineID)+1), :order_id, :stock_item_id, :de_scription, :package_type_id, :quantity, :unit_price, :tax_rate, :picked_quantity, :picked_completed_when, :last_edited_by, :last_edited_when
+                                                            FROM orderlines";
+                                        //Prepares statement and bind parameters
+                                        $dbInsertOrderline = $db->prepare($insertOrderLine);
+    
+                                        $dbInsertOrderline->bindParam(':order_id', $orderID, PDO::PARAM_STR);
+                                        $dbInsertOrderline->bindParam(':stock_item_id', $article, PDO::PARAM_STR);
+                                        $dbInsertOrderline->bindParam(':de_scription', $item['StockItemName'], PDO::PARAM_STR);
+                                        $dbInsertOrderline->bindParam(':package_type_id', $packageType, PDO::PARAM_STR);
+                                        $dbInsertOrderline->bindParam(':quantity', $value, PDO::PARAM_STR);
+                                        $dbInsertOrderline->bindParam(':unit_price', $item['UnitPrice'], PDO::PARAM_STR);
+                                        $dbInsertOrderline->bindParam(':tax_rate', $tax, PDO::PARAM_STR);
+                                        $dbInsertOrderline->bindParam(':picked_quantity', $picked, PDO::PARAM_STR);
+                                        $dbInsertOrderline->bindParam(':picked_completed_when', $pickedWhen, PDO::PARAM_STR);
+                                        $dbInsertOrderline->bindParam(':last_edited_by', $personID, PDO::PARAM_STR);
+                                        $dbInsertOrderline->bindParam(':last_edited_when', $lastEdited, PDO::PARAM_STR);
+    
+                                        $dbInsertOrderline-> execute();
+                                        
+                                        // clean basket
+                                        setcookie('basket', "", time()-3600);
+                                        $_SESSION['msg'] = "Order is geplaatst.";
+                                        header('Location: orders.php');
+                                    } catch (Exception $e) {
+                                        // Ty to make orderline
+                                        $_SESSION['msg'] = "<strong>Orderline </strong>".$e;
+                                        header('Location: orders.php');
+                                    }
+                                } catch (Exception $e) {
+                                    // Search for stockitems isnt working
+                                    $_SESSION['msg'] = "<strong>Stockitems </strong>".$e;
+                                    header('Location: orders.php');
+                                }
+                            } // end foreach
                         } catch (Exception $e) {
-                            $_SESSION['msg'] = $e;
-                            header('Location: address.php');
+                            // Making order
+                            $_SESSION['msg'] = "<strong>Order </strong>".$e;
+                            header('Location: orders.php');
                         }
                     } else {
                         // No develivery address selected
                         $_SESSION['msg'] = "Selecteer een afleveradres.";
-                        header('Location: address.php');
-                    }
-                    
+                        header('Location: basket.php');
+                    }    
                 } else {
                     $_SESSION['msg'] = "Er ging iets mis, er wordt aangeraden opnieuw in te loggen";
-                    header('Location: address.php');
+                    header('Location: basket.php');
                 }
             } else {
                 # if customer doenst have adres
