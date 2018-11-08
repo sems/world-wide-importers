@@ -1,5 +1,5 @@
 <div class="row">
-    <div class="col-md-10">
+    <div class="col-md-8">
         <?php 
         if(isset($_COOKIE['basket'])) {
             //if cookie 'basket' exists, run this code
@@ -75,12 +75,28 @@
             ?>
         </div>
     </div>
-    <div class="col-md-2">
+    <div class="col-md-4">
         <?php 
             if (isset($_COOKIE['basket'])) {
                 print("<p> Totale prijs: €".$totalPrice."</p>"); 
                 ?> 
+
                 <form action="f_placeorder.php" method="post">
+                    <div class="form-group">
+                        <label for="basket_address_select">Verzendadres</label>   
+                        <select class="form-control" name="address_select" id="basket_address_select">
+                        <?php
+                            // check if user already excits with the email
+                            $personID = $_SESSION['PersonID'];
+                            $stmt = $db->prepare("SELECT C.CustomerID, C.PrimaryContactPersonID, C.DeliveryAddressLine1, Cs.CityName FROM customers C JOIN cities Cs ON C.DeliveryCityID = Cs.CityID  WHERE PrimaryContactPersonID=:person_id");
+                            $stmt->execute(['person_id' => $personID]); 
+                            $row = $stmt->fetchAll();
+                            foreach ($row as $address){
+                                print("<option value='".$address['CustomerID']."'>".$address['DeliveryAddressLine1']." ".$address['CityName']."</option>");
+                            }
+                        ?>
+                        </select>
+                    </div>
                     <input class="btn btn-primary" type="submit" value="Plaatsen">
                 </form>
                 <?php
