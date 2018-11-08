@@ -72,86 +72,91 @@
             $customerDeliveryAddressLine = $_POST['inputAddress']." ".$_POST['inputAddress2'].$_POST['inputAddress3'];
             $customerPostalCode = $_POST['inputZip'];
 
-            $insertCustomerQuery = "INSERT INTO customers (
-                `CustomerID`, 
-                `CustomerName`, 
-                `BillToCustomerID`,
-                `CustomerCategoryID`,
-                `PrimaryContactPersonID`,
-                `DeliveryMethodID`,
-                `DeliveryCityID`,
-                `PostalCityID`,
-                `AccountOpenedDate`,
-                `StandardDiscountPercentage`,
-                `IsStatementSent`,
-                `IsOnCreditHold`,
-                `PaymentDays`,
-                `PhoneNumber`,
-                `FaxNumber`,
-                `WebsiteURL`,
-                `DeliveryAddressLine1`,
-                `DeliveryPostalCode`,
-                `PostalAddressLine1`,
-                `PostalPostalCode`,
-                `LastEditedBy`,
-                `ValidFrom`,
-                `ValidTo`) VALUES (
-                    :c_id, 
-                    :c_name, 
-                    :c_bill, 
-                    :c_category, 
-                    :c_current_user, 
-                    :c_delivery,
-                    :c_city,
-                    :c_postalcode_city,
-                    :c_date_made_customer,
-                    :c_discount,
-                    :c_statement,
-                    :c_on_hold,
-                    :c_payment_days,
-                    :c_phone,
-                    :c_fax,
-                    :c_site,
-                    :c_address,
-                    :c_zipcode_address,
-                    :c_invoice_address,
-                    :c_zipcode_invoice_address,
-                    :c_made_by,
-                    :c_from,
-                    :c_until
-                    )";
-            //Prepares statement and bind parameters
-            $dbinsertCustomer = $db->prepare($insertCustomerQuery);
+            try {
+                $insertCustomerQuery = "INSERT INTO customers (
+                    `CustomerID`, 
+                    `CustomerName`, 
+                    `BillToCustomerID`,
+                    `CustomerCategoryID`,
+                    `PrimaryContactPersonID`,
+                    `DeliveryMethodID`,
+                    `DeliveryCityID`,
+                    `PostalCityID`,
+                    `AccountOpenedDate`,
+                    `StandardDiscountPercentage`,
+                    `IsStatementSent`,
+                    `IsOnCreditHold`,
+                    `PaymentDays`,
+                    `PhoneNumber`,
+                    `FaxNumber`,
+                    `WebsiteURL`,
+                    `DeliveryAddressLine1`,
+                    `DeliveryPostalCode`,
+                    `PostalAddressLine1`,
+                    `PostalPostalCode`,
+                    `LastEditedBy`,
+                    `ValidFrom`,
+                    `ValidTo`) VALUES (
+                        :c_id, 
+                        :c_name, 
+                        :c_bill, 
+                        :c_category, 
+                        :c_current_user, 
+                        :c_delivery,
+                        :c_city,
+                        :c_postalcode_city,
+                        :c_date_made_customer,
+                        :c_discount,
+                        :c_statement,
+                        :c_on_hold,
+                        :c_payment_days,
+                        :c_phone,
+                        :c_fax,
+                        :c_site,
+                        :c_address,
+                        :c_zipcode_address,
+                        :c_invoice_address,
+                        :c_zipcode_invoice_address,
+                        :c_made_by,
+                        :c_from,
+                        :c_until
+                        )";
+                //Prepares statement and bind parameters
+                $dbinsertCustomer = $db->prepare($insertCustomerQuery);
 
-            $dbinsertCustomer->bindParam(':c_id', $customerAIID, PDO::PARAM_INT);
-            $dbinsertCustomer->bindParam(':c_name', $customerName, PDO::PARAM_STR);
-            $dbinsertCustomer->bindParam(':c_bill', $customerAIID, PDO::PARAM_INT);
-            $dbinsertCustomer->bindParam(':c_category', $customerCategoryID, PDO::PARAM_INT);
-            $dbinsertCustomer->bindParam(':c_current_user', $currentUser, PDO::PARAM_INT);
-            $dbinsertCustomer->bindParam(':c_delivery', $DeliveryMethod, PDO::PARAM_INT);
-            $dbinsertCustomer->bindParam(':c_city', $cityID, PDO::PARAM_INT);
-            $dbinsertCustomer->bindParam(':c_postalcode_city', $cityID, PDO::PARAM_INT);
-            $dbinsertCustomer->bindParam(':c_date_made_customer', $customerMadeDate, PDO::PARAM_STR);
-            $dbinsertCustomer->bindParam(':c_discount', $customerDiscount, PDO::PARAM_STR);
-            $dbinsertCustomer->bindParam(':c_statement', $customerStatementSend, PDO::PARAM_INT);
-            $dbinsertCustomer->bindParam(':c_on_hold', $customerCreditHold, PDO::PARAM_INT);
-            $dbinsertCustomer->bindParam(':c_payment_days', $customerPaymentDays, PDO::PARAM_INT);
-            $dbinsertCustomer->bindParam(':c_phone', $customerPhoneFax, PDO::PARAM_INT);
-            $dbinsertCustomer->bindParam(':c_fax', $customerPhoneFax, PDO::PARAM_INT);
-            $dbinsertCustomer->bindParam(':c_site', $google, PDO::PARAM_STR);
-            $dbinsertCustomer->bindParam(':c_address', $customerDeliveryAddressLine, PDO::PARAM_STR);
-            $dbinsertCustomer->bindParam(':c_zipcode_address', $customerPostalCode, PDO::PARAM_STR);
-            $dbinsertCustomer->bindParam(':c_invoice_address', $customerDeliveryAddressLine, PDO::PARAM_STR);
-            $dbinsertCustomer->bindParam(':c_zipcode_invoice_address', $customerPostalCode, PDO::PARAM_STR);
-            $dbinsertCustomer->bindParam(':c_made_by', $currentUser, PDO::PARAM_INT);
-            $dbinsertCustomer->bindParam(':c_from', $validFrom, PDO::PARAM_STR);
-            $dbinsertCustomer->bindParam(':c_until', $validUntil, PDO::PARAM_STR);
+                $dbinsertCustomer->bindParam(':c_id', $customerAIID, PDO::PARAM_INT);
+                $dbinsertCustomer->bindParam(':c_name', $customerName, PDO::PARAM_STR);
+                $dbinsertCustomer->bindParam(':c_bill', $customerAIID, PDO::PARAM_INT);
+                $dbinsertCustomer->bindParam(':c_category', $customerCategoryID, PDO::PARAM_INT);
+                $dbinsertCustomer->bindParam(':c_current_user', $currentUser, PDO::PARAM_INT);
+                $dbinsertCustomer->bindParam(':c_delivery', $DeliveryMethod, PDO::PARAM_INT);
+                $dbinsertCustomer->bindParam(':c_city', $cityID, PDO::PARAM_INT);
+                $dbinsertCustomer->bindParam(':c_postalcode_city', $cityID, PDO::PARAM_INT);
+                $dbinsertCustomer->bindParam(':c_date_made_customer', $customerMadeDate, PDO::PARAM_STR);
+                $dbinsertCustomer->bindParam(':c_discount', $customerDiscount, PDO::PARAM_STR);
+                $dbinsertCustomer->bindParam(':c_statement', $customerStatementSend, PDO::PARAM_INT);
+                $dbinsertCustomer->bindParam(':c_on_hold', $customerCreditHold, PDO::PARAM_INT);
+                $dbinsertCustomer->bindParam(':c_payment_days', $customerPaymentDays, PDO::PARAM_INT);
+                $dbinsertCustomer->bindParam(':c_phone', $customerPhoneFax, PDO::PARAM_INT);
+                $dbinsertCustomer->bindParam(':c_fax', $customerPhoneFax, PDO::PARAM_INT);
+                $dbinsertCustomer->bindParam(':c_site', $google, PDO::PARAM_STR);
+                $dbinsertCustomer->bindParam(':c_address', $customerDeliveryAddressLine, PDO::PARAM_STR);
+                $dbinsertCustomer->bindParam(':c_zipcode_address', $customerPostalCode, PDO::PARAM_STR);
+                $dbinsertCustomer->bindParam(':c_invoice_address', $customerDeliveryAddressLine, PDO::PARAM_STR);
+                $dbinsertCustomer->bindParam(':c_zipcode_invoice_address', $customerPostalCode, PDO::PARAM_STR);
+                $dbinsertCustomer->bindParam(':c_made_by', $currentUser, PDO::PARAM_INT);
+                $dbinsertCustomer->bindParam(':c_from', $validFrom, PDO::PARAM_STR);
+                $dbinsertCustomer->bindParam(':c_until', $validUntil, PDO::PARAM_STR);
 
 
-            $dbinsertCustomer-> execute();
-           
-            $_SESSION['msg'] = "Adres is toegevoegd.";
-            header('Location: address.php');
+                $dbinsertCustomer-> execute();
+
+                $_SESSION['msg'] = "Adres is toegevoegd.";
+                header('Location: address.php');
+            } catch (Exception $e) {
+                $_SESSION['msg'] = $e;
+                header('Location: address.php');
+            }
         } else {
             $_SESSION['msg'] = "Een verplicht veld is niet ingevuld.";
             header('Location: address.php');

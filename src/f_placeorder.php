@@ -38,33 +38,38 @@
                         $currentDate = date("Y-m-d");
                         $expectedDate = date('Y-m-d', strtotime($currentDate. ' + 2 days'));
                         $IsUndersupplyBackordered = 0;
-        
-                        $query = "INSERT INTO orders (OrderID, CustomerID, SalespersonPersonID, PickedByPersonID, ContactPersonID, BackorderOrderID, OrderDate, ExpectedDeliveryDate, CustomerPurchaseOrderNumber, IsUndersupplyBackordered, PickingCompletedWhen, LastEditedBy, LastEditedWhen)
-                                VALUES (:order_id, :customer_id, :salesperson_id, :picked_by_person_id, :contactperson_id, :backorder_id, :order_date, :expected_delivery_date, :purchase_order_number, :under_supply, :picking_completed_at, :last_edited_by, :last_edit_when) ";
                         
-                        //Prepares statement and bind parameters
-                        $dbinsert = $db->prepare($query);
-        
-                        $dbinsert->bindParam(':order_id', $aiID, PDO::PARAM_STR);
-                        // need to add customer first
-                        $dbinsert->bindParam(':customer_id', $customerID, PDO::PARAM_STR);
-                        $dbinsert->bindParam(':salesperson_id', $salespersonID, PDO::PARAM_STR);
-                        $dbinsert->bindParam(':picked_by_person_id', $pickedByPersonID, PDO::PARAM_STR);
-                        $dbinsert->bindParam(':contactperson_id', $contactPersonId, PDO::PARAM_STR);
-                        $dbinsert->bindParam(':backorder_id', $backorderID, PDO::PARAM_STR);
-                        $dbinsert->bindParam(':order_date', $currentDate, PDO::PARAM_STR);
-                        $dbinsert->bindParam(':expected_delivery_date', $expectedDate, PDO::PARAM_STR);
-                        $dbinsert->bindParam(':purchase_order_number', $backorderID, PDO::PARAM_STR);
-                        $dbinsert->bindParam(':under_supply', $IsUndersupplyBackordered, PDO::PARAM_STR);
-                        $dbinsert->bindParam(':picking_completed_at', $currentDate, PDO::PARAM_STR);
-                        $dbinsert->bindParam(':last_edited_by', $personID, PDO::PARAM_STR);
-                        $dbinsert->bindParam(':last_edit_when', $currentDate, PDO::PARAM_STR);
-        
-                        // Execute call
-                        $dbinsert-> execute();
+                        try {
+                            $query = "INSERT INTO orders (OrderID, CustomerID, SalespersonPersonID, PickedByPersonID, ContactPersonID, BackorderOrderID, OrderDate, ExpectedDeliveryDate, CustomerPurchaseOrderNumber, IsUndersupplyBackordered, PickingCompletedWhen, LastEditedBy, LastEditedWhen)
+                                    VALUES (:order_id, :customer_id, :salesperson_id, :picked_by_person_id, :contactperson_id, :backorder_id, :order_date, :expected_delivery_date, :purchase_order_number, :under_supply, :picking_completed_at, :last_edited_by, :last_edit_when) ";
+                            
+                            //Prepares statement and bind parameters
+                            $dbinsert = $db->prepare($query);
+            
+                            $dbinsert->bindParam(':order_id', $aiID, PDO::PARAM_STR);
+                            // need to add customer first
+                            $dbinsert->bindParam(':customer_id', $customerID, PDO::PARAM_STR);
+                            $dbinsert->bindParam(':salesperson_id', $salespersonID, PDO::PARAM_STR);
+                            $dbinsert->bindParam(':picked_by_person_id', $pickedByPersonID, PDO::PARAM_STR);
+                            $dbinsert->bindParam(':contactperson_id', $contactPersonId, PDO::PARAM_STR);
+                            $dbinsert->bindParam(':backorder_id', $backorderID, PDO::PARAM_STR);
+                            $dbinsert->bindParam(':order_date', $currentDate, PDO::PARAM_STR);
+                            $dbinsert->bindParam(':expected_delivery_date', $expectedDate, PDO::PARAM_STR);
+                            $dbinsert->bindParam(':purchase_order_number', $backorderID, PDO::PARAM_STR);
+                            $dbinsert->bindParam(':under_supply', $IsUndersupplyBackordered, PDO::PARAM_STR);
+                            $dbinsert->bindParam(':picking_completed_at', $currentDate, PDO::PARAM_STR);
+                            $dbinsert->bindParam(':last_edited_by', $personID, PDO::PARAM_STR);
+                            $dbinsert->bindParam(':last_edit_when', $currentDate, PDO::PARAM_STR);
+            
+                            // Execute call
+                            $dbinsert-> execute();
 
-                        $_SESSION['msg'] = "Order is geplaatst.";
-                        header('Location: orders.php');
+                            $_SESSION['msg'] = "Order is geplaatst.";
+                            header('Location: orders.php');
+                        } catch (Exception $e) {
+                            $_SESSION['msg'] = $e;
+                            header('Location: address.php');
+                        }
                     } else {
                         // No develivery address selected
                         $_SESSION['msg'] = "Selecteer een afleveradres.";
