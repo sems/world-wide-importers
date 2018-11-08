@@ -1,4 +1,5 @@
 <?php
+try {
     require('inc/config.php'); 
     if($_SERVER['REQUEST_METHOD'] == 'POST') {
         if (isset($_POST['inputName'], $_POST['inputAddress'],$_POST['inputAddress2'],$_POST['inputAddress3'],$_POST['inputZip'],$_POST['inputCity'],$_POST['inputState'], $_POST['inputPhone'] )) {
@@ -160,4 +161,7 @@
         $_SESSION['msg'] = "Er is geen formulier verstuurd.";
         header('Location: address.php');
     }
+} catch (Exception $e) {
+    print($e);
+}
 ?>
