@@ -20,7 +20,7 @@
             $stmt = $db->prepare("SELECT CityID, CityName FROM cities WHERE CityName LIKE ? AND StateProvinceID = $state ");
             $stmt->execute(array($city)); 
             $row = $stmt->fetch();
-
+            $cityID = "";
             if (empty($row)) {
                 // If city is not there
 
@@ -59,7 +59,6 @@
 
             // Autoincrement ID
             $customerAIID = $maxID['id'] + 1;
-            echo $customerAIID;
             $customerName = $_POST['inputName'];
             $customerCategoryID = 9; // Customer group
             $DeliveryMethod = 2; // Courier
