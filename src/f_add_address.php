@@ -123,27 +123,27 @@
             //Prepares statement and bind parameters
             $dbinsertCustomer = $db->prepare($insertCustomerQuery);
 
-            $dbinsertCustomer->bindParam(':c_id', $customerAIID, PDO::PARAM_STR);
+            $dbinsertCustomer->bindParam(':c_id', $customerAIID, PDO::PARAM_INT);
             $dbinsertCustomer->bindParam(':c_name', $customerName, PDO::PARAM_STR);
-            $dbinsertCustomer->bindParam(':c_bill', $customerAIID, PDO::PARAM_STR);
-            $dbinsertCustomer->bindParam(':c_category', $customerCategoryID, PDO::PARAM_STR);
-            $dbinsertCustomer->bindParam(':c_current_user', $currentUser, PDO::PARAM_STR);
-            $dbinsertCustomer->bindParam(':c_delivery', $DeliveryMethod, PDO::PARAM_STR);
-            $dbinsertCustomer->bindParam(':c_city', $cityID, PDO::PARAM_STR);
-            $dbinsertCustomer->bindParam(':c_postalcode_city', $cityID, PDO::PARAM_STR);
+            $dbinsertCustomer->bindParam(':c_bill', $customerAIID, PDO::PARAM_INT);
+            $dbinsertCustomer->bindParam(':c_category', $customerCategoryID, PDO::PARAM_INT);
+            $dbinsertCustomer->bindParam(':c_current_user', $currentUser, PDO::PARAM_INT);
+            $dbinsertCustomer->bindParam(':c_delivery', $DeliveryMethod, PDO::PARAM_INT);
+            $dbinsertCustomer->bindParam(':c_city', $cityID, PDO::PARAM_INT);
+            $dbinsertCustomer->bindParam(':c_postalcode_city', $cityID, PDO::PARAM_INT);
             $dbinsertCustomer->bindParam(':c_date_made_customer', $customerMadeDate, PDO::PARAM_STR);
             $dbinsertCustomer->bindParam(':c_discount', $customerDiscount, PDO::PARAM_STR);
-            $dbinsertCustomer->bindParam(':c_statement', $customerStatementSend, PDO::PARAM_STR);
-            $dbinsertCustomer->bindParam(':c_on_hold', $customerCreditHold, PDO::PARAM_STR);
-            $dbinsertCustomer->bindParam(':c_payment_days', $customerPaymentDays, PDO::PARAM_STR);
-            $dbinsertCustomer->bindParam(':c_phone', $customerPhoneFax, PDO::PARAM_STR);
-            $dbinsertCustomer->bindParam(':c_fax', $customerPhoneFax, PDO::PARAM_STR);
+            $dbinsertCustomer->bindParam(':c_statement', $customerStatementSend, PDO::PARAM_INT);
+            $dbinsertCustomer->bindParam(':c_on_hold', $customerCreditHold, PDO::PARAM_INT);
+            $dbinsertCustomer->bindParam(':c_payment_days', $customerPaymentDays, PDO::PARAM_INT);
+            $dbinsertCustomer->bindParam(':c_phone', $customerPhoneFax, PDO::PARAM_INT);
+            $dbinsertCustomer->bindParam(':c_fax', $customerPhoneFax, PDO::PARAM_INT);
             $dbinsertCustomer->bindParam(':c_site', $google, PDO::PARAM_STR);
             $dbinsertCustomer->bindParam(':c_address', $customerDeliveryAddressLine, PDO::PARAM_STR);
             $dbinsertCustomer->bindParam(':c_zipcode_address', $customerPostalCode, PDO::PARAM_STR);
             $dbinsertCustomer->bindParam(':c_invoice_address', $customerDeliveryAddressLine, PDO::PARAM_STR);
             $dbinsertCustomer->bindParam(':c_zipcode_invoice_address', $customerPostalCode, PDO::PARAM_STR);
-            $dbinsertCustomer->bindParam(':c_made_by', $currentUser, PDO::PARAM_STR);
+            $dbinsertCustomer->bindParam(':c_made_by', $currentUser, PDO::PARAM_INT);
             $dbinsertCustomer->bindParam(':c_from', $validFrom, PDO::PARAM_STR);
             $dbinsertCustomer->bindParam(':c_until', $validUntil, PDO::PARAM_STR);
 
