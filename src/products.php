@@ -16,22 +16,36 @@
       $sql = 'SELECT * FROM stockitems WHERE SearchDetails LIKE "%'.$request.'%"';
     } else if(isSet($_GET['filter'])){
       $request = $_GET['filter'];
-      if ($_GET['filter'] == "Clothing") {
+      if ($request == "Clothing") {
         $title = "Kleren";
-      } elseif ($_GET['filter'] == "Toys") {
+      } elseif ($request == "T-Shirts") {
+        $title = "T-Shirts";
+      } elseif ($request == "Furry Footwear") {
+        $title = "Pantoffels";
+      } elseif ($request == "Toys") {
         $title = "Speelgoed";
-      } elseif ($_GET['filter'] == "Novelty Items") {
+      } elseif ($request == "Novelty Items") {
         $title = "Snufjes";
-      } elseif ($_GET['filter'] == "Packaging Materials") {
+      } elseif ($request == "Packaging Materials") {
         $title = "Verpakking";
+      } elseif ($request == "Airline Novelties") {
+        $title = "Vliegtuig artikelen";
+      } elseif ($request == "Computing Novelties") {
+        $title = "Computer artikelen";
+      } elseif ($request == "USB Novelties") {
+        $title = "USB's";
+      } elseif ($request == "Mugs") {
+        $title = "Mokken";
       }
+
+      // Query moet nog gefixed worden!!!!
       if($request === 'Clothing') {
         $sql = 'SELECT * FROM stockitems si JOIN stockitemstockgroups sisg ON sisg.StockItemID = si.StockItemID JOIN stockgroups sg ON sg.StockGroupID = sisg.StockGroupID WHERE sg.StockGroupName = "Clothing" OR sg.StockGroupName = "Furry Footwear" OR sg.StockGroupName = "T-Shirts" '.(isset($_GET['order']) ? "ORDER BY si.UnitPrice ".$order."" : "").'';
       } else {
         $sql = 'SELECT * FROM stockitems si JOIN stockitemstockgroups sisg ON sisg.StockItemID = si.StockItemID JOIN stockgroups sg ON sg.StockGroupID = sisg.StockGroupID WHERE sg.StockGroupName LIKE "%'.$request.'%" '.(isset($_GET['order']) ? "ORDER BY si.UnitPrice ".$order."" : "").'';
       }
     }
-    if(isSet($_GET['order'])) {
+    if(isset($_GET['order'])) {
       $request = $_GET['filter'];
       $sql = 'SELECT * FROM stockitems si JOIN stockitemstockgroups sisg ON sisg.StockItemID = si.StockItemID JOIN stockgroups sg ON sg.StockGroupID = sisg.StockGroupID WHERE sg.StockGroupName LIKE "%'.$request.'%" '.(isset($_GET['order']) ? "ORDER BY si.UnitPrice ".$order."" : "").'';
     }
