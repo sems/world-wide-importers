@@ -19,6 +19,7 @@
 
         <div class="g-recaptcha" data-sitekey="6LcD2ngUAAAAAHXz1YsKDMeS7kZDIf02OMiLgCN3"></div>
         
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Inloggen</button>
+        <a class="registreer" href="register.php">Nog geen account? Registreer nu</a>
     </form>
 </div>

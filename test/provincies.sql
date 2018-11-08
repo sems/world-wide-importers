@@ -9,3 +9,8 @@ INSERT INTO stateprovinces VALUES (61, 'OI', 'Overijssel', 153, 'Netherlands', '
 INSERT INTO stateprovinces VALUES (62, 'ZH', 'Zuid Holland', 153, 'Netherlands', '', 3650222, 1, '2015-07-01 16:00:00', '9999-12-31 23:59:59');
 INSERT INTO stateprovinces VALUES (63, 'UR', 'Utrecht', 153, 'Netherlands', '', 1284504, 1, '2015-07-01 16:00:00', '9999-12-31 23:59:59');
 INSERT INTO stateprovinces VALUES (64, 'ZL', 'Zeeland', 153, 'Netherlands', '', 381568, 1, '2015-07-01 16:00:00', '9999-12-31 23:59:59');
+
+INSERT INTO customercategories VALUES (9, 'customer', 1, '2013-01-01 00:00:00', '9999-12-31 23:59:59' );
+
+INSERT INTO colors VALUES (37, 'Green', 1,  '2013-01-01 00:00:00', '9999-12-31 23:59:59');
+UPDATE stockitems SET ColorID = 37 WHERE StockItemName LIKE '%Green%';
