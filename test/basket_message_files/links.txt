@@ -1,0 +1,5 @@
+https://cdnjs.com/libraries/noty
+https://ned.im/noty/#/types
+https://ned.im/noty/#/themes
+https://github.com/needim/noty
+https://ned.im/noty/#/

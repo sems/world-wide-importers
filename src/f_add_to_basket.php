@@ -15,7 +15,7 @@
                 
                 // Redirect to basket with succes message.
                 $_SESSION['basket_add'] = "Product toegevoegd.";
-                header('Location: basket.php');
+                header('location: basket.php');
             } else {
                 // Add item to existing basket
                 $itemAmount = $_POST['itemAmount'];
@@ -24,9 +24,7 @@
                 
                 if (isset($data[$itemID])) {
                     // If the item is already in the basket
-                    $oldAmount = $data[$itemID];
-                    $newAmount = $oldAmount + $itemAmount;
-                    $data[$itemID] = $newAmount;
+                    $data[$itemID] = $data[$itemID] + $itemAmount;
                 } else {
                     // If the item is not there then add.
                     $data[$itemID] = $itemAmount;

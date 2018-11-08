@@ -1,10 +1,12 @@
 <?php
-require('inc/config.php');
+    require('inc/config.php');
 
-// title variable (used in template)
-$title = "Winkelwagen";
+    // Define title variable
+    $title = "Winkelwagen";
 
-$view = "basket.php";
-
-include_once $template;
+    // Defining view location
+    $view = "basket.php";
+    
+    // Include template
+    include_once $template;
 ?>

@@ -2,7 +2,7 @@
     require('inc/config.php');
 
     if($_SERVER['REQUEST_METHOD'] == 'POST') {
-        // Controle of het formulier verzonden is
+        // Check if form is send/submitted
         if(isset($_POST['g-recaptcha-response'])){
             // If it is responding set a variable
             $captcha= $_POST['g-recaptcha-response'];

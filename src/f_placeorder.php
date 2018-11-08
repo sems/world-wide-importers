@@ -2,6 +2,7 @@
     require('inc/config.php');
     
     if($_SERVER['REQUEST_METHOD'] == 'POST') {
+        // Check if form is send
         if (isset($_COOKIE['basket'])) {
             $personID = $_SESSION['PersonID'];
             
