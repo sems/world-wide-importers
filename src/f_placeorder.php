@@ -68,7 +68,7 @@
                             header('Location: orders.php');
                         } catch (Exception $e) {
                             $_SESSION['msg'] = $e;
-                            header('Location: address.php');
+                            header('Location: basket.php');
                         }
                     } else {
                         // No develivery address selected
