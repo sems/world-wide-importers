@@ -101,12 +101,12 @@
                                         setcookie('basket', "", time()-3600);
                                         $_SESSION['msg'] = "Order is geplaatst.";
                                         header('Location: orders.php');
-                                    } catch (Exception $e) {
+                                    } catch (Exception $e) { 
                                         // Ty to make orderline
                                         $_SESSION['msg'] = "<strong>Orderline </strong>".$e;
                                         header('Location: orders.php');
                                     }
-                                } catch (Exception $e) {
+                                } catch (Exception $e) { 
                                     // Search for stockitems isnt working
                                     $_SESSION['msg'] = "<strong>Stockitems </strong>".$e;
                                     header('Location: orders.php');
