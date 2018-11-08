@@ -1,6 +1,8 @@
-<div style="margin-top: 0; margin-left: 0; color: red; background-color: black; z-index: 9999;">
-    Dit is een school project!
-</div>
+<!--
+    <div style="margin-top: 0; margin-left: 0; color: red; background-color: black; z-index: 9999;">
+        Dit is een school project!
+    </div>
+-->
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
     <div class="container">
@@ -15,7 +17,11 @@
             <?php
                 // Add new pages in array, "filename.php" => "Name",
                 $pages = array(
-                    "products.php?filter=Clothing" => "Kleren",
+                    "Kleren" => array(
+                        "products.php?filter=Clothing" => "Kleren",
+                        "products.php?filter=Furry Footwear" => "Furry Footwear",
+                        "products.php?filter=T-Shirts" => "T-Shirts",
+                    ),
                     "products.php?filter=Novelty Items" => "Snufjes",
                     "products.php?filter=Toys" => "Speelgoed",
                     "products.php?filter=Packaging Materials" => "Verpakking",
@@ -24,9 +30,21 @@
 
                 // For every page defined in $pages array, add to navigation
                 foreach ($pages as $key => $value) {
-                    print("<li class='nav-item ".($title == $value ? "active":"")."'>
-                            <a class='nav-link' href='$key'>$value</a>
-                        </li>");
+                    if (is_array($value)) {
+                        print("<li class='nav-item dropdown'>
+                                <a class='nav-link dropdown-toggle".(in_array($title, $value) ? " active":"")."' href='#' id='navbarDropdown' role='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>
+                                    $key
+                                </a>
+                                <div class='dropdown-menu' aria-labelledby='navbarDropdown'>");
+                        foreach ($value as $_key => $_value) {
+                            print("<a class='dropdown-item".($title == $_value ? " active":"")."' href='$_key'>$_value</a>");
+                        }
+                        print("</div></li>");
+                    } else {
+                        print("<li class='nav-item ".($title == $value ? "active":"")."'>
+                                <a class='nav-link' href='$key'>$value</a>
+                            </li>");
+                    }
                 }
             ?>
             </ul>
