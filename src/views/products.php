@@ -1,5 +1,6 @@
 <div class="row">
   <div class="col-md-4">
+    <?php //drop down form to choose filtering for products ?>
     <form action='products.php' method='get'>
       <?php
         if (isset($_GET['filter'])) {
