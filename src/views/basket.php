@@ -50,7 +50,7 @@
                     ?>
                     <form method='post' action='f_change_amount_basket.php'>
                         <input class='form-control' type='number' <?php print("name='" . $key . "' value='" . $value . "'")?> min= 1 <?php print("onchange='run_change_amount" . $key . "()'") ?>>
-                        <button class='btn btn-warning' type='submit' value='Bevestig' <?php print("id='send_button" . $key . "'") ?>></button>
+                        <button style="display: none;" class='btn btn-warning' type='submit' value='Bevestig' <?php print("id='send_button" . $key . "'") ?>></button>
                     </form>
                     <?php
                     print("<script> \n function run_change_amount" . $key . "(){ \n var button" . $key . " = document.getElementById('send_button" . $key . "'); \n button" . $key . ".form.submit(); } \n </script>");   
