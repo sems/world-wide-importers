@@ -27,7 +27,7 @@
           <div class="card-body">
             <h5 class="card-title">Account instellingen</h5>
             <p class="card-text">Wijzig hier alle instellingen binnen je account.</p>
-            <a href="#" class="btn btn-primary">Naar instellingen</a>
+            <a href="my_settings.php" class="btn btn-primary">Naar instellingen</a>
           </div>
         </div>
     </div>
