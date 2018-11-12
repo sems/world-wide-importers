@@ -48,11 +48,12 @@
                     }
                     //Change amount of products with confirm button
                     ?>
-                    <form method="post" action='f_change_amount_basket.php'>
-                        <input class="form-control" type="number" <?php print("name='" . $key . "'") ?> value="<?php print("$value") ?>" min="1">
-                        <input class="btn btn-warning" type="submit" value="Bevestig">
+                    <form method='post' action='f_change_amount_basket.php'>
+                        <input class='form-control' type='number' <?php print("name='" . $key . "' value='" . $value . "'")?> min= 1 <?php print("onchange='run_change_amount" . $key . "()'") ?>>
+                        <button class='btn btn-warning' type='submit' value='Bevestig' <?php print("id='send_button" . $key . "'") ?>></button>
                     </form>
                     <?php
+                    print("<script> \n function run_change_amount" . $key . "(){ \n var button" . $key . " = document.getElementById('send_button" . $key . "'); \n button" . $key . ".form.submit(); } \n </script>");   
                     //Delete product with a invisible field. Later we can use this field to see which product has been deleted
                     ?>
                     <form method="post" action="f_delete_from_basket.php">
