@@ -54,7 +54,7 @@
             ?>
             </ul>
             <form action="products.php" method="get" class="form-inline my-2 my-lg-0">
-                <input class="form-control mr-sm-2" name="search" type="search" placeholder="Zoeken" aria-label="Zoeken">
+                <input class="form-control mr-sm-2" name="global_search" type="search" placeholder="Zoeken" aria-label="Zoeken">
                 <div>
                     <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Zoek</button>
                     <a class="btn btn-primary my-2 my-sm-0 basketBtn <?php print($title == "Winkelwagen" ? "basketActive":""); ?>" href="basket.php"><i class="fas fa-shopping-basket basket"></i></a>
