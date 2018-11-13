@@ -17,7 +17,7 @@
       </div>
       <div class="input-group mb-3">
         <form action="products.php" method="get" class="form-inline my-2 my-lg-0">
-          <input class="form-control mr-sm-2" name="search" type="search" placeholder="Zoeken" aria-label="Zoeken" value="<?php echo isset($_GET['search']) ? $_GET['search'] : '' ?>">
+          <input class="form-control mr-sm-2" name="search" type="search" placeholder="Zoeken" aria-label="Zoeken" value="<?php print(isset($_GET['search']) ? $_GET['search'] : '') ?>">
           <div class="input-group-append">
             <button class="input-group-text" for="inputGroupSelect02" type='submit'>Zoek</button>
           </div>
