@@ -15,6 +15,7 @@
           <option value='DESC'>Van hoog naar laag</option>
         </select>
       </div>
+      <?php // new search input ?>
       <div class="input-group mb-3">
         <form action="products.php" method="get" class="form-inline my-2 my-lg-0">
           <input class="form-control mr-sm-2" name="search" type="search" placeholder="Zoeken" aria-label="Zoeken" value="<?php print(isset($_GET['search']) ? $_GET['search'] : '') ?>">

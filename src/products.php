@@ -64,6 +64,7 @@
         $sql = 'SELECT * FROM stockitems si JOIN stockitemstockgroups sisg ON sisg.StockItemID = si.StockItemID JOIN stockgroups sg ON sg.StockGroupID = sisg.StockGroupID WHERE sg.StockGroupName LIKE "%'.$request.'%" '.(isset($_GET['order']) ? "ORDER BY si.UnitPrice ".$order."" : "").'';
       }
     }
+    // checks for global search from menu
     if(isset($_GET['global_search'])) {
       // resultaat uit de URL
       $request = filter_input(INPUT_GET, "global_search", FILTER_SANITIZE_STRING);
