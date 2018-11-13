@@ -1,5 +1,6 @@
 <div class="row">
   <div class="col-md-4">
+    <?php //drop down form to choose filtering for products ?>
     <form action='products.php' method='get'>
       <?php
         if (isset($_GET['filter'])) {
@@ -13,9 +14,15 @@
           <option value='ASC'>Van laag naar hoog</option>
           <option value='DESC'>Van hoog naar laag</option>
         </select>
-        <div class="input-group-append">
-          <button class="input-group-text" for="inputGroupSelect02" type='submit'>Zoek</button>
-        </div>
+      </div>
+      <?php // new search input ?>
+      <div class="input-group mb-3">
+        <form action="products.php" method="get" class="form-inline my-2 my-lg-0">
+          <input class="form-control mr-sm-2" name="search" type="search" placeholder="Zoeken" aria-label="Zoeken" value="<?php print(isset($_GET['search']) ? $_GET['search'] : '') ?>">
+          <div class="input-group-append">
+            <button class="input-group-text" for="inputGroupSelect02" type='submit'>Zoek</button>
+          </div>
+        </form>
       </div>
     </form>
   </div>
