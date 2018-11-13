@@ -9,11 +9,21 @@
   $order = isSet($_GET['order']) ? $_GET['order'] : 'ASC';
 
   // kijkt of er gezocht is of dat de productenpagina gewoon bezocht wordt en geeft een query op basis hiervan
-  if (isset($_GET['search']) || isset($_GET['filter'])) {
+  if (isset($_GET['global_search']) || isset($_GET['search']) || isset($_GET['filter'])) {
     if(isSet($_GET['search'])) {
-      // resultaat uit de URL
-      $request = filter_input(INPUT_GET, "search", FILTER_SANITIZE_STRING);
-      $sql = 'SELECT * FROM stockitems WHERE SearchDetails LIKE "%'.$request.'%"';
+      if(isSet($_GET['filter'])) {
+        $request = $_GET['filter'];
+        $search = filter_input(INPUT_GET, "search", FILTER_SANITIZE_STRING);
+        if($request === 'Clothing') {
+          $sql = 'SELECT * FROM stockitems si JOIN stockitemstockgroups sisg ON sisg.StockItemID = si.StockItemID JOIN stockgroups sg ON sg.StockGroupID = sisg.StockGroupID WHERE  si.StockItemName LIKE "%'.$search.'%" AND (sg.StockGroupName = "Clothing" OR sg.StockGroupName = "Furry Footwear" OR sg.StockGroupName = "T-Shirts")'.(isset($_GET['order']) ? "ORDER BY si.UnitPrice ".$order."" : "").'';
+        } else {
+          $sql = 'SELECT * FROM stockitems si JOIN stockitemstockgroups sisg ON sisg.StockItemID = si.StockItemID JOIN stockgroups sg ON sg.StockGroupID = sisg.StockGroupID WHERE si.StockItemName LIKE "%'.$search.'%" AND sg.StockGroupName LIKE "%'.$request.'%" '.(isset($_GET['order']) ? "ORDER BY si.UnitPrice ".$order."" : "").'';
+        }
+      } else {
+        // resultaat uit de URL
+        $request = filter_input(INPUT_GET, "global_search", FILTER_SANITIZE_STRING);
+        $sql = 'SELECT * FROM stockitems WHERE SearchDetails LIKE "%'.$request.'%"';
+      }
     } else if(isSet($_GET['filter'])){
       $request = $_GET['filter'];
       if ($request == "Clothing") {
@@ -38,7 +48,6 @@
         $title = "Mokken";
       }
 
-      // Query moet nog gefixed worden!!!!
       if($request === 'Clothing') {
         $sql = 'SELECT * FROM stockitems si JOIN stockitemstockgroups sisg ON sisg.StockItemID = si.StockItemID JOIN stockgroups sg ON sg.StockGroupID = sisg.StockGroupID WHERE sg.StockGroupName = "Clothing" OR sg.StockGroupName = "Furry Footwear" OR sg.StockGroupName = "T-Shirts" '.(isset($_GET['order']) ? "ORDER BY si.UnitPrice ".$order."" : "").'';
       } else {
@@ -46,8 +55,19 @@
       }
     }
     if(isset($_GET['order'])) {
-      $request = $_GET['filter'];
-      $sql = 'SELECT * FROM stockitems si JOIN stockitemstockgroups sisg ON sisg.StockItemID = si.StockItemID JOIN stockgroups sg ON sg.StockGroupID = sisg.StockGroupID WHERE sg.StockGroupName LIKE "%'.$request.'%" '.(isset($_GET['order']) ? "ORDER BY si.UnitPrice ".$order."" : "").'';
+      if(isSet($_GET['search'])) {
+        $request = $_GET['filter'];
+        $search = $_GET['search'];
+        $sql = 'SELECT * FROM stockitems si JOIN stockitemstockgroups sisg ON sisg.StockItemID = si.StockItemID JOIN stockgroups sg ON sg.StockGroupID = sisg.StockGroupID WHERE si.StockItemName LIKE "%'.$search.'%" AND sg.StockGroupName LIKE "%'.$request.'%" '.(isset($_GET['order']) ? "ORDER BY si.UnitPrice ".$order."" : "").'';
+      } else {
+        $request = $_GET['filter'];
+        $sql = 'SELECT * FROM stockitems si JOIN stockitemstockgroups sisg ON sisg.StockItemID = si.StockItemID JOIN stockgroups sg ON sg.StockGroupID = sisg.StockGroupID WHERE sg.StockGroupName LIKE "%'.$request.'%" '.(isset($_GET['order']) ? "ORDER BY si.UnitPrice ".$order."" : "").'';
+      }
+    }
+    if(isset($_GET['global_search'])) {
+      // resultaat uit de URL
+      $request = filter_input(INPUT_GET, "global_search", FILTER_SANITIZE_STRING);
+      $sql = 'SELECT * FROM stockitems WHERE SearchDetails LIKE "%'.$request.'%"';
     }
   } else {
     $sql = 'SELECT StockItemID, StockItemName, Photo, UnitPrice FROM stockitems';
