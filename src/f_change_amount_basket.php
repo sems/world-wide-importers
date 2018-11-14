@@ -6,14 +6,14 @@
     
     foreach($basket as $key => $value){
         // Check if value from the invisible field matches the key from basket
-        if(!empty($_POST[$key])){
+        if(!empty($_POST[$key]) && $_POST[$key] >= 1){
             $basket[$key] = $_POST[$key];
             $_SESSION['basket_changed'] = "Product aantal aangepast.";
         }
     }
     
     //Replace cookie with the current basket array
-    setcookie('basket', json_encode($basket));
+    setcookie('basket', json_encode($basket), time()+3600);
     
     header('Location: basket.php');
 ?>
