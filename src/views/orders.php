@@ -31,7 +31,7 @@ if(isSet($_SESSION['msg'])){
         foreach ($results as $CustomerName){
             print("<tr><th scope='row'>".$CustomerName['OrderID']."</th>");
             print("<td>".$CustomerName['OrderDate']."</td>");
-            print("<td><a class='btn btn-primary' href='#'>Bekijk</a></td>");
+            print("<td><a class='btn btn-primary' href='order.php?id=".$CustomerName['OrderID']."'>Bekijk</a></td>");
         }
     ?>
     </tbody>
