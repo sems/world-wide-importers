@@ -10,6 +10,11 @@
             $basket[$key] = $_POST[$key];
             $_SESSION['basket_changed'] = "Product aantal aangepast.";
         }
+        // If value is lower than 1, change value to 1
+        elseif(isset($_POST[$key]) && $_POST[$key] < 1){
+            $basket[$key] = 1;
+            $_SESSION['basket_changed'] = "Product aantal aangepast.";    
+        }
     }
     
     //Replace cookie with the current basket array
