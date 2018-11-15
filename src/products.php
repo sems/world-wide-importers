@@ -6,7 +6,7 @@
 
   // lege sql variabele die later ingevuld wordt
   $sql = '';
-  $order = isSet($_GET['order']) ? $_GET['order'] : 'ASC';
+  $order = (isSet($_GET['order']) && ($_GET['order'] === 'ASC' || $_GET['order'] === 'DESC')) ? $_GET['order'] : 'ASC';
 
   // kijkt of er gezocht is of dat de productenpagina gewoon bezocht wordt en geeft een query op basis hiervan
   if (isset($_GET['global_search']) || isset($_GET['search']) || isset($_GET['filter'])) {
