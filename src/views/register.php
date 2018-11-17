@@ -1,14 +1,7 @@
 <div class="text-center">
     <form class="form-register" method="post" action="f_register.php">
         <h1 class="h3 mb-3 font-weight-normal">Registreren</h1>
-        <?php
-        if(isSet($_SESSION['msg'])){
-            //Access your Session variables
-            $temp = $_SESSION['msg'];
-            echo '<div class="alert alert-primary" role="alert">'.$temp."</div>";
-            //Unset the useless session variable
-            unset($_SESSION['msg']);
-        }?>
+        <?php print(getAlert()); ?>
         <label for="" class="sr-only">Emailadres</label>
         <input type="email" name="email" class="form-control" placeholder="Emailadres" required autofocus>
 
