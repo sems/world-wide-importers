@@ -8,14 +8,14 @@
             $stmt = $db->prepare("DELETE FROM `customers` WHERE (`CustomerID` =:customer_id)");
             $stmt->execute(['customer_id' => $_POST['customerID']]); 
 
-            $_SESSION['msg'] = "Adres is verwijderd.";
+            setAlert("Adres is verwijderd.", "success");
             header('Location: address.php');
         } else {
-            $_SESSION['msg'] = "Een verplicht veld is niet ingevuld.";
+            setAlert("Een verplicht veld is niet ingevuld.", "warning");
             header('Location: address.php');
         }
     } else {
-        $_SESSION['msg'] = "Er is geen formulier verstuurd.";
+        setAlert("Een verplicht veld is niet ingevuld.", "danger");
         header('Location: address.php');
     }
 ?>

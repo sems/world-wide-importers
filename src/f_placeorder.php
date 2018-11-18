@@ -99,36 +99,36 @@
                                         
                                         // clean basket
                                         setcookie('basket', "", time()-3600);
-                                        $_SESSION['msg'] = "Order is geplaatst.";
+                                        setAlert("Order is geplaatst.", "success");
                                         header('Location: orders.php');
                                     } catch (Exception $e) { 
                                         // Ty to make orderline
-                                        $_SESSION['msg'] = "<strong>Orderline </strong>".$e;
+                                        setAlert("Orderline error.", "danger", $e);
                                         header('Location: orders.php');
                                     }
                                 } catch (Exception $e) { 
                                     // Search for stockitems isnt working
-                                    $_SESSION['msg'] = "<strong>Stockitems </strong>".$e;
+                                    setAlert("Stockitems error.", "danger", $e);
                                     header('Location: orders.php');
                                 }
                             } // end foreach
                         } catch (Exception $e) {
                             // Making order
-                            $_SESSION['msg'] = "<strong>Order </strong>".$e;
+                            setAlert("Error at making order.", "danger", $e);
                             header('Location: orders.php');
                         }
                     } else {
                         // No develivery address selected
-                        $_SESSION['msg'] = "Selecteer een afleveradres.";
+                        setAlert("Selecteer een afleveradres.", "primary");
                         header('Location: basket.php');
                     }    
                 } else {
-                    $_SESSION['msg'] = "Er ging iets mis, er wordt aangeraden opnieuw in te loggen";
+                    setAlert("Er ging iets mis, er wordt aangeraden opnieuw in te loggen.", "warning");
                     header('Location: basket.php');
                 }
             } else {
                 # if customer doenst have adres
-                $_SESSION['msg'] = "U beschikt niet over een verzendadres, maak er een aan.";
+                setAlert("U beschikt niet over een verzendadres, maak er een a.u.b.", "warning");
                 header('Location: address.php');
             }
         } else {

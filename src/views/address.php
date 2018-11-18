@@ -1,12 +1,5 @@
 <h4>Adressen</h4>
-<?php
-if(isSet($_SESSION['msg'])){
-    //Access your Session variables
-    $temp = $_SESSION['msg'];
-    echo '<div class="alert alert-primary" role="alert">'.$temp."</div>";
-    //Unset the useless session variable
-    unset($_SESSION['msg']);
-}?>
+<?php print(getAlert()); ?>
 <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseAddAddress" aria-expanded="false" aria-controls="collapseAddAddress">
     Toevoegen
 </button>

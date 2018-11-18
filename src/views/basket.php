@@ -1,26 +1,10 @@
-    <?php if(isset($_COOKIE['basket'])) {
-            //if cookie 'basket' exists, run this code
-            echo "<h3 class='basket_title'>Winkelwagen</h3>";
-        }?>
+<?php if(isset($_COOKIE['basket'])) {
+    //if cookie 'basket' exists, run this code
+    echo "<h3 class='basket_title'>Winkelwagen</h3>";
+}?>
 <div class="row">
     <div class="col-md-8">
-        <?php 
-
-        $checkFor = array(
-            "basket_add" => "success",
-            "basket_changed" => "info",
-            "basket_remove" => "warning",
-        );
-        
-        foreach ($checkFor as $key => $value) {
-            if (isSet($_SESSION[$key])) {
-                // Access your session variable and print it
-                echo '<div class="alert alert-'.$value.'" role="alert">'.$_SESSION[$key].'</div>';
-                // Cleanup session variable
-                unset($_SESSION[$key]);
-            }
-        }
-        ?>
+        <?php print(getAlert()); ?>
         <div class="row">
             <?php
             if(isset($_COOKIE['basket'])) {
