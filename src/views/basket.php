@@ -50,13 +50,15 @@
                                 </form>
                             </div>
                             <div class="col-md-4">
+                                <?php
+                                //Change amount with form which automatically submits when value changes
+                                ?>
                                 <form method='post' action='f_change_amount_basket.php'>
-                                    <input class='form-control' type='number' <?php print("name='" . $key . "' value='" . $value . "'")?> min= 1 <?php print("onchange='run_change_amount" . $key . "()'") ?>>
+                                    <input class='form-control' type='number' <?php print("name='" . $key . "' value='" . $value . "' onchange='send_button" . $key . ".form.submit()'") ?>>
                                     <button style="display: none;" class='btn btn-warning' type='submit' value='Bevestig' <?php print("id='send_button" . $key . "'") ?>></button>
                                 </form>
                             
                                 <?php
-                                print("<script> \n function run_change_amount" . $key . "(){ \n var button" . $key . " = document.getElementById('send_button" . $key . "'); \n button" . $key . ".form.submit(); } \n </script>");   
                                 //Delete product with a invisible field. Later we can use this field to see which product has been deleted
                                 ?>   
                                 <span class="basket_product_price">Stukprijs: €<?php echo $data['UnitPrice']; ?></span> 
