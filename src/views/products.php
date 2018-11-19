@@ -5,7 +5,7 @@
       <?php
         if (isset($_GET['filter'])) {
           // Check if filter isset, if so add hidden name and value of filter to form
-          echo '<input type="hidden" name="filter" value="'.$_GET['filter'].'" />';
+          print('<input type="hidden" name="filter" value="'.$_GET['filter'].'" />');
         }
       ?>
       <div class="input-group mb-3">
@@ -30,7 +30,7 @@
   <?php
     // For each produc print product photo (or fallback photo) and add product name
     if(sizeOf($arrayProducts) < 1) {
-      echo 'Geen resultaten';
+      print('Geen resultaten');
     } else {
       $i = 0;
       print("<div class='card-deck product-row-margin'>");
