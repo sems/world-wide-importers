@@ -29,9 +29,7 @@
 
   <?php
     // For each produc print product photo (or fallback photo) and add product name
-    if(sizeOf($arrayProducts) < 1) {
-      print('Geen resultaten');
-    } else {
+    if(sizeOf($arrayProducts) >= 1) {
       $i = 0;
       print("<div class='card-deck product-row-margin'>");
       foreach ($arrayProducts as $row) {
@@ -51,6 +49,8 @@
         print("</div></div></div>");
       }
       print("</div>");
+    } else {
+      print('Geen resultaten');
     }
   ?>
 </div>
