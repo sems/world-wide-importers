@@ -1,9 +1,3 @@
-<!--
-    <div style="margin-top: 0; margin-left: 0; color: red; background-color: black; z-index: 9999;">
-        Dit is een school project!
-    </div>
--->
-
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
     <div class="container">
         <a class="navbar-brand" href="index.php">World Wide Importers</a>
