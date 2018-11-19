@@ -8,7 +8,7 @@
         // Check if value of delete button matches key in basket
         if(!empty($_POST[$key])){
             unset($_basket[$key]);
-            $_SESSION['basket_remove'] = "Product verwijderd.";
+            setAlert("Product verwijderd.", "warning");
         }
     }
     if(!empty($_basket)){
