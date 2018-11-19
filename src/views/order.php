@@ -1,5 +1,6 @@
 <?php
-    print_r($order);
+    // print_r($arrayOrders);
+    // [0][0] orderID
 ?>
 <div class="row">
     <div class="col-md-12">
@@ -31,11 +32,27 @@
                 <div id="collapse_content" class="collapse show" aria-labelledby="heading_content" data-parent="#accordion_order">
                     <div class="card-body">
                         <?php
-                            foreach ($order as $key => $value) {
-                                $item = $key['StockItemID'];
-                                $data = $db->prepare("SELECT StockItemName, Size, Photo, UnitPrice FROM stockitems WHERE StockItemID = :stock_item");
-                                $data->execute(['stock_item' => $item]);
-                                $data = $data->fetch();
+                            foreach ($arrayOrders as $data) {
+                              ?>
+                              <div class='col-md-12'>
+                                  <div class="row basket_product">
+                                      <?php
+                                      ?> <div class='col-md-3'> <?php print(strlen($data['Photo']) < 1 ? "<img src='http://placehold.it/150x150' />":"<img src='data:image/gif;base64,".base64_encode($data['Photo'])."'/>");
+                                      ?> </div>
+                                      <div class="col-md-5">
+                                          <h6><?php print($data['Description']);?></h6>
+                                          <p><?php print(!empty($data['Size']) ? "Grootte: " . $data['Size']: "Geen grootte"); ?></p>
+                                      </div>
+                                      <div class="col-md-4">
+                                          <?php
+                                          print("<script> \n function run_change_amount" . $key . "(){ \n var button" . $key . " = document.getElementById('send_button" . $key . "'); \n button" . $key . ".form.submit(); } \n </script>");
+                                          //Delete product with a invisible field. Later we can use this field to see which product has been deleted
+                                          ?>
+                                          <span class="basket_product_price">Stukprijs: €<?php echo $data['UnitPrice']; ?></span>
+                                      </div>
+                                  </div>
+                              </div>
+                              <?php
                             }
                         ?>
                     </div>
