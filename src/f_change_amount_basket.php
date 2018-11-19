@@ -8,12 +8,12 @@
         // Check if value from the invisible field matches the key from basket
         if(!empty($_POST[$key]) && $_POST[$key] >= 1){
             $basket[$key] = $_POST[$key];
-            setAlert("Product aantal aangepast.", "success");
+            setAlert("Product aantal aangepast.", "info");
         }
         // If value is lower than 1, change value to 1
         elseif(isset($_POST[$key]) && $_POST[$key] < 1){
             $basket[$key] = 1;
-            $_SESSION['basket_changed'] = "Product aantal aangepast.";    
+            setAlert("Product aantal aangepast.", "info");
         }
     }
     
