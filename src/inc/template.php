@@ -6,8 +6,6 @@
   </head>
 
   <body>
-    <!-- Include functions -->
-    <?php include("inc/functions.php"); ?>
     <!-- Include navigation bar -->
     <?php include("inc/navigation.php"); ?>
 
