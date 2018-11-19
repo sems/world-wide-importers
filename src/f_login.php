@@ -17,7 +17,7 @@
     
         if(intval($responseKeys["success"]) !== 1) {
             // Something went wrong with the Captcha to redirect back w/ message. 
-            $_SESSION['msg'] = "Er gaat was mis met de Captcha";
+            setAlert("Er gaat was mis met de Captcha.", "warning");
             header('location: login.php');
         } else {
             // If the Captcha is okay procceed
@@ -46,17 +46,17 @@
                         header('Location: profile.php');
                     } else {
                         // Combination of pwd and usrname is wrong
-                        $_SESSION['msg'] = 'Deze combinatie van gebruikersnaam en wachtwoord is niet juist!';
+                        setAlert("Deze combinatie van gebruikersnaam en wachtwoord is niet juist.", "warning");
                         header('Location: login.php');
                     }
                 } else {
                     // Account is blocked.
-                    $_SESSION['msg'] =  'Uw account is geblokeerd!';
+                    setAlert("Uw account is geblokeerd!", "warning");
                     header('Location: login.php');
                 }
             } else{
                 // Some data is missing from the form
-                $_SESSION['msg'] =  'Een vereist veld heeft geen informatie!';
+                setAlert("Een vereist veld heeft geen informatie!", "warning");
                 header('Location: login.php');
             }
         }

@@ -14,7 +14,7 @@
                 setcookie('basket', $encodedArray, time()+3600);
                 
                 // Redirect to basket with succes message.
-                $_SESSION['basket_add'] = "Product toegevoegd.";
+                setAlert("Product toegevoegd.", "success");
                 header('location: basket.php');
             } else {
                 // Add item to existing basket
@@ -32,17 +32,17 @@
                 setcookie('basket', json_encode($data), time()+3600);
                 
                 // Redirects to basket with succes message.
-                $_SESSION['basket_add'] = "Product toegevoegd.";
+                setAlert("Product toegevoegd.", "success");
                 header('Location: basket.php');
             }
         } else {
             // Redirects to basket with error message.
-            $_SESSION['msg'] = "Product is niet toegevoegd omdat er geen ID meegeven was.";
+            setAlert("Product is niet toegevoegd omdat er geen ID meegeven was.", "warning");
             header('Location: basket.php');
         }
     } else {
         // Redirects to basket with error message.
-        $_SESSION['msg'] = "Onbekende fout.";
+        setAlert("Onbekende fout.", "warning");
         header('Location: basket.php');
     }
 ?>

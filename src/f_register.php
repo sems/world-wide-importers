@@ -17,7 +17,7 @@
     
         if(intval($responseKeys["success"]) !== 1) {
             // Something went wrong with the Captcha to redirect back w/ message. 
-            $_SESSION['msg'] = "Er gaat wat mis met de Captcha";
+            setAlert("Er gaat wat mis met de Captcha.", "warning");
             header('location: register.php');
         } else {
             // If the Captcha is okay procceed
@@ -87,22 +87,22 @@
                         $dbinsert-> execute();
                         
                         // Set message and redirect to login because is complete
-                        $_SESSION['msg'] = 'Account is met succes aangemaakt!';
+                        setAlert("Account is met succes aangemaakt!", "success");
                         header('Refresh: 0.1; url=login.php');
                     } else {
                         // Password is not the same as the reenterd one
-                        $_SESSION['msg'] = "De wachtwoorden komen niet overeen";
+                        setAlert("De wachtwoorden komen niet overeen!", "warning");
                         header('Location: register.php');
                         exit();
                     }
                 } else {
                     // Email already in use.
-                    $_SESSION['msg'] = "Dit email adres is al ingebruik.";
+                    setAlert("Dit email adres is al ingebruik.", "warning");
                     header('Location: register.php');
                 }
             } else {
                 // Not all fields are filled in.
-                $_SESSION['msg'] = 'Een vereist veld is niet ingevuld!';
+                setAlert("Een vereist veld is niet ingevuld.", "warning");
                 header('Refresh: 3; url=register.php');
             }
         }
