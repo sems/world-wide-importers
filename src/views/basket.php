@@ -22,9 +22,9 @@
                     ?> 
                     <div class='col-md-12'> 
                         <div class="row basket_product">
-                            <?php
-                            ?> <div class='col-md-3'> <?php print(strlen($data['Photo']) < 1 ? "<img src='http://placehold.it/150x150' />":"<img src='data:image/gif;base64,".base64_encode($data['Photo'])."'/>");
-                            ?> </div> 
+                            <div class='col-md-3'> 
+                                <?php print(strlen($data['Photo']) < 1 ? "<img src='http://placehold.it/150x150' />":"<img src='data:image/gif;base64,".base64_encode($data['Photo'])."'/>");?> 
+                            </div> 
                             <div class="col-md-5">
                                 <h6><?php print($data['StockItemName']);?></h6>
                                 <p><?php print(!empty($data['Size']) ? "Grootte: " . $data['Size']: "Geen grootte"); ?></p>
@@ -74,24 +74,37 @@
                     <p>Verzendkosten: €0.00</p>
                     <hr />
                     <p><strong> Totaal prijs: €<?php print(number_format($totalPrice, 2))?></strong></p>
-                    <form action="f_placeorder.php" method="post">
-                        <div class="form-group">
-                            <label for="basket_address_select">Verzendadres</label>   
-                            <select class="form-control" name="address_select" id="basket_address_select">
-                            <?php
-                                // check if user already excits with the email
-                                $personID = $_SESSION['PersonID'];
-                                $stmt = $db->prepare("SELECT C.CustomerID, C.PrimaryContactPersonID, C.DeliveryAddressLine1, Cs.CityName FROM customers C JOIN cities Cs ON C.DeliveryCityID = Cs.CityID  WHERE PrimaryContactPersonID=:person_id");
-                                $stmt->execute(['person_id' => $personID]); 
-                                $row = $stmt->fetchAll();
-                                foreach ($row as $address){
-                                    print("<option value='".$address['CustomerID']."'>".$address['DeliveryAddressLine1']." ".$address['CityName']."</option>");
-                                }
+                    <?php 
+                        if (isset($_SESSION['logged_in'])) {
                             ?>
-                            </select>
-                        </div>
-                        <input class="btn btn-primary" type="submit" value="Plaatsen">
-                    </form>
+                                <form action="f_placeorder.php" method="post">
+                                    <div class="form-group">
+                                        <label for="basket_address_select">Verzendadres</label>   
+                                        <select class="form-control" name="address_select" id="basket_address_select">
+                                        <?php
+                                            // check if user already excits with the email
+                                            $personID = $_SESSION['PersonID'];
+                                            $stmt = $db->prepare("SELECT C.CustomerID, C.PrimaryContactPersonID, C.DeliveryAddressLine1, Cs.CityName FROM customers C JOIN cities Cs ON C.DeliveryCityID = Cs.CityID  WHERE PrimaryContactPersonID=:person_id");
+                                            $stmt->execute(['person_id' => $personID]); 
+                                            $row = $stmt->fetchAll();
+                                            foreach ($row as $address){
+                                                print("<option value='".$address['CustomerID']."'>".$address['DeliveryAddressLine1']." ".$address['CityName']."</option>");
+                                            }
+                                        ?>
+                                        </select>
+                                    </div>
+                                    <input class="btn btn-success" type="submit" value="Plaatsen">
+                                </form>
+                            <?php
+                        } 
+                        if (!isset($_SESSION['logged_in']) && isset($_COOKIE['basket'])) {
+                            // When no user is logged in
+                            setAlert("Weet u zeker dat u geen account wil aanmaken? Zo nee, klik dan <strong><a href='register.php' class=''>hier</a></strong>.", "warning");
+                        ?>  
+                            <a href="placeorder.php" class="btn btn-success">Bestel zonder account</a>
+                        <?php
+                        }
+                    ?>
                 </div>
                 <?php
             }
