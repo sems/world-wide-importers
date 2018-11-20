@@ -2,7 +2,7 @@
     <div class="col-md-12">
         <?php
             $loggedInMess = '<h4>Welkom <strong>'.$_SESSION['user'].'</strong></h4>';
-            echo($loggedInMess);
+            print(($loggedInMess));
         ?>
     </div>
     <div class="card-deck">

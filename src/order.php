@@ -33,7 +33,7 @@
 
     } catch(PDOException $e) {
         //Gives the error message if possible.
-         echo "Error: " . $e->getMessage();
+         print("Error: " . $e->getMessage());
     };
 
     // if post does not exists redirect user.

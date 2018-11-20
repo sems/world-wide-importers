@@ -1,7 +1,7 @@
 <?php
     if (strlen($product['StockItemName']) < 1) {
         // Check if a product is selected, if not print error message
-        echo '<div class="alert alert-danger" role="alert">Er is geen product geselecteerd!</div>';
+        print('<div class="alert alert-danger" role="alert">Er is geen product geselecteerd!</div>');
     } else {
         print("<table><tr>");
         print("<td>".(strlen($product['Photo']) < 1 ? "<img id='productImage' src='img/image_not_found.png' />":"<img id='productImage' src='data:image/gif;base64,".base64_encode($product['Photo'])."'/>")."</td>");

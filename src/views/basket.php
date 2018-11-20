@@ -1,6 +1,6 @@
 <?php if(isset($_COOKIE['basket'])) {
     //if cookie 'basket' exists, run this code
-    echo "<h3 class='basket_title'>Winkelwagen</h3>";
+    print("<h3 class='basket_title'>Winkelwagen</h3>");
 }?>
 <div class="row">
     <div class="col-md-8">
@@ -45,7 +45,7 @@
                                 <?php
                                 //Delete product with a invisible field. Later we can use this field to see which product has been deleted
                                 ?>   
-                                <span class="basket_product_price">Stukprijs: €<?php echo $data['UnitPrice']; ?></span> 
+                                <span class="basket_product_price">Stukprijs: €<?php print($data['UnitPrice']); ?></span> 
                                 <span class="basket_product_price"><strong>Subtotaal: €<?php print(number_format($value * $data['UnitPrice'], 2)) ; ?></strong></span>                 
                             </div>
                         </div>
