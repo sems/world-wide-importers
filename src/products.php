@@ -14,26 +14,37 @@
   // kijkt of er gezocht is of dat de productenpagina gewoon bezocht wordt en geeft een query op basis hiervan
   if (isset($_GET['filter'])) {
     $request = filter_input(INPUT_GET, "filter", FILTER_SANITIZE_STRING);
-    if ($request == "Clothing") {
-      $title = "Kleren";
-    } elseif ($request == "T-Shirts") {
-      $title = "T-Shirts";
-    } elseif ($request == "Furry Footwear") {
-      $title = "Pantoffels";
-    } elseif ($request == "Toys") {
-      $title = "Speelgoed";
-    } elseif ($request == "Novelty Items") {
-      $title = "Snufjes";
-    } elseif ($request == "Packaging Materials") {
-      $title = "Verpakking";
-    } elseif ($request == "Airline Novelties") {
-      $title = "Vliegtuig artikelen";
-    } elseif ($request == "Computing Novelties") {
-      $title = "Computer artikelen";
-    } elseif ($request == "USB Novelties") {
-      $title = "USB's";
-    } elseif ($request == "Mugs") {
-      $title = "Mokken";
+    switch ($request) {
+      case "Clothing":
+        $title = "Kleren";
+        break;
+      case "T-Shirts":
+        $title = "T-Shirts";
+        break;
+      case "Furry Footwear":
+        $title = "Pantoffels";
+        break;
+      case "Toys":
+        $title = "Speelgoed";
+        break;
+      case "Novelty Items":
+        $title = "Snufjes";
+        break;
+      case "Packaging Materials":
+        $title = "Verpakking";
+        break;
+      case "Airline Novelties":
+        $title = "Vliegtuih artikelen";
+        break;
+      case "Computing Novelties":
+        $title = "Computer artikelen";
+        break;
+      case "USB Novelties":
+        $title = "USB's";
+        break;
+      case "Mugs":
+        $title = "Mokken";
+        break;
     }
   }
   if (isset($_GET['global_search']) || isset($_GET['search']) || isset($_GET['filter'])) {
