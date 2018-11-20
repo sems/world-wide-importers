@@ -1,6 +1,5 @@
 <?php
     // print_r($arrayOrders);
-    // [0][0] orderID
 ?>
 <div class="row">
     <div class="col-md-12">
@@ -32,6 +31,7 @@
                 <div id="collapse_content" class="collapse show" aria-labelledby="heading_content" data-parent="#accordion_order">
                     <div class="card-body">
                         <?php
+                            $totalPrice = 0;
                             foreach ($arrayOrders as $data) {
                               ?>
                               <div class='col-md-12'>
@@ -42,6 +42,7 @@
                                       <div class="col-md-5">
                                           <h6><?php print($data['Description']);?></h6>
                                           <p><?php print(!empty($data['Size']) ? "Grootte: " . $data['Size']: "Geen grootte"); ?></p>
+                                          <p><?php print('Aantal: ' . $data['Quantity']) ?></p>
                                       </div>
                                       <div class="col-md-4">
                                           <?php
@@ -49,12 +50,24 @@
                                           //Delete product with a invisible field. Later we can use this field to see which product has been deleted
                                           ?>
                                           <span class="basket_product_price">Stukprijs: €<?php echo $data['UnitPrice']; ?></span>
+                                          <span class="basket_product_price"><strong>Subtotaal: €<?php print(number_format($data['Quantity'] * $data['UnitPrice'], 2)) ; ?></strong></span>
                                       </div>
                                   </div>
                               </div>
                               <?php
+                              $totalPrice = $totalPrice + ($data['Quantity'] * $data['UnitPrice']);
                             }
                         ?>
+                        <div class="col-md-12">
+                          <div class="row basket_product">
+                            <div class="col-md-8">
+                            </div>
+                            <div class="col-md-4">
+                              <p>Verzendkosten: €0.00</p>
+                              <span class="basket_product_price"><strong>Totaal: €<?php print(number_format($totalPrice, 2)); ?></strong></span>
+                            </div>
+                          </div>
+                        </div>
                     </div>
                 </div>
             </div>
