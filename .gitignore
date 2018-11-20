@@ -1,2 +1,5 @@
 src/css/*
 .DS_Store
+private_rsa.pem
+src/inc/config.php
+src/inc/config.php
