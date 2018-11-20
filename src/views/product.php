@@ -6,7 +6,7 @@
         print("<table><tr>");
         print("<td>".(strlen($product['Photo']) < 1 ? "<img id='productImage' src='img/image_not_found.png' />":"<img id='productImage' src='data:image/gif;base64,".base64_encode($product['Photo'])."'/>")."</td>");
         print("<td>".$product['StockItemName']);
-        print("<br />".$product['UnitPrice']);
+        print("<br />&#8364;".$product['UnitPrice']);
         print((strlen($product['MarketingComments']) < 1 ? "":"<br />".$product['MarketingComments']));
         print((strlen($product['Tags']) < 3 ? "":"<br />Tags: ".$product['Tags']));
         print("<br />Op voorraad: ".$product['QuantityOnHand']);

@@ -1,5 +1,5 @@
 <div class="row">
-  <div class="col-md-4">
+  <div class="col-md-6">
     <?php //drop down form to choose filtering for products ?>
     <form action='products.php' method='get'>
       <?php
@@ -8,21 +8,28 @@
           print('<input type="hidden" name="filter" value="'.$_GET['filter'].'" />');
         }
       ?>
-      <div class="input-group mb-3">
-        <select name='order' class="custom-select" id="inputGroupSelect02">
-          <option <?php (isset($_GET['order']) == FALSE ? print("selected"):""); ?> disabled>Sorteer...</option>
-          <option <?php (filter_input(INPUT_GET, "order", FILTER_SANITIZE_STRING) == "ASC" ? print("selected"):""); ?> value='ASC'>Van laag naar hoog</option>
-          <option <?php (filter_input(INPUT_GET, "order", FILTER_SANITIZE_STRING) == "DESC" ? print("selected"):""); ?> value='DESC'>Van hoog naar laag</option>
-        </select>
-      </div>
-      <?php // new search input ?>
-      <div class="input-group mb-3">
-        <form action="products.php" method="get" class="form-inline my-2 my-lg-0">
-          <input class="form-control mr-sm-2" name="search" type="search" placeholder="Zoeken" aria-label="Zoeken" value="<?php print(isset($_GET['search']) ? $_GET['search'] : '') ?>">
-          <div class="input-group-append">
-            <button class="input-group-text" for="inputGroupSelect02" type='submit'>Zoek</button>
+      <div class="row">
+        <div class="col">
+          <div class="input-group mb-3">
+            
+            <select name='order' class="custom-select" id="inputGroupSelect02">
+              <option <?php (isset($_GET['order']) == FALSE ? print("selected"):""); ?> disabled>Sorteer...</option>
+              <option <?php (filter_input(INPUT_GET, "order", FILTER_SANITIZE_STRING) == "ASC" ? print("selected"):""); ?> value='ASC'>Van laag naar hoog</option>
+              <option <?php (filter_input(INPUT_GET, "order", FILTER_SANITIZE_STRING) == "DESC" ? print("selected"):""); ?> value='DESC'>Van hoog naar laag</option>
+            </select>
           </div>
-        </form>
+        </div>
+        <?php // new search input ?>
+        <div class="col">
+          <div class="input-group mb-3">
+            <form action="products.php" method="get" class="form-inline my-2 my-lg-0">
+              <input class="form-control" name="search" type="search" placeholder="Zoeken" aria-label="Zoeken" value="<?php print(isset($_GET['search']) ? $_GET['search'] : '') ?>">
+              <div class="input-group-append">
+                <button class="input-group-text" for="inputGroupSelect02" type='submit'>Zoek</button>
+              </div>
+            </form>
+          </div> 
+        </div>
       </div>
     </form>
   </div>
@@ -49,8 +56,12 @@
         print("</div></div></div>");
       }
       print("</div>");
-    } else {
-      print('Geen resultaten');
+    } else { ?>
+      
+      <div class="col-md-12">
+        <h3>Geen resultaten</h3>
+      </div>
+      <?php
     }
   ?>
 </div>
