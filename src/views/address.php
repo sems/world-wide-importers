@@ -1,9 +1,9 @@
 <h4>Adressen</h4>
 <?php print(getAlert()); ?>
-<button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseAddAddress" aria-expanded="false" aria-controls="collapseAddAddress">
+<button class="btn btn-primary mb-10" type="button" data-toggle="collapse" data-target="#collapseAddAddress" aria-expanded="false" aria-controls="collapseAddAddress">
     Toevoegen
 </button>
-<div class="collapse" id="collapseAddAddress">
+<div class="collapse mb-10" id="collapseAddAddress">
     <div class="card card-body">
         <form action="f_add_address.php" method="post">
             <div class="form-row">

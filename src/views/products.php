@@ -10,9 +10,9 @@
       ?>
       <div class="input-group mb-3">
         <select name='order' class="custom-select" id="inputGroupSelect02">
-          <option selected disabled>Sorteer...</option>
-          <option value='ASC'>Van laag naar hoog</option>
-          <option value='DESC'>Van hoog naar laag</option>
+          <option <?php (isset($_GET['order']) == FALSE ? print("selected"):""); ?> disabled>Sorteer...</option>
+          <option <?php (filter_input(INPUT_GET, "order", FILTER_SANITIZE_STRING) == "ASC" ? print("selected"):""); ?> value='ASC'>Van laag naar hoog</option>
+          <option <?php (filter_input(INPUT_GET, "order", FILTER_SANITIZE_STRING) == "DESC" ? print("selected"):""); ?> value='DESC'>Van hoog naar laag</option>
         </select>
       </div>
       <?php // new search input ?>
