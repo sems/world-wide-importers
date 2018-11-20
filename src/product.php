@@ -19,6 +19,8 @@
         $sql = 'SELECT * FROM stockitems s 
             LEFT JOIN colors c 
                 ON s.ColorID = c.ColorID
+            LEFT JOIN stockitemholdings h
+                ON s.StockItemID = h.StockItemID
             WHERE s.StockItemID = :stockItemID';
         // Query wordt voorbereid
         $query = $db->prepare($sql);
