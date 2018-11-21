@@ -19,6 +19,7 @@ groep project 'world wide importers'
 * Install the composer required composer packages:
   * `$ composer require mollie/mollie-api-php:^2.0`
   * `$ composer require "swiftmailer/swiftmailer:^6.0"`
+  * `$ composer require mpdf/mpdf`
 
 ## Getting started
 
