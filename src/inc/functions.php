@@ -56,7 +56,7 @@
             // Beginning Buffer to save PHP variables and HTML tags
             ob_start();
 
-            echo $body;
+            print($body);
 
             $html = ob_get_contents();
             ob_end_clean();
