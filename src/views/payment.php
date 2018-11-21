@@ -1,11 +1,9 @@
 <div class="row justify-content-md-center">
     <div class="col-md-6">
         <h1 class="h3 mb-3 font-weight-normal">Betaling</h1>
-        
-
+        <?php print(getAlert()); ?>
         <article class="card">
             <div class="card-body p-6">
-                <?php print(getAlert()); ?>
                 <ul class="nav bg-light nav-pills rounded nav-fill mb-3" role="tablist">
                     <li class="nav-item">
                         <a class="nav-link active" data-toggle="pill" href="#nav-tab-card">
@@ -85,7 +83,7 @@
                         <p>Totale prijs: &euro; <?php print (isset($_SESSION['totalprice'])) ? $_SESSION['totalprice'] : '0'; ?></p>
                         <p>
                             <form action="f_pay_ideal.php" method="post">
-                                <button type="submit" class="btn btn-primary"> <i class="fab fa-paypal"></i> Betaal met iDEAL </button>
+                                <button type="submit" class="btn btn-primary"> <i class="fa fa-money-bill-alt"></i> Betaal met iDEAL </button>
                             </form>
                         </p>
                     </div>

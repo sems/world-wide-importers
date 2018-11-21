@@ -1,5 +1,6 @@
-<div class="row justify-content-md-center text-center placed-order">
+<div class="row justify-content-md-center text-center succes-order">
     <div class="col-md-6">
+        <?php print(getAlert()); ?>
         <i class="fas fa-check-circle"></i>
         <h3>Betaling gelukt!</h3>
         <p>De betaling van order <strong><?php print($orderID); ?></strong> is goed bij ons doorgekomen!</p>

@@ -15,16 +15,25 @@
         color: #007bff;
     }
 }
-
-.placed-order {
+.succes-order, .failed-order {
     padding: 30px;
     h3 {
         margin-bottom: 2.5rem;
     }
     i {
         font-size: 80px;
-        color: #34d25a;
         margin-bottom: 1rem;
+    }
+}
+
+.succes-order {
+    i {
+        color: #34d25a;
+    }
+}
+.failed-order {
+    i {
+        color: #D23A34;
     }
 }
 .body {

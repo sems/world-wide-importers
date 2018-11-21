@@ -24,18 +24,34 @@
         // query wordt uitgevoerd, aantal resultaten worden geteld en als dit niet 0 is
         // gaat hij de resultaten in de lege array hierboven zetten. In de views laat hij deze zien
         if($stmt->execute()) {
-          $rowCount = $stmt->execute();
-          if($rowCount !== 0) {
-            while($products = $stmt->fetch()) {
-                array_push($arrayOrders, $products);
+            $rowCount = $stmt->execute();
+            if($rowCount !== 0) {
+                while($products = $stmt->fetch()) {
+                    array_push($arrayOrders, $products);
+                }
             }
-          }
         }
-
-
-    } catch(PDOException $e) {
+    } catch (PDOException $e) {
         //Gives the error message if possible.
-         print("Error: " . $e->getMessage());
+        setAlert("Error.", "danger", $e->getMessage());
+    };
+
+    try {
+        // This query needs to be to one on customertransactions
+        $invoiceStmt = $db->prepare("SELECT Comments, InternalComments FROM invoices WHERE OrderID=:order_id");
+        $invoiceStmt->execute(['order_id' => $_GET['id']]); 
+        $invoice = $invoiceStmt->fetch();
+        // try {
+        //     $mollie = new \Mollie\Api\MollieApiClient();
+        //     $mollie->setApiKey("test_4y6RH4mqcQBQjUPUsrrUeab7eTm83T");
+
+        //     $payment = $mollie->payments->get($invoice['Comments']);
+        // } catch (\Mollie\Api\Exceptions\ApiException $e){
+        //     setAlert("API call failed: ", "danger". $e->getMessage());
+        // }
+    } catch (PDOException $e) {
+        //Gives the error message if possible.
+        setAlert("Error.", "danger", $e->getMessage());
     };
 
     // if post does not exists redirect user.
