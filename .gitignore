@@ -1,2 +1,5 @@
 src/css/*
 .DS_Store
+composer.*
+src/vendor/*
+src/inc/password.php
