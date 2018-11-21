@@ -28,7 +28,7 @@
             
                         // Autoincrement ID
                         $aiID = $maxID['id'] + 1;
-                    
+
                         // Default users
                         $salespersonID = 1;
                         // The next line is only for text not for the final version there need to be a address select
@@ -64,6 +64,7 @@
                             // Execute call
                             $dbinsert-> execute();
                             $orderID = $aiID;
+                            $_SESSION['orderid'] = $orderID;
                             foreach ($basket as $article => $value) {
                                 try {
                                     
@@ -100,8 +101,8 @@
                                         
                                         // clean basket
                                         setcookie('basket', "", time()-3600);
-                                        setAlert("Order is geplaatst.", "success");
-                                        header('Location: orders.php');
+                                        //setAlert("Order is geplaatst.", "success");
+                                        header('Location: payment.php');
                                     } catch (Exception $e) { 
                                         // Ty to make orderline
                                         setAlert("Orderline error.", "danger", $e);
