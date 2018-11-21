@@ -1,6 +1,6 @@
 <div class="row justify-content-md-center">
     <div class="col-md-12">
-        <h1 class="h3 mb-3 font-weight-normal">Adresgegevens</h1>
+        <h1 class="h3 mb-3 font-weight-normal">Gegevens</h1>
         <?php print(getAlert()); ?>
         <form action="f_placeorder_without_account.php" method="post">
             <div class="form-row">

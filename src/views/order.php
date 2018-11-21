@@ -1,6 +1,34 @@
 <div class="row">
     <div class="col-md-12">
+        <h4>Order <?php print($_GET['id']);?></h4>
         <div class="accordion" id="accordion_order">
+            <div class="card">
+                <div class="card-header" id="heading_payment">
+                    <h5 class="mb-0">
+                    <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapse_payment" aria-expanded="true" aria-controls="collapse_payment">
+                        Betaling(en)
+                    </button>
+                    </h5>
+                </div>
+                <div id="collapse_payment" class="collapse" aria-labelledby="heading_payment" data-parent="#accordion_order">
+                  <div class="md-col-12">
+                    <div class="card-body row">
+                        <?php 
+                            if ($invoice['InternalComments'] == "paid") {
+                               print("<p>De betaling is afgerond</p>"); 
+                            } else { ?>
+                                <p>Er is iets mis gegaan met de betaling klik dan
+                                    <form action="f_restart_payment.php" method="post">
+                                        <input type="hidden" name="payment_id" value="<?php print($invoice['Comments']);?>">
+                                        <button class="btn btn-primary" type="submit">hier</button>
+                                    </form></a>
+                                </p> 
+                            <?php }
+                        ?>
+                    </div>
+                  </div>
+                </div>
+            </div>
             <div class="card">
                 <div class="card-header" id="heading_address">
                     <h5 class="mb-0">
@@ -9,7 +37,7 @@
                     </button>
                     </h5>
                 </div>
-                <div id="collapse_delivery" class="collapse show" aria-labelledby="heading_address" data-parent="#accordion_order">
+                <div id="collapse_delivery" class="collapse" aria-labelledby="heading_address" data-parent="#accordion_order">
                   <div class="md-col-12">
                     <div class="card-body row">
                       <div class="md-col-6">

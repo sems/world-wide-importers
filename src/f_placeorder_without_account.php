@@ -203,6 +203,7 @@
                             // Execute call
                             $dbinsert-> execute();
                             $orderID = $aiID;
+                            $_SESSION['orderid'] = $orderID;
                             foreach ($basket as $article => $value) {
                                 try {
                                     
@@ -239,7 +240,7 @@
                                         
                                         // clean basket
                                         setcookie('basket', "", time()-3600);
-                                        setAlert("Order is geplaatst.", "success");
+                                        //setAlert("Order is geplaatst.", "success");
                                         header('Location: payment.php');
                                     } catch (Exception $e) { 
                                         // Ty to make orderline
