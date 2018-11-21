@@ -1,2 +1,4 @@
 src/css/*
 .DS_Store
+composer.*
+src/vendor/*
