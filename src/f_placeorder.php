@@ -65,6 +65,48 @@
                             $dbinsert-> execute();
                             $orderID = $aiID;
                             $_SESSION['orderid'] = $orderID;
+
+                            try {
+                                // Getting first next invoiceID before assigning new one 
+                                $maxInvoiceQry = $db->prepare("SELECT max(InvoiceID) as id FROM invoices");
+                                $maxInvoiceQry->execute(); 
+                                $maxInvoiceID = $maxInvoiceQry->fetch();
+                    
+                                // Autoincrement ID
+                                $aiInvoiceID = $maxInvoiceID['id'] + 1;
+                                $_SESSION['invoiceID'] = $aiInvoiceID;
+                                
+                                $DeliveryMethod = 2; // Courier
+                                $isCreditNote = 0;
+                                $totalItems = 1;
+                                $totalChillerItems = 0;
+                                $invoice_query = "INSERT INTO invoices (InvoiceID, CustomerID, BillToCustomerID, OrderID, DeliveryMethodID, ContactPersonID, AccountsPersonID, SalespersonPersonID, PackedByPersonID, InvoiceDate, IsCreditNote, TotalDryItems, TotalChillerItems, LastEditedBy, LastEditedWhen)
+                                VALUES (:invoice_id, :customer_id, :bill_to_id, :order_id, :delivery_id, :contact_person_id, :account_person_id, :sales_person_id, :packed_by_id, :invoice_date, :is_credit_note, :total_items, :total_chiller_items, :last_edit_by, :last_edit_when) ";
+                                
+                                //Prepares statement and bind parameters
+                                $invoice_insert = $db->prepare($invoice_query);
+                                $invoice_insert->bindParam(':invoice_id', $aiInvoiceID, PDO::PARAM_STR);
+                                $invoice_insert->bindParam(':customer_id', $customerID, PDO::PARAM_STR);
+                                $invoice_insert->bindParam(':bill_to_id', $customerID, PDO::PARAM_STR);
+                                $invoice_insert->bindParam(':order_id', $orderID, PDO::PARAM_STR);
+                                $invoice_insert->bindParam(':delivery_id', $DeliveryMethod, PDO::PARAM_STR);
+                                $invoice_insert->bindParam(':contact_person_id', $contactPersonId, PDO::PARAM_STR);
+                                $invoice_insert->bindParam(':account_person_id', $contactPersonId, PDO::PARAM_STR);
+                                $invoice_insert->bindParam(':sales_person_id', $salespersonID, PDO::PARAM_STR);
+                                $invoice_insert->bindParam(':packed_by_id', $salespersonID, PDO::PARAM_STR);
+                                $invoice_insert->bindParam(':invoice_date', $currentDate, PDO::PARAM_STR);
+                                $invoice_insert->bindParam(':is_credit_note', $isCreditNote, PDO::PARAM_STR);
+                                $invoice_insert->bindParam(':total_items', $totalItems, PDO::PARAM_STR);
+                                $invoice_insert->bindParam(':total_chiller_items', $totalChillerItems, PDO::PARAM_STR);
+                                $invoice_insert->bindParam(':last_edit_by', $personID, PDO::PARAM_STR);
+                                $invoice_insert->bindParam(':last_edit_when', $currentDate, PDO::PARAM_STR);
+                                // Execute call
+                                $invoice_insert-> execute();
+                            } catch (Exception $e) {
+                                setAlert("Invoice insert error.", "danger", $e);
+                                header('Location: basket.php');
+                                exit();
+                            }
                             foreach ($basket as $article => $value) {
                                 try {
                                     
