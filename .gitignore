@@ -4,3 +4,4 @@ private_rsa.pem
 src/inc/config.php
 composer.*
 src/vendor/*
+src/inc/password.php
