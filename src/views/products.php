@@ -1,7 +1,7 @@
 <div class="row">
   <div class="col-md-6">
     <?php //drop down form to choose filtering for products ?>
-    <form action='products.php' method='get'>
+    <form action='products.php' method='get' class="form-inline my-2 my-lg-0">
       <?php
         if (isset($_GET['filter'])) {
           // Check if filter isset, if so add hidden name and value of filter to form
@@ -21,12 +21,10 @@
         <?php // new search input ?>
         <div class="col">
           <div class="input-group mb-3">
-            <form action="products.php" method="get" class="form-inline my-2 my-lg-0">
-              <input class="form-control" name="search" type="search" placeholder="Zoeken" aria-label="Zoeken" value="<?php print(isset($_GET['search']) ? $_GET['search'] : '') ?>">
-              <div class="input-group-append">
-                <button class="input-group-text" for="inputGroupSelect02" type='submit'>Zoek</button>
-              </div>
-            </form>
+            <input class="form-control" name="search" type="search" placeholder="Zoeken" aria-label="Zoeken" value="<?php print(isset($_GET['search']) ? $_GET['search'] : '') ?>">
+            <div class="input-group-append">
+              <button class="input-group-text" for="inputGroupSelect02" type='submit'>Zoek</button>
+            </div>
           </div> 
         </div>
       </div>
