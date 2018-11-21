@@ -37,7 +37,7 @@
                                 <tr>
                                     <td>
                                         <?php
-                                            print("Voorraad: </td><td>".$product['QuantityOnHand']);
+                                            print("Voorraad: </td><td>".(strlen($product['QuantityOnHand']) < 1 ? "Geen voorraad":print($product['QuantityOnHand'])));
                                         ?>
                                     </td>
                                 </tr>
