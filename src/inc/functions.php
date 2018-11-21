@@ -10,7 +10,7 @@
     }
 
     function getAlert(){
-        if(isSet($_SESSION['alert'])) {
+        if(isset($_SESSION['alert'])) {
             //Access your Session variable
             $temp = $_SESSION['alert'];
             $message = $temp[0];

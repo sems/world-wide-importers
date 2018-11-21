@@ -1,3 +1,4 @@
+<?php print(getAlert()); ?>
 <div class="row">
   <div class="col-md-6">
     <?php //drop down form to choose filtering for products ?>
