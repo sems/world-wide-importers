@@ -82,8 +82,11 @@
                 
                     <div class="tab-pane fade" id="nav-tab-ideal">
                         <p>iDEAL is een van nederlands grootste betaalmethodes.</p>
+                        <p>Totale prijs: &euro; <?php print (isset($_SESSION['totalprice'])) ? $_SESSION['totalprice'] : '0'; ?></p>
                         <p>
-                            <button type="button" class="btn btn-primary"> <i class="fab fa-paypal"></i> Betaal met iDEAL </button>
+                            <form action="f_pay_ideal.php" method="post">
+                                <button type="submit" class="btn btn-primary"> <i class="fab fa-paypal"></i> Betaal met iDEAL </button>
+                            </form>
                         </p>
                     </div>
 
