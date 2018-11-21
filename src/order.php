@@ -13,6 +13,8 @@
           ON SI.stockItemID = OL.StockItemID
         JOIN customers C
             ON O.CustomerID = C.CustomerID
+        JOIN cities CI
+          ON CI.CityID = C.DeliveryCityID
         WHERE O.OrderID = '.$_GET['id'].'');
 
         $order = $stmt->fetch();
