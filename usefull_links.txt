@@ -4,3 +4,4 @@ https://placeholder.com/
 https://github.com/mpdf/mpdf
 https://mpdf.github.io/real-life-examples/e-mail-a-pdf-file.html
 https://swiftmailer.symfony.com/docs/messages.html
+https://getcomposer.org/download/
