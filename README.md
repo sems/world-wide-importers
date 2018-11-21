@@ -28,6 +28,6 @@ Be in the `/src` folder when executing the following commands in your terminal
 * Go to your local dev env `[DOCROOT]/src`.
 * Add your password to `inc/password.php`
 
-## Email function
+## Email function (swiftmailer needs to be installed)
 * Include following: `include 'inc/functions.php';`
 * Then send email as following: `sendEmail("test@example.com", "John Doe", "Subject", "Body");`
