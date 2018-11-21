@@ -11,8 +11,7 @@
       <div class="row">
         <div class="col">
           <div class="input-group mb-3">
-            
-            <select name='order' class="custom-select" id="inputGroupSelect02">
+            <select name='order' class="custom-select" id="inputGroupSelect02" onchange="this.form.submit()">
               <option <?php (isset($_GET['order']) == FALSE ? print("selected"):""); ?> disabled>Sorteer...</option>
               <option <?php (filter_input(INPUT_GET, "order", FILTER_SANITIZE_STRING) == "ASC" ? print("selected"):""); ?> value='ASC'>Van laag naar hoog</option>
               <option <?php (filter_input(INPUT_GET, "order", FILTER_SANITIZE_STRING) == "DESC" ? print("selected"):""); ?> value='DESC'>Van hoog naar laag</option>

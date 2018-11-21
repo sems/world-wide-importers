@@ -1,4 +1,6 @@
 <?php
+    require_once 'vendor/autoload.php';
+    
     function IsNullOrEmptyString($str){
         return (!isset($str) || trim($str) === '' || strlen($str) == 0 || !is_null($str) || !empty($str));
     }
@@ -42,5 +44,26 @@
             }
             
         }
+    }
+
+    function sendEmail($to, $name, $subject, $body) {
+        // Create the Transport
+        $transport = (new Swift_SmtpTransport('smtp.gmail.com', 465, 'ssl'))
+        ->setUsername('worldwideimporters8@gmail.com')
+        ->setPassword(file_get_contents('inc/password.php'))
+        ;
+
+        // Create the Mailer using your created Transport
+        $mailer = new Swift_Mailer($transport);
+
+        // Create a message
+        $message = (new Swift_Message($subject))
+        ->setFrom(['worldwideimporters8@gmail.com' => 'Joris Vos'])
+        ->setTo([$to, 'worldwideimporters8@gmail.com' => $name])
+        ->setBody($body)
+        ;
+
+        // Send the message
+        $result = $mailer->send($message);
     }
 ?>
