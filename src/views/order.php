@@ -67,7 +67,7 @@
                                       </div>
                                   </div>
                               </div>
-                              <?php
+                              <?php 
                               $totalPrice = $totalPrice + ($data['Quantity'] * $data['UnitPrice']);
                             }
                         ?>
