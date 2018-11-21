@@ -46,9 +46,11 @@
         }
     }
 
-    function sendEmail($to, $name, $subject, $body) {
+    function sendEmail($to, $name, $subject, $body, $makePDFFromEmail = false) {
         $content = '';
-        { // Create PDF document from message as attachment
+        if ($makePDFFromEmail) { 
+            // Check if a PDF should be made.
+            // Create PDF document from message as attachment
             $mpdf = new \Mpdf\Mpdf(); // Create new mPDF Document
             
             // Beginning Buffer to save PHP variables and HTML tags
@@ -76,20 +78,33 @@
 
         // Create the Mailer using your created Transport
         $mailer = new Swift_Mailer($transport);
+        $message = '';
 
         // Create the new attachment
-        $attachment = new Swift_Attachment($content, 'order.pdf', 'application/pdf');
+        if ($makePDFFromEmail) { 
+            $attachment = new Swift_Attachment($content, 'order.pdf', 'application/pdf');
 
-        // Create a message
-        $message = (new Swift_Message($subject))
-        ->setFrom([$from => $fromName])
-        ->setBcc([$from => $fromName])
-        ->setTo([$to => $name])
-        ->setBody($body, 'text/html')
-        ->setContentType("text/html; charset=ISO-8859-1")
-        ->setReplyTo($from)
-        ->attach($attachment)
-        ;
+            // Create a message
+            $message = (new Swift_Message($subject))
+            ->setFrom([$from => $fromName])
+            ->setBcc([$from => $fromName])
+            ->setTo([$to => $name])
+            ->setBody($body, 'text/html')
+            ->setContentType("text/html; charset=ISO-8859-1")
+            ->setReplyTo($from)
+            ->attach($attachment)
+            ;
+        } else {
+            // Create a message
+            $message = (new Swift_Message($subject))
+            ->setFrom([$from => $fromName])
+            ->setBcc([$from => $fromName])
+            ->setTo([$to => $name])
+            ->setBody($body, 'text/html')
+            ->setContentType("text/html; charset=ISO-8859-1")
+            ->setReplyTo($from)
+            ;
+        }
 
         // Send the message
         $result = $mailer->send($message);

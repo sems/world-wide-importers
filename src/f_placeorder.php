@@ -242,7 +242,7 @@
                                 }
 
                                 // Sending email
-                                sendEmail("jorisvos037@gmail.com", "Joris Vos", "Test", $message);
+                                sendEmail("jorisvos037@gmail.com", "Joris Vos", "Test", $message, true);
 
                                 // Redirect to payment.php after email is send
                                 header('Location: payment.php');
