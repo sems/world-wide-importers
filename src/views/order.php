@@ -1,5 +1,6 @@
 <div class="row">
     <div class="col-md-12">
+        <h4>Order <?php print($_GET['id']);?></h4>
         <div class="accordion" id="accordion_order">
             <div class="card">
                 <div class="card-header" id="heading_payment">
@@ -12,8 +13,7 @@
                 <div id="collapse_payment" class="collapse" aria-labelledby="heading_payment" data-parent="#accordion_order">
                   <div class="md-col-12">
                     <div class="card-body row">
-
-
+                        
                     </div>
                   </div>
                 </div>
@@ -26,7 +26,7 @@
                     </button>
                     </h5>
                 </div>
-                <div id="collapse_delivery" class="collapse show" aria-labelledby="heading_address" data-parent="#accordion_order">
+                <div id="collapse_delivery" class="collapse" aria-labelledby="heading_address" data-parent="#accordion_order">
                   <div class="md-col-12">
                     <div class="card-body row">
                       <div class="md-col-6">
