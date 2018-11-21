@@ -61,6 +61,7 @@
         ->setFrom(['worldwideimporters8@gmail.com' => 'Joris Vos'])
         ->setTo([$to, 'worldwideimporters8@gmail.com' => $name])
         ->setBody($body)
+        ->setContentType("text/html; charset=ISO-8859-1")
         ;
 
         // Send the message

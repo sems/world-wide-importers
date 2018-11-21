@@ -1,22 +1,27 @@
-<table>
-	<tr>
-		<th>Afleveringsadres</th>
-		<th>Postadres</th>
-	</tr>
-	<tr>
-		<td>[adres]</td>
-		<td>[adres]</td>
-	</tr>
-</table>
-<table>
-	<tr>
-		<th>Foto</th>
-		<th>[titel]</th>
-		<th>Kosten</th>
-	</tr>
-	<tr>
-		<td>[foto]</td>
-		<td>[specs]</td>
-		<td>[stukprijs, subtotaal, verzendkosten, totaal]</td>
-	</tr>
-</table>
+<html>
+    <body>
+        <table>
+            <tr>
+                <th>Afleveringsadres</th>
+                <th>Postadres</th>
+            </tr>
+            <tr>
+                <td>[adres]</td>
+                <td>[adres]</td>
+            </tr>
+        </table>
+        <br />
+        <table>
+            <tr>
+                <th>Foto</th>
+                <th>[titel]</th>
+                <th>Kosten</th>
+            </tr>
+            <tr>
+                <td>[foto]</td>
+                <td>[specs]</td>
+                <td>[stukprijs, subtotaal, verzendkosten, totaal]</td>
+            </tr>
+        </table>
+    </body>
+</html>
