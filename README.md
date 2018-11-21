@@ -26,4 +26,4 @@ Be in the `/src` folder when executing the following commands in your terminal
 * Watch Sass file `sass --watch scss/main.scss css/main.css`.
 * Run webserver `lt --port [local webserverport]` 
 * Go to your local dev env `[DOCROOT]/src`.
-* Add file `inc/password.php` and insert the email password
+* Add your password to `inc/password.php`
