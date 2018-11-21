@@ -10,7 +10,7 @@
     }
 
     function getAlert(){
-        if(isSet($_SESSION['alert'])) {
+        if(isset($_SESSION['alert'])) {
             //Access your Session variable
             $temp = $_SESSION['alert'];
             $message = $temp[0];
@@ -61,6 +61,7 @@
         ->setFrom(['worldwideimporters8@gmail.com' => 'Joris Vos'])
         ->setTo([$to, 'worldwideimporters8@gmail.com' => $name])
         ->setBody($body)
+        ->setContentType("text/html; charset=ISO-8859-1")
         ;
 
         // Send the message
