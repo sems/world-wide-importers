@@ -2,7 +2,7 @@
     session_start();
     include("functions.php");
     // Database credentials
-    define('DBHOST','localhost');
+    define('DBHOST','localhost:3307');
     define('DBNAME','wideworldimporters');
     define('DBUSER','root');
     define('DBPASS','root');

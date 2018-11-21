@@ -19,9 +19,13 @@
                     $data->execute();
                     $data = $data->fetch();
                     //Show product name and picture
-                    ?> 
-                    <div class='col-md-12'> 
+                    ?>
+                    <div class='col-md-12'>
                         <div class="row basket_product">
+                            <?php
+                            ?> <div class='col-md-3'> <?php print(strlen($data['Photo']) < 1 ? "<img src='http://placehold.it/150x150' />":"<img src='data:image/gif;base64,".base64_encode($data['Photo'])."'/>");
+                            ?> </div>
+
                             <div class='col-md-3'> 
                                 <?php print(strlen($data['Photo']) < 1 ? "<img src='http://placehold.it/150x150' />":"<img src='data:image/gif;base64,".base64_encode($data['Photo'])."'/>");?> 
                             </div> 
@@ -41,12 +45,12 @@
                                     <input class='form-control' type='number' <?php print("name='" . $key . "' value='" . $value . "' onchange='send_button" . $key . ".form.submit()'") ?>>
                                     <button style="display: none;" class='btn btn-warning' type='submit' value='Bevestig' <?php print("id='send_button" . $key . "'") ?>></button>
                                 </form>
-                            
+
                                 <?php
                                 //Delete product with a invisible field. Later we can use this field to see which product has been deleted
-                                ?>   
+                                ?>
                                 <span class="basket_product_price">Stukprijs: €<?php print($data['UnitPrice']); ?></span> 
-                                <span class="basket_product_price"><strong>Subtotaal: €<?php print(number_format($value * $data['UnitPrice'], 2)) ; ?></strong></span>                 
+                                <span class="basket_product_price"><strong>Subtotaal: €<?php print(number_format($value * $data['UnitPrice'], 2)) ; ?></strong></span>
                             </div>
                         </div>
                     </div>
@@ -55,18 +59,18 @@
                 }
             } else {
                 //This piece of code runs when cookie 'basket' doesn't exist
-                ?> 
+                ?>
                 <div class="col-md-6 start-shopping text-center mx-auto">
                     <i class="fas fa-shopping-basket"></i>
                     <h3>Uw winkelwagen is leeg</h3>
                     <a class="btn btn-primary" href="index.php">Winkelen</a>
                 </div>
                 <?php
-            }    
+            }
             ?>
         </div>
     </div>
-        <?php 
+        <?php
             if (isset($_COOKIE['basket'])) {
                 ?>
                 <div class="col-md-4">
@@ -74,6 +78,20 @@
                     <p>Verzendkosten: €0.00</p>
                     <hr />
                     <p><strong> Totaal prijs: €<?php print(number_format($totalPrice, 2))?></strong></p>
+                    <form action="f_placeorder.php" method="post">
+                        <div class="form-group">
+                            <label for="basket_address_select">Verzendadres</label>
+                            <select class="form-control" name="address_select" id="basket_address_select">
+                            <?php
+                                // check if user already excits with the email
+                                $personID = $_SESSION['PersonID'];
+                                $stmt = $db->prepare("SELECT C.CustomerID, C.PrimaryContactPersonID, C.DeliveryAddressLine1, Cs.CityName FROM customers C JOIN cities Cs ON C.DeliveryCityID = Cs.CityID  WHERE PrimaryContactPersonID=:person_id");
+                                $stmt->execute(['person_id' => $personID]);
+                                $row = $stmt->fetchAll();
+                                foreach ($row as $address){
+                                    print("<option value='".$address['CustomerID']."'>".$address['DeliveryAddressLine1']." ".$address['CityName']."</option>");
+                                }
+
                     <?php 
                         if (isset($_SESSION['logged_in'])) {
                             ?>
