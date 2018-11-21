@@ -68,6 +68,7 @@
     </div>
         <?php
             if (isset($_COOKIE['basket'])) {
+                $_SESSION['totalprice'] = number_format($totalPrice, 2);
                 ?>
                 <div class="col-md-4">
                     <p>Subtotaal: €<?php print(number_format($totalPrice, 2))?></p>

@@ -1,4 +1,6 @@
 src/css/*
 .DS_Store
+private_rsa.pem
+src/inc/config.php
 composer.*
 src/vendor/*
