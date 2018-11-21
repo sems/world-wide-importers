@@ -22,10 +22,6 @@
                     ?>
                     <div class='col-md-12'>
                         <div class="row basket_product">
-                            <?php
-                            ?> <div class='col-md-3'> <?php print(strlen($data['Photo']) < 1 ? "<img src='http://placehold.it/150x150' />":"<img src='data:image/gif;base64,".base64_encode($data['Photo'])."'/>");
-                            ?> </div>
-
                             <div class='col-md-3'> 
                                 <?php print(strlen($data['Photo']) < 1 ? "<img src='http://placehold.it/150x150' />":"<img src='data:image/gif;base64,".base64_encode($data['Photo'])."'/>");?> 
                             </div> 
@@ -92,8 +88,7 @@
                                     print("<option value='".$address['CustomerID']."'>".$address['DeliveryAddressLine1']." ".$address['CityName']."</option>");
                                 }
 
-                    <?php 
-                        if (isset($_SESSION['logged_in'])) {
+                        if(isset($_SESSION['logged_in'])) {
                             ?>
                                 <form action="f_placeorder.php" method="post">
                                     <div class="form-group">
