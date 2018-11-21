@@ -69,7 +69,7 @@
         // https://swiftmailer.symfony.com/docs/messages.html
         // Initialize variables
         $from = "worldwideimporters8@gmail.com";
-        $fromName = "Joris Vos";
+        $fromName = "World Wide Importers";
         // Create the Transport
         $transport = (new Swift_SmtpTransport('smtp.gmail.com', 465, 'ssl'))
         ->setUsername('worldwideimporters8@gmail.com')
