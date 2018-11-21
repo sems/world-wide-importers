@@ -2,6 +2,23 @@
     <div class="col-md-12">
         <div class="accordion" id="accordion_order">
             <div class="card">
+                <div class="card-header" id="heading_payment">
+                    <h5 class="mb-0">
+                    <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapse_payment" aria-expanded="true" aria-controls="collapse_payment">
+                        Betaling(en)
+                    </button>
+                    </h5>
+                </div>
+                <div id="collapse_payment" class="collapse" aria-labelledby="heading_payment" data-parent="#accordion_order">
+                  <div class="md-col-12">
+                    <div class="card-body row">
+
+
+                    </div>
+                  </div>
+                </div>
+            </div>
+            <div class="card">
                 <div class="card-header" id="heading_address">
                     <h5 class="mb-0">
                     <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapse_delivery" aria-expanded="true" aria-controls="collapse_delivery">

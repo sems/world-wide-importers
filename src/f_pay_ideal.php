@@ -17,7 +17,7 @@
                 "value" => $amount
             ],
             "description" => "Betaling order: ".$orderID,
-            "redirectUrl" => $actual_link."/order.php?id=".$orderID,
+            "redirectUrl" => $actual_link."/succes.php",
             "webhookUrl"  => "https://webshop.example.org/mollie-webhook/",
             "method"      => \Mollie\Api\Types\PaymentMethod::IDEAL,
             "issuer"      => $selectedIssuerId, // e.g. "ideal_INGBNL2A"
