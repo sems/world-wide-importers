@@ -3,15 +3,72 @@
         // Check if a product is selected, if not print error message
         print('<div class="alert alert-danger" role="alert">Er is geen product geselecteerd!</div>');
     } else {
-        print("<table><tr>");
-        print("<td>".(strlen($product['Photo']) < 1 ? "<img id='productImage' src='img/image_not_found.png' />":"<img id='productImage' src='data:image/gif;base64,".base64_encode($product['Photo'])."'/>")."</td>");
-        print("<td>".$product['StockItemName']);
-        print("<br />".$product['UnitPrice']);
-        print("<br />".(strlen($product['MarketingComments']) < 1 ? "Geen marketing comments":$product['MarketingComments']));
-        print("<br />".(strlen($product['Tags']) < 1 ? "Geen tags":"Tags: ".$product['Tags']));
-        print("<br />".($product['ColorID'] == 0 ? "Geen kleur":$product['ColorName']));
-        print("<form method='post' action='f_add_to_basket.php'><input class='form-control' type='number' name='itemAmount' id='itemAmount' min='1' value='1'> <input type='hidden' id='".$product['StockItemID']."' name='itemID' value='".$product['StockItemID']."'><button class='btn btn-primary btn-block' type='submit'><span class='fa fa-cart-plus'></span></button></form>");
-        print("</td>");
-        print("</tr></table>");
+        ?>
+        <div class='row'>
+            <div class='col-md-3'>
+                <!--<div class='card'>-->
+                    <img id='productImage' src='
+                        <?php
+                            (strlen($product['Photo']) < 1 ? 
+                                print("img/image_not_found.png"):
+                                print("data:image/gif;base64,".base64_encode($product['Photo']))); 
+                        ?>
+                    '/>
+                <!--</div>-->
+            </div>
+            <div class='col-md-5'>
+                <div class='card'>
+                    <div class='card-header'>
+                        <strong><?php print($product['StockItemName']); ?></strong>
+                    </div>
+                    <div class='card-body'>
+                        <h6 class='card-subtitle mb-2'>
+                            Prijs: &euro;<?php print($product['UnitPrice']); ?>
+                        </h6>
+                        <p class='card-text'>
+                            <table>
+                                <tr>
+                                    <td>
+                                        <?php
+                                            (strlen($product['MarketingComments']) < 1 ? "":print("Opmerkingen: </td><td>".$product['MarketingComments']));
+                                        ?>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <?php
+                                            print("Voorraad: </td><td>".$product['QuantityOnHand']);
+                                        ?>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <?php
+                                            (strlen($product['Tags']) < 3 ? "":print("Tags: </td><td>".$product['Tags']));
+                                        ?>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <?php
+                                            print($product['ColorID'] == 0 ? "":"Kleur: </td><td>".$product['ColorName']);
+                                        ?>
+                                    </td>
+                                </tr>
+                            </table>
+                        </p>
+                        <form method='post' action='f_add_to_basket.php'>
+                            <div>
+                                <input style='float: left;' class='form-control col-md-4' type='number' name='itemAmount' id='itemAmount' min='1' max='".$product['QuantityOnHand']."' value='1'>
+                                <input type='hidden' id='<?php print($product['StockItemID']); ?>' name='itemID' value='<?php print($product['StockItemID']); ?>'>
+                                <button style='float: left;' class='btn btn-primary btn-block col-md-2' type='submit'>
+                                    <span class='fa fa-cart-plus'></span>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        <?php
     }
 ?>
