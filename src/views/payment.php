@@ -82,7 +82,7 @@
                         <p>iDEAL is een van nederlands grootste betaalmethodes.</p>
                         <p>Totale prijs: &euro; <?php print (isset($_SESSION['totalprice'])) ? $_SESSION['totalprice'] : '0'; ?></p>
                         <p>
-                            <form action="f_pay_ideal.php" method="post">
+                            <form action="f_handler.php?form_handler=f_pay_ideal.php" method="post">
                                 <button type="submit" class="btn btn-primary"> <i class="fa fa-money-bill-alt"></i> Betaal met iDEAL </button>
                             </form>
                         </p>
