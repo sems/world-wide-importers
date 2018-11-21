@@ -6,19 +6,20 @@
         if (isset($_COOKIE['basket'])) {
             $personID = $_SESSION['PersonID'];
             
-            // check if user already excits with the email
-            $stmt = $db->prepare("SELECT CustomerID, PrimaryContactPersonID FROM customers WHERE PrimaryContactPersonID=:person_id");
-            $stmt->execute(['person_id' => $personID]); 
-            $row = $stmt->fetch();
+            if (isset($_SESSION['PersonID'])) {
+                # for users with an account
+                
+                // check if user already excits with the adrress
+                $stmt = $db->prepare("SELECT CustomerID, PrimaryContactPersonID FROM customers WHERE PrimaryContactPersonID=:person_id");
+                $stmt->execute(['person_id' => $personID]); 
+                $row = $stmt->fetch();
 
-            if (!empty($row)) {
-                # if customer has address
-                if (isset($_SESSION['PersonID'])) {
-                    # for users with an account
+                if (!empty($row)) {
+                    # if customer has address
                     $basket = json_decode($_COOKIE['basket'], true);
                     $deliveryAddress = $_POST['address_select'];
                     if (isset($deliveryAddress)) {
-                        // Deliveryaddress has been selected
+                        # Deliveryaddress has been selected
 
                         // Getting first next orderID before assigning new one 
                         $qry = $db->prepare("SELECT max(OrderID) as id FROM orders");
@@ -133,8 +134,12 @@
             }
         } else {
             # there is no basket.
+            setAlert("Er waren geen producten in de winkelwagen gevonden.", "warning");
+            header('Location: basket.php');
         }
     } else {
         # No data has been posted
+        setAlert("Er was geen POST op dit formulier.", "danger");
+        header('Location: basket.php');
     }
 ?>
