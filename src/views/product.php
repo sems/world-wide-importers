@@ -57,13 +57,15 @@
                                 </tr>
                             </table>
                         </p>
-                        <form method='post' action='f_add_to_basket.php'>
-                            <div>
-                                <input style='float: left;' class='form-control col-md-4' type='number' name='itemAmount' id='itemAmount' min='1' max='<?php print($product['QuantityOnHand']); ?>' value='1'>
+                        <form method='post' action='f_handler.php?form_handler=f_add_to_basket.php'>
+                            <div class="input-group mb-3">
                                 <input type='hidden' id='<?php print($product['StockItemID']); ?>' name='itemID' value='<?php print($product['StockItemID']); ?>'>
-                                <button style='float: left;' class='btn btn-primary btn-block col-md-2' type='submit'>
-                                    <span class='fa fa-cart-plus'></span>
-                                </button>
+                                <input style='float: left;' class='form-control col-md-4' type='number' name='itemAmount' id='itemAmount' min='1' max='<?php print($product['QuantityOnHand']); ?>' value='1'>
+                                <div class="input-group-append">
+                                    <button style='float: left;' class='btn btn-primary btn-block input-group-text' type='submit'>
+                                        <span class='fa fa-cart-plus'></span>
+                                    </button>
+                                </div>
                             </div>
                         </form>
                     </div>

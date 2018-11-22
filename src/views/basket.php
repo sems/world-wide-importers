@@ -28,7 +28,7 @@
                             <div class="col-md-5">
                                 <h6><?php print($data['StockItemName']);?></h6>
                                 <p><?php print(!empty($data['Size']) ? "Grootte: " . $data['Size']: "Geen grootte"); ?></p>
-                                <form method="post" action="f_delete_from_basket.php">
+                                <form method="post" action="f_handler.php?form_handler=f_delete_from_basket.php">
                                     <input type="hidden" <?php print("name='" . $key . "'") ?> <?php print("value='" . $basket[$key] . "'")?>>
                                     <button class="btn btn-primary" type='submit' <?php print("value='" . $key . "'") ?>>Verwijder product</button>
                                 </form>
@@ -37,7 +37,7 @@
                                 <?php
                                 //Change amount with form which automatically submits when value changes
                                 ?>
-                                <form method='post' action='f_change_amount_basket.php'>
+                                <form method='post' action='f_handler.php?form_handler=f_change_amount_basket.php'>
                                     <input class='form-control' type='number' <?php print("name='" . $key . "' value='" . $value . "' onchange='send_button" . $key . ".form.submit()'") ?>>
                                     <button style="display: none;" class='btn btn-warning' type='submit' value='Bevestig' <?php print("id='send_button" . $key . "'") ?>></button>
                                 </form>
@@ -78,7 +78,7 @@
                     <?php
                         if(isset($_SESSION['logged_in'])) {
                             ?>
-                                <form action="f_placeorder.php" method="post">
+                                <form action="f_handler.php?form_handler=f_placeorder.php" method="post">
                                     <div class="form-group">
                                         <label for="basket_address_select">Verzendadres</label>   
                                         <select class="form-control" name="address_select" id="basket_address_select">
