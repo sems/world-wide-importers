@@ -91,7 +91,7 @@
             ->setTo([$to => $name])
             ->setBody($body, 'text/html')
             ->setContentType("text/html; charset=ISO-8859-1")
-            ->setReplyTo($from)
+            ->setReplyTo([$from => $fromName])
             ->attach($attachment)
             ;
         } else {
