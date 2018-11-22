@@ -15,7 +15,7 @@
             ON O.CustomerID = C.CustomerID
         JOIN cities CI
           ON CI.CityID = C.DeliveryCityID
-        WHERE O.OrderID = '.$_GET['id'].''); 
+        WHERE O.OrderID = '.$_GET['id'].' AND C.PrimaryContactPersonID = '.$_SESSION['PersonID'].''); 
 
         $order = $stmt->fetch();
 
@@ -31,6 +31,8 @@
                 }
             }
         }
+
+        $query = 'SELECT ';
     } catch (PDOException $e) {
         //Gives the error message if possible.
         setAlert("Error.", "danger", $e->getMessage());
@@ -39,7 +41,7 @@
     try {
         // This query needs to be to one on customertransactions
         $invoiceStmt = $db->prepare("SELECT Comments, InternalComments FROM invoices WHERE OrderID=:order_id");
-        $invoiceStmt->execute(['order_id' => $_GET['id']]); 
+        $invoiceStmt->execute(['order_id' => $_GET['id']]);
         $invoice = $invoiceStmt->fetch();
         // try {
         //     $mollie = new \Mollie\Api\MollieApiClient();
