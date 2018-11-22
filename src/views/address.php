@@ -5,7 +5,7 @@
 </button>
 <div class="collapse mb-10" id="collapseAddAddress">
     <div class="card card-body">
-        <form action="f_add_address.php" method="post">
+        <form action="f_handler.php?form_handler=f_add_address.php" method="post">
             <div class="form-row">
                 <div class="form-group col-md-8">
                     <label for="inputName">Volledige naam</label>

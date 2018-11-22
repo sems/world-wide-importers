@@ -21,7 +21,7 @@
                     ],
                     "description" => "Betaling order: ".$orderID,
                     "redirectUrl" => $actual_link."/finish.php",
-                    "webhookUrl"  => $actual_link."/f_ideal-webhook.php",
+                    "webhookUrl"  => $actual_link."/f_handler.php?form_handler=f_ideal-webhook.php",
                     "method"      => \Mollie\Api\Types\PaymentMethod::IDEAL,
                     "issuer"      => $selectedIssuerId, 
                     "metadata" => [
