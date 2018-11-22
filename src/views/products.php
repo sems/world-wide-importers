@@ -33,7 +33,7 @@
   </div>
 
   <?php
-    // For each produc print product photo (or fallback photo) and add product name
+    // For each product print product photo (or fallback photo) and add product name
     if(sizeOf($arrayProducts) >= 1) {
       $i = 0;
       print("<div class='card-deck product-row-margin'>");
