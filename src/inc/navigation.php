@@ -15,6 +15,11 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
             <?php
+                $global_search_value = '';
+                if (isset($_GET['global_search'])) {
+                    $global_search_value = filter_input(INPUT_GET, "global_search", FILTER_SANITIZE_STRING);
+                }
+
                 // Add new pages in array, "filename.php" => "Name",
                 $pages = array(
                     "Kleren" => array(
@@ -54,7 +59,7 @@
             ?>
             </ul>
             <form action="products.php" method="get" class="form-inline my-2 my-lg-0">
-                <input class="form-control mr-sm-2" name="global_search" type="search" placeholder="Zoeken" aria-label="Zoeken">
+                <input class="form-control mr-sm-2" name="global_search" type="search" placeholder="Zoeken" aria-label="Zoeken" value="<?php print($global_search_value); ?>">
                 <div>
                     <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Zoek</button>
                     <a class="btn btn-primary my-2 my-sm-0 basketBtn <?php print($title == "Winkelwagen" ? "basketActive":""); ?>" href="basket.php"><i class="fas fa-shopping-basket basket"></i></a>

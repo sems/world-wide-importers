@@ -1,0 +1,7 @@
+https://www.daniweb.com/programming/web-development/threads/379610/set-session-through-javascript-onclick
+https://www.youtube.com/watch?v=0wYSviHeRbs
+https://placeholder.com/
+https://github.com/mpdf/mpdf
+https://mpdf.github.io/real-life-examples/e-mail-a-pdf-file.html
+https://swiftmailer.symfony.com/docs/messages.html
+https://getcomposer.org/download/

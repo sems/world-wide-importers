@@ -37,14 +37,14 @@
                                 <tr>
                                     <td>
                                         <?php
-                                            print("Voorraad: </td><td>".$product['QuantityOnHand']);
+                                            print("Voorraad: </td><td>".(strlen($product['QuantityOnHand']) < 1 ? "Geen voorraad":$product['QuantityOnHand']));
                                         ?>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
                                         <?php
-                                            (strlen($product['Tags']) < 3 ? "":print("Tags: </td><td>".$product['Tags']));
+                                            (strlen($product['Tags']) < 3 ? "":print("Tags: </td><td>". str_replace(['[',']','"'],'',str_replace(',',', ',$product['Tags']))));
                                         ?>
                                     </td>
                                 </tr>
