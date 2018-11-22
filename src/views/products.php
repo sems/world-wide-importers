@@ -24,7 +24,7 @@
           <div class="input-group mb-3">
             <input class="form-control" name="search" type="search" placeholder="Zoeken" aria-label="Zoeken" value="<?php print(isset($_GET['search']) ? $_GET['search'] : '') ?>">
             <div class="input-group-append">
-              <button class="input-group-text" for="inputGroupSelect02" type='submit'>Zoek</button>
+              <button class="btn input-group-text" for="inputGroupSelect02" type='submit'>Zoek</button>
             </div>
           </div> 
         </div>
@@ -33,7 +33,7 @@
   </div>
 
   <?php
-    // For each produc print product photo (or fallback photo) and add product name
+    // For each product print product photo (or fallback photo) and add product name
     if(sizeOf($arrayProducts) >= 1) {
       $i = 0;
       print("<div class='card-deck product-row-margin'>");
