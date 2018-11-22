@@ -7,7 +7,6 @@
             $mollie->setApiKey("test_4y6RH4mqcQBQjUPUsrrUeab7eTm83T");
 
             $transactionID = $_POST['payment_id'];
-            print($transactionID);
             $payment = $mollie->payments->get($transactionID);
             
             var_dump($payment->getCheckoutUrl());
