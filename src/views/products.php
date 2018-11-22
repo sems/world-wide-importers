@@ -24,7 +24,7 @@
           <div class="input-group mb-3">
             <input class="form-control" name="search" type="search" placeholder="Zoeken" aria-label="Zoeken" value="<?php print(isset($_GET['search']) ? $_GET['search'] : '') ?>">
             <div class="input-group-append">
-              <button class="input-group-text" for="inputGroupSelect02" type='submit'>Zoek</button>
+              <button class="btn input-group-text" for="inputGroupSelect02" type='submit'>Zoek</button>
             </div>
           </div> 
         </div>
