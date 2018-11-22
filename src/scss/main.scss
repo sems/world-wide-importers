@@ -6,6 +6,17 @@
 @import 'navigation';
 @import 'index';
 @import 'address';
+@import 'basket';
+@import 'order';
+
+html, body {
+    height: 100%;
+    margin: 0;
+  }
+
+  .body {
+      margin-top: 2em;
+  }
 
 .start-shopping {
     width: 100%;
@@ -14,42 +25,6 @@
     i {
         color: #007bff;
     }
-}
-.succes-order, .failed-order {
-    padding: 30px;
-    h3 {
-        margin-bottom: 2.5rem;
-    }
-    i {
-        font-size: 80px;
-        margin-bottom: 1rem;
-    }
-}
-
-.succes-order {
-    i {
-        color: #34d25a;
-    }
-}
-.failed-order {
-    i {
-        color: #D23A34;
-    }
-}
-.body {
-    margin-top: 2em;
-}
-
-.basket_product {
-    margin-bottom: 1rem;
-}
-
-.basket_title {
-    margin-bottom: 1rem;
-}
-
-.basket_product_price {
-    display: block;
 }
 
 .progress {

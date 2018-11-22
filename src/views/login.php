@@ -1,5 +1,5 @@
 <div class="text-center">
-    <form class="form-signin" method="post" action="f_login.php">
+    <form class="form-signin" method="post" action="f_handler.php?form_handler=f_login.php">
         <h1 class="h3 mb-3 font-weight-normal">Login</h1>
         <?php print(getAlert()); ?>
 

@@ -1,5 +1,5 @@
 <div class="text-center">
-    <form class="form-register" method="post" action="f_register.php">
+    <form class="form-register" method="post" action="f_handler.php?form_handler=f_register.php">
         <h1 class="h3 mb-3 font-weight-normal">Registreren</h1>
         <?php print(getAlert()); ?>
         <label for="" class="sr-only">Emailadres</label>
