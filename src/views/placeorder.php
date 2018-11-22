@@ -2,7 +2,7 @@
     <div class="col-md-12">
         <h1 class="h3 mb-3 font-weight-normal">Gegevens</h1>
         <?php print(getAlert()); ?>
-        <form action="f_placeorder_without_account.php" method="post">
+        <form action="f_handler.php?form_handler=f_placeorder_without_account.php" method="post">
             <div class="form-row">
                 <div class="form-group col-md-8">
                     <label for="inputName">Volledige naam</label>

@@ -15,6 +15,7 @@
         <!-- Include given view -->
         <?php include "views/".$view; ?>
       </div>
+      <div class="push"></div>
     </div>
 
     <!-- Include footer -->

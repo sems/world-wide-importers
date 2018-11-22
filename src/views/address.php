@@ -5,7 +5,7 @@
 </button>
 <div class="collapse mb-10" id="collapseAddAddress">
     <div class="card card-body">
-        <form action="f_add_address.php" method="post">
+        <form action="f_handler.php?form_handler=f_add_address.php" method="post">
             <div class="form-row">
                 <div class="form-group col-md-8">
                     <label for="inputName">Volledige naam</label>
@@ -101,8 +101,8 @@
             print("<td>".$CustomerName['DeliveryAddressLine1']."</td>");
             print("<td>".$CustomerName['DeliveryPostalCode']."</td>");
             print("<td>".$CustomerName['CityName']."</td>");
-            print("<td><a class='btn btn-primary' href='#'>bijwerken</a></td>");
-            print("<td><form action='f_delete_address.php' method='post'><input name='customerID' type='hidden' value='".$CustomerName['CustomerID']."'><input class='btn btn-danger' type='submit' value='verwijder'></form></td></tr>");
+            print("<td><a class='btn btn-primary disabled' href='#' role='button' aria-disabled='true'>bijwerken</a></td>");
+            print("<td><form action='f_delete_address.php' method='post'><input name='customerID' type='hidden' value='".$CustomerName['CustomerID']."'><input class='btn btn-danger' type='submit' value='verwijder' disabled></form></td></tr>");
         }
     ?>
     </tbody>
