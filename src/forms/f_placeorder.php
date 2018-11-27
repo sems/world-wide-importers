@@ -192,6 +192,8 @@
                                                             FROM customers C
                                                             LEFT JOIN orders O
                                                                 ON O.CustomerID = C.CustomerID
+                                                            LEFT JOIN people P
+										                        ON P.PersonID = C.PrimaryContactPersonID
                                                             WHERE O.OrderID = :order_id");
                                     $stmt2->execute(['order_id' => $orderID]); 
                                     $result = $stmt2->fetch();
@@ -244,7 +246,7 @@
                                 }
 
                                 // Sending email
-                                sendEmail("jorisvos037@gmail.com", "Joris Vos", "Order: ".$result['OrderID'], $message, true);
+                                sendEmail($result['LogonName'], $result['CustomerName'], "Order: ".$result['OrderID'], $message, true);
 
                                 // Redirect to payment.php after email is send
                                 header('Location: payment.php');

@@ -25,9 +25,11 @@
                                     FROM customers C
                                     LEFT JOIN orders O
                                         ON O.CustomerID = C.CustomerID
+                                    LEFT JOIN people P
+                                        ON P.PersonID = C.PrimaryContactPersonID
                                     WHERE O.OrderID = :order_id");
             $stmt2->execute(['order_id' => $orderID]); 
-            $result = $stmt2->fetch();
+            $customer_info = $stmt2->fetch();
         }
         $message = $message."
             Beste ".$customer_info['CustomerName']."
@@ -113,8 +115,8 @@
         }
 
         $message = $message."
-            Ordernummer: ".$result['OrderID']."<br />
-            Klantnummer: ".$result['PrimaryContactPersonID']."
+            Ordernummer: ".$customer_info['OrderID']."<br />
+            Klantnummer: ".$customer_info['PrimaryContactPersonID']."
             <br /><br />
             U kunt verdere informatie vinden door in te loggen op de website van WorldWideImporters.
             <br />
@@ -126,7 +128,7 @@
         /*
         * Sending email
         */
-        sendEmail("jorisvos037@gmail.com", $customer_info['CustomerName'], "Betaling: ".$customer_info['OrderID'], $message, true);
+        sendEmail($customer_info['LogonName'], $customer_info['CustomerName'], "Betaling: ".$customer_info['OrderID'], $message, true);
 
         try { 
             $queryUpdateInvoice = ("UPDATE `invoices` SET `InternalComments` = :payment_state WHERE `InvoiceID` = :invoice_id");
