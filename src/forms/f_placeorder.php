@@ -36,8 +36,8 @@
                         $pickedByPersonID = 9;
                         $contactPersonId = 1;
                         $backorderID = 1;
-                        $currentDate = date("Y-m-d");
-                        $expectedDate = date('Y-m-d', strtotime($currentDate. ' + 2 days'));
+                        $currentDate = date("Y-m-d H:i:s");
+                        $expectedDate = date('Y-m-d H:i:s', strtotime($currentDate. ' + 2 days'));
                         $IsUndersupplyBackordered = 0;
                         
                         try {
@@ -242,7 +242,7 @@
                                 }
 
                                 // Sending email
-                                sendEmail("jorisvos037@gmail.com", "Joris Vos", "Test", $message, true);
+                                sendEmail("semspanhaakgame@gmail.com", "Sem Spanhaak", "Order", $message, true);
 
                                 // Redirect to payment.php after email is send
                                 header('Location: payment.php');

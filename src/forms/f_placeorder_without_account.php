@@ -175,8 +175,8 @@
                         $pickedByPersonID = 9;
                         $contactPersonId = 1;
                         $backorderID = 1;
-                        $currentDate = date("Y-m-d");
-                        $expectedDate = date('Y-m-d', strtotime($currentDate. ' + 2 days'));
+                        $currentDate = date("Y-m-d H:i:s");
+                        $expectedDate = date('Y-m-d H:i:s', strtotime($currentDate. ' + 2 days'));
                         $IsUndersupplyBackordered = 0;
                         
                         try {
