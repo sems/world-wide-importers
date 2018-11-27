@@ -26,6 +26,7 @@
                     "issuer"      => $selectedIssuerId, 
                     "metadata" => [
                         "invoice_id" => $invoiceID,
+                        "order_id" => $orderID,
                     ],
                 ]);
                 
