@@ -198,6 +198,12 @@
                                     $stmt2->execute(['order_id' => $orderID]); 
                                     $result = $stmt2->fetch();
                                 }
+                                { // Change QuantityOnHand
+                                    $stmt = $dbh->prepare("update stockitems set Photo=? where StockItemID=?");
+                                    $stmt->bindParam(1,$data);
+                                    $stmt->bindParam(2,$_POST['id']);
+                                    $stmt->execute();
+                                }
                                 { // Creating email
                                     $message = "
                                         Beste ".$result['CustomerName']."
