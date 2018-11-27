@@ -200,7 +200,7 @@
                                     $message = "
                                         Beste ".$result['CustomerName']."
                                         <br /><br />
-                                        Vriendelijk dank voor uw bestelling.
+                                        Vriendelijk dank voor uw order.
                                         <br /><br />
                                         Ordernummer: ".$result['OrderID']."<br />
                                         Klantnummer: ".$result['PrimaryContactPersonID']."
@@ -237,12 +237,14 @@
                                         </ul><br />
                                         U kunt de status van uw order bekijken door in te loggen op de website van WorldWideImporters.
                                         <br />
-                                        Dit doet u met uw emailadres en wachtwoord mits als u een account heeft.
+                                        Dit doet u met uw emailadres en wachtwoord mits u met een account heeft besteld.
+                                        <br /><br />
+                                        Met vriendelijke groet.World Wide Importers
                                         <br /><br /><br />";
                                 }
 
                                 // Sending email
-                                sendEmail("jorisvos037@gmail.com", "Joris Vos", "Test", $message, true);
+                                sendEmail("jorisvos037@gmail.com", "Joris Vos", "Order: ".$result['OrderID'], $message, true);
 
                                 // Redirect to payment.php after email is send
                                 header('Location: payment.php');
