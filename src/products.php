@@ -66,8 +66,8 @@
             }
           }
         }
-        $totalPages = $arrayProducts[0]['total'] / $resultsPerPage;
-        echo $totalPages;
+        $totalPages = ceil($arrayProducts[0]['total'] / $resultsPerPage);
+
         $sql = 'SELECT * FROM stockitems si JOIN stockitemstockgroups sisg ON sisg.StockItemID = si.StockItemID JOIN stockgroups sg ON sg.StockGroupID = sisg.StockGroupID WHERE si.StockItemName LIKE "%'.$search.'%" AND sg.StockGroupName LIKE "%'.$request.'%" LIMIT '.$start.', '.$resultsPerPage.' '.(isset($_GET['order']) ? "ORDER BY si.UnitPrice ".$order."" : "").'';
       } else {
         // resultaat uit de URL
@@ -90,7 +90,7 @@
           }
         }
       }
-      $totalPages = $arrayProducts[0]['total'] / $resultsPerPage;
+      $totalPages = ceil($arrayProducts[0]['total'] / $resultsPerPage);
 
       $sql = 'SELECT * FROM stockitems si JOIN stockitemstockgroups sisg ON sisg.StockItemID = si.StockItemID JOIN stockgroups sg ON sg.StockGroupID = sisg.StockGroupID WHERE sg.StockGroupName LIKE "%'.$request.'%" LIMIT '.$start.', '.$resultsPerPage.' '.(isset($_GET['order']) ? "ORDER BY si.UnitPrice ".$order."" : "").'';
     }
@@ -113,7 +113,7 @@
             }
           }
         }
-        $totalPages = $arrayProducts[0]['total'] / $resultsPerPage;
+        $totalPages = ceil($arrayProducts[0]['total'] / $resultsPerPage);
 
         $sql = 'SELECT * FROM stockitems si JOIN stockitemstockgroups sisg ON sisg.StockItemID = si.StockItemID JOIN stockgroups sg ON sg.StockGroupID = sisg.StockGroupID WHERE si.StockItemName LIKE "%'.$search.'%" AND sg.StockGroupName LIKE "%'.$request.'%"'.(isset($_GET['order']) ? "ORDER BY si.UnitPrice ".$order."" : "").' LIMIT '.$start.', '.$resultsPerPage.'';
       } else {
@@ -133,7 +133,7 @@
             }
           }
         }
-        $totalPages = $arrayProducts[0]['total'] / $resultsPerPage;
+        $totalPages = ceil($arrayProducts[0]['total'] / $resultsPerPage);
 
         $sql = 'SELECT * FROM stockitems si JOIN stockitemstockgroups sisg ON sisg.StockItemID = si.StockItemID JOIN stockgroups sg ON sg.StockGroupID = sisg.StockGroupID WHERE sg.StockGroupName LIKE "%'.$request.'%" '.(isset($_GET['order']) ? "ORDER BY si.UnitPrice ".$order."" : "").' LIMIT '.$start.', '.$resultsPerPage.'';
       }
@@ -157,7 +157,8 @@
           }
         }
       }
-      $totalPages = $arrayProducts[0]['total'] / $resultsPerPage;
+      $totalPages = ceil($arrayProducts[0]['total'] / $resultsPerPage);
+
       $sql = 'SELECT * FROM stockitems WHERE SearchDetails LIKE "%'.$request.'%" LIMIT '.$start.', '.$resultsPerPage.' ';
     }
   } else {
@@ -175,7 +176,7 @@
         }
       }
     }
-    $totalPages = $arrayProducts[0]['total'] / $resultsPerPage;
+    $totalPages = ceil($arrayProducts[0]['total'] / $resultsPerPage);
 
     $sql = 'SELECT StockItemID, StockItemName, Photo, UnitPrice FROM stockitems  LIMIT '.$start.', '.$resultsPerPage.' ';
   }
