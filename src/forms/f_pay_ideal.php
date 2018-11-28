@@ -10,7 +10,7 @@
             $amount = $_SESSION['totalprice'];
             $orderID = $_SESSION['orderid'];
             $invoiceID = $_SESSION['invoiceID'];
-            
+
             if (!empty($invoiceID)) {
                 $actual_link = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]";
                 
@@ -21,13 +21,31 @@
                     ],
                     "description" => "Betaling order: ".$orderID,
                     "redirectUrl" => $actual_link."/finish.php",
-                    "webhookUrl"  => $actual_link."/f_handler.php?form_handler=f_ideal-webhook.php",
+                    "webhookUrl"  => $actual_link."/ideal-webhook.php",
                     "method"      => \Mollie\Api\Types\PaymentMethod::IDEAL,
                     "issuer"      => $selectedIssuerId, 
                     "metadata" => [
                         "invoice_id" => $invoiceID,
+                        "order_id" => $orderID,
                     ],
                 ]);
+                
+                $paymentUrl = $payment->getCheckoutUrl();
+                $defaultState = "open";
+
+                try { 
+                    $queryUpdateInvoice = ("UPDATE `invoices` SET `Comments` = :payment_url, `InternalComments` = :default_state WHERE `InvoiceID` = :invoice_id");
+        
+                    $dbSetPaymentInvoice = $db->prepare($queryUpdateInvoice);
+                    $dbSetPaymentInvoice->bindParam(':payment_url', $paymentUrl, PDO::PARAM_STR);
+                    $dbSetPaymentInvoice->bindParam(':default_state', $defaultState, PDO::PARAM_STR);
+                    $dbSetPaymentInvoice->bindParam(':invoice_id', $invoiceID, PDO::PARAM_STR);
+        
+                    $dbSetPaymentInvoice-> execute();
+                } catch (Exception $e) { 
+                    print("Update transaction error: ".$e);
+                }
+
                 header("Location: " . $payment->getCheckoutUrl(), true, 303);
             } else {
                 setAlert("Er is geen factuur gevonden", "warning");

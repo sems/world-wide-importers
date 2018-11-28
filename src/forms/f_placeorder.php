@@ -36,8 +36,8 @@
                         $pickedByPersonID = 9;
                         $contactPersonId = 1;
                         $backorderID = 1;
-                        $currentDate = date("Y-m-d");
-                        $expectedDate = date('Y-m-d', strtotime($currentDate. ' + 2 days'));
+                        $currentDate = date("Y-m-d H:i:s");
+                        $expectedDate = date('Y-m-d H:i:s', strtotime($currentDate. ' + 2 days'));
                         $IsUndersupplyBackordered = 0;
                         
                         try {
@@ -192,6 +192,8 @@
                                                             FROM customers C
                                                             LEFT JOIN orders O
                                                                 ON O.CustomerID = C.CustomerID
+                                                            LEFT JOIN people P
+										                        ON P.PersonID = C.PrimaryContactPersonID
                                                             WHERE O.OrderID = :order_id");
                                     $stmt2->execute(['order_id' => $orderID]); 
                                     $result = $stmt2->fetch();
@@ -200,7 +202,7 @@
                                     $message = "
                                         Beste ".$result['CustomerName']."
                                         <br /><br />
-                                        Vriendelijk dank voor uw bestelling.
+                                        Vriendelijk dank voor uw order.
                                         <br /><br />
                                         Ordernummer: ".$result['OrderID']."<br />
                                         Klantnummer: ".$result['PrimaryContactPersonID']."
@@ -237,12 +239,14 @@
                                         </ul><br />
                                         U kunt de status van uw order bekijken door in te loggen op de website van WorldWideImporters.
                                         <br />
-                                        Dit doet u met uw emailadres en wachtwoord mits als u een account heeft.
+                                        Dit doet u met uw emailadres en wachtwoord mits u met een account heeft besteld.
+                                        <br /><br />
+                                        Met vriendelijke groet.World Wide Importers
                                         <br /><br /><br />";
                                 }
 
                                 // Sending email
-                                sendEmail("jorisvos037@gmail.com", "Joris Vos", "Test", $message, true);
+                                sendEmail($result['LogonName'], $result['CustomerName'], "Order: ".$result['OrderID'], $message, true);
 
                                 // Redirect to payment.php after email is send
                                 header('Location: payment.php');
