@@ -1,6 +1,10 @@
 <?php
     require('inc/config.php'); 
 
+    /*
+    * Only is called when of the following
+    * paid, expired, failed, canceled
+    */
     try {
         $mollie = new \Mollie\Api\MollieApiClient();
         $mollie->setApiKey("test_4y6RH4mqcQBQjUPUsrrUeab7eTm83T");
