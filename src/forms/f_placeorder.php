@@ -198,6 +198,27 @@
                                     $stmt2->execute(['order_id' => $orderID]); 
                                     $result = $stmt2->fetch();
                                 }
+                                { // Change QuantityOnHand
+                                    foreach ($arrayOrders as $data) {
+                                        $item_id = $data['StockItemID'];
+                                        $qoh1 = $db->prepare("SELECT h.QuantityOnHand
+                                                                FROM stockitems s
+                                                                LEFT JOIN stockitemholdings h
+                                                                    ON s.StockItemID = h.StockItemID
+                                                                WHERE h.StockItemID = :item_id");
+                                        $qoh1->bindParam(':item_id', $item_id, PDO::PARAM_INT);
+                                        $qoh1->execute();
+                                        $qoh_result = $qoh1->fetch();
+                                        $qoh = $qoh_result['QuantityOnHand'] - $data['Quantity'];
+                                        
+                                        $qoh2 = $db->prepare("UPDATE stockitemholdings
+                                                                SET QuantityOnHand=:qoh
+                                                                WHERE StockItemID=:qoh2");
+                                        $qoh2->bindParam(':qoh', $qoh, PDO::PARAM_INT);
+                                        $qoh2->bindParam(':qoh2', $item_id, PDO::PARAM_INT);
+                                        $qoh2->execute();
+                                    }
+                                }
                                 { // Creating email
                                     $message = "
                                         Beste ".$result['CustomerName']."
