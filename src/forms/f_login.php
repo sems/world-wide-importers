@@ -51,7 +51,7 @@
                     }
                 } else {
                     // Account is blocked.
-                    setAlert("Uw account is geblokeerd!", "warning");
+                    setAlert("Uw account is geblokeerd of bestaat niet!", "warning");
                     header('Location: login.php');
                 }
             } else{
