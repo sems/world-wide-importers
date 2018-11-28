@@ -53,8 +53,8 @@
         $request = $_GET['filter'];
         $search = filter_input(INPUT_GET, "search", FILTER_SANITIZE_STRING);
         $page = isset($_GET['page']) ? $_GET['page'] : 1;
-        $start = 30 * ($page - 1);
-        $resultsPerPage = 30;
+        $resultsPerPage = isset($_GET['resultsperpage']) ? $_GET['resultsperpage'] : 30;
+        $start = $resultsPerPage * ($page - 1);
         $arrayProducts = array();
         $sql = 'SELECT COUNT(*) AS total FROM stockitems si JOIN stockitemstockgroups sisg ON sisg.StockItemID = si.StockItemID JOIN stockgroups sg ON sg.StockGroupID = sisg.StockGroupID WHERE si.StockItemName LIKE "%'.$search.'%" AND sg.StockGroupName LIKE "%'.$request.'%" '.(isset($_GET['order']) ? "ORDER BY si.UnitPrice ".$order."" : "").'';
         $query = $db->prepare($sql);
@@ -77,8 +77,8 @@
       }
     } else if(isset($_GET['filter'])){
       $page = isset($_GET['page']) ? $_GET['page'] : 1;
-      $start = 30 * ($page - 1);
-      $resultsPerPage = 30;
+      $resultsPerPage = isset($_GET['resultsperpage']) ? $_GET['resultsperpage'] : 30;
+      $start = $resultsPerPage * ($page - 1);
       $arrayProducts = array();
       $sql = 'SELECT COUNT(*) AS total FROM stockitems si JOIN stockitemstockgroups sisg ON sisg.StockItemID = si.StockItemID JOIN stockgroups sg ON sg.StockGroupID = sisg.StockGroupID WHERE sg.StockGroupName LIKE "%'.$request.'%" '.(isset($_GET['order']) ? "ORDER BY si.UnitPrice ".$order."" : "").'';
       $query = $db->prepare($sql);
@@ -100,8 +100,8 @@
         $search = filter_input(INPUT_GET, "search", FILTER_SANITIZE_STRING);
 
         $page = isset($_GET['page']) ? $_GET['page'] : 1;
-        $start = 30 * ($page - 1);
-        $resultsPerPage = 30;
+        $resultsPerPage = isset($_GET['resultsperpage']) ? $_GET['resultsperpage'] : 30;
+        $start = $resultsPerPage * ($page - 1);
         $arrayProducts = array();
         $sql = 'SELECT COUNT(*) AS total FROM stockitems si JOIN stockitemstockgroups sisg ON sisg.StockItemID = si.StockItemID JOIN stockgroups sg ON sg.StockGroupID = sisg.StockGroupID WHERE si.StockItemName LIKE "%'.$search.'%" AND sg.StockGroupName LIKE "%'.$request.'%"'.(isset($_GET['order']) ? "ORDER BY si.UnitPrice ".$order."" : "").'';
         $query = $db->prepare($sql);
@@ -120,8 +120,8 @@
         $request = $_GET['filter'];
 
         $page = isset($_GET['page']) ? $_GET['page'] : 1;
-        $start = 30 * ($page - 1);
-        $resultsPerPage = 30;
+        $resultsPerPage = isset($_GET['resultsperpage']) ? $_GET['resultsperpage'] : 30;
+        $start = $resultsPerPage * ($page - 1);
         $arrayProducts = array();
         $sql = 'SELECT COUNT(*) AS total FROM stockitems si JOIN stockitemstockgroups sisg ON sisg.StockItemID = si.StockItemID JOIN stockgroups sg ON sg.StockGroupID = sisg.StockGroupID WHERE sg.StockGroupName LIKE "%'.$request.'%" '.(isset($_GET['order']) ? "ORDER BY si.UnitPrice ".$order."" : "").'';
         $query = $db->prepare($sql);
@@ -144,8 +144,8 @@
       $request = filter_input(INPUT_GET, "global_search", FILTER_SANITIZE_STRING);
 
       $page = isset($_GET['page']) ? $_GET['page'] : 1;
-      $start = 30 * ($page - 1);
-      $resultsPerPage = 30;
+      $resultsPerPage = isset($_GET['resultsperpage']) ? $_GET['resultsperpage'] : 30;
+      $start = $resultsPerPage * ($page - 1);
       $arrayProducts = array();
       $sql = 'SELECT COUNT(*) AS total FROM stockitems WHERE SearchDetails LIKE "%'.$request.'%"';
       $query = $db->prepare($sql);
@@ -163,8 +163,8 @@
     }
   } else {
     $page = isset($_GET['page']) ? $_GET['page'] : 1;
-    $start = 30 * ($page - 1);
-    $resultsPerPage = 30;
+    $resultsPerPage = isset($_GET['resultsperpage']) ? $_GET['resultsperpage'] : 30;
+    $start = $resultsPerPage * ($page - 1);
     $arrayProducts = array();
     $sql = 'SELECT COUNT(*) AS total FROM stockitems';
     $query = $db->prepare($sql);
