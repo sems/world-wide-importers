@@ -1,0 +1,7 @@
+{
+    "require": {
+        "mollie/mollie-api-php": "2.0",
+        "mpdf/mpdf": "^7.1",
+        "swiftmailer/swiftmailer": "^6.0"
+    }
+}
