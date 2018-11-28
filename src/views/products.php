@@ -19,13 +19,25 @@
             </select>
           </div>
         </div>
-        <?php // new search input ?>
+      </div>
+      <div class="row">
         <div class="col">
           <div class="input-group mb-3">
-            <input class="form-control" name="search" type="search" placeholder="Zoeken" aria-label="Zoeken" value="<?php print(isset($_GET['search']) ? $_GET['search'] : '') ?>">
-            <div class="input-group-append">
-              <button class="btn input-group-text" for="inputGroupSelect02" type='submit'>Zoek</button>
-            </div>
+            <select name='resultsperpage' class="custom-select" id="inputGroupSelect02" onchange="this.form.submit()">
+              <option <?php (isset($_GET['resultsperpage']) == FALSE ? print("selected"):""); ?> disabled>Selecteer aantal...</option>
+              <option <?php (filter_input(INPUT_GET, "resultsperpage", FILTER_SANITIZE_STRING) == 12 ? print("selected"):""); ?> value='12'>12</option>
+              <option <?php (filter_input(INPUT_GET, "resultsperpage", FILTER_SANITIZE_STRING) == 24 ? print("selected"):""); ?> value='24'>24</option>
+              <option <?php (filter_input(INPUT_GET, "resultsperpage", FILTER_SANITIZE_STRING) == 36 ? print("selected"):""); ?> value='36'>36</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <?php // new search input ?>
+      <div class="col">
+        <div class="input-group mb-3">
+          <input class="form-control" name="search" type="search" placeholder="Zoeken" aria-label="Zoeken" value="<?php print(isset($_GET['search']) ? $_GET['search'] : '') ?>">
+          <div class="input-group-append">
+            <button class="btn input-group-text" for="inputGroupSelect02" type='submit'>Zoek</button>
           </div>
         </div>
       </div>
@@ -79,6 +91,10 @@
           if (isset($_GET['search'])) {
             // Check if filter isset, if so add hidden name and value of filter to form
             print('<input type="hidden" name="search" value="'.$_GET['search'].'" />');
+          }
+          if (isset($_GET['resultsperpage'])) {
+            // Check if filter isset, if so add hidden name and value of filter to form
+            print('<input type="hidden" name="resultsperpage" value="'.$_GET['resultsperpage'].'" />');
           }
           ?>
           <input type="hidden" name="page" value="<?php print($i); ?>" />
