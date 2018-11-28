@@ -25,7 +25,17 @@
     } else {
         $view = "failed.php";
     }
+
+    // destory the sessions
+    $amount = $_SESSION['totalprice'];
+    $orderID = $_SESSION['orderid'];
+    $invoiceID = $_SESSION['invoiceID'];
+
     
     // Include template
     include_once $template;
+    
+    unset($amount);
+    unset($orderID);
+    unset($invoiceID);
 ?>

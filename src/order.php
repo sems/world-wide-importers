@@ -43,14 +43,6 @@
         $invoiceStmt = $db->prepare("SELECT Comments, InternalComments FROM invoices WHERE OrderID=:order_id");
         $invoiceStmt->execute(['order_id' => $_GET['id']]);
         $invoice = $invoiceStmt->fetch();
-        // try {
-        //     $mollie = new \Mollie\Api\MollieApiClient();
-        //     $mollie->setApiKey("test_4y6RH4mqcQBQjUPUsrrUeab7eTm83T");
-
-        //     $payment = $mollie->payments->get($invoice['Comments']);
-        // } catch (\Mollie\Api\Exceptions\ApiException $e){
-        //     setAlert("API call failed: ", "danger". $e->getMessage());
-        // }
     } catch (PDOException $e) {
         //Gives the error message if possible.
         setAlert("Error.", "danger", $e->getMessage());

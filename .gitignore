@@ -2,6 +2,7 @@ src/css/*
 .DS_Store
 private_rsa.pem
 src/inc/config.php
-composer.*
+composer.lock
+composer.phar
 src/vendor/*
 src/inc/password.php
