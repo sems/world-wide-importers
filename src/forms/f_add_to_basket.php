@@ -7,7 +7,12 @@
             // Check if post has the right data
             if(!isset($_COOKIE['basket'])) {
                 // Add an acc. item to the new made basket.
-                $itemAmount = $_POST['itemAmount'];
+                if(!empty($_POST['itemAmount'])){
+                    $itemAmount = $_POST['itemAmount'];        
+                }
+                else{
+                    $itemAmount = 1; 
+                }
                 $cleanArrayOfIDs = array($_POST['itemID'] => $itemAmount);
                 $encodedArray = json_encode($cleanArrayOfIDs);
 
@@ -18,7 +23,12 @@
                 header('location: basket.php');
             } else {
                 // Add item to existing basket
-                $itemAmount = $_POST['itemAmount'];
+                if(!empty($_POST['itemAmount'])){
+                    $itemAmount = $_POST['itemAmount'];        
+                }
+                else{
+                    $itemAmount = 1; 
+                }
                 $itemID = $_POST['itemID'];
                 $data = json_decode($_COOKIE['basket'], true);
                 
