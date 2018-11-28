@@ -25,9 +25,9 @@
           <div class="input-group mb-3">
             <select name='resultsperpage' class="custom-select" id="inputGroupSelect02" onchange="this.form.submit()">
               <option <?php (isset($_GET['resultsperpage']) == FALSE ? print("selected"):""); ?> disabled>Selecteer aantal...</option>
-              <option <?php (filter_input(INPUT_GET, "resultsperpage", FILTER_SANITIZE_STRING) == 10 ? print("selected"):""); ?> value='10'>10</option>
-              <option <?php (filter_input(INPUT_GET, "resultsperpage", FILTER_SANITIZE_STRING) == 20 ? print("selected"):""); ?> value='20'>20</option>
-              <option <?php (filter_input(INPUT_GET, "resultsperpage", FILTER_SANITIZE_STRING) == 30 ? print("selected"):""); ?> value='30'>30</option>
+              <option <?php (filter_input(INPUT_GET, "resultsperpage", FILTER_SANITIZE_STRING) == 12 ? print("selected"):""); ?> value='12'>12</option>
+              <option <?php (filter_input(INPUT_GET, "resultsperpage", FILTER_SANITIZE_STRING) == 24 ? print("selected"):""); ?> value='24'>24</option>
+              <option <?php (filter_input(INPUT_GET, "resultsperpage", FILTER_SANITIZE_STRING) == 36 ? print("selected"):""); ?> value='36'>36</option>
             </select>
           </div>
         </div>
