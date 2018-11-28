@@ -39,14 +39,12 @@ You need to install the following (if not installed):
 
 First install required Node packages for development with:
 
-* `npm install -g sass`
-* `npm install -g localtunnel`
+* `$ npm install -g sass`
+* `$ npm install -g localtunnel`
   
-Install the by Composer required packages:
+Install the by Composer required packages in `$ ~/world-wide-importers/src`:
 
-* `$ composer require mollie/mollie-api-php:^2.0`
-* `$ composer require "swiftmailer/swiftmailer:^6.0"`
-* `$ composer require mpdf/mpdf`
+* `$ composer install`
 
 ### Development
 

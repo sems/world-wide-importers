@@ -2,7 +2,7 @@
     require('inc/config.php');
     
     if($_SERVER['REQUEST_METHOD'] == 'POST') {
-        try{
+        try {
             $mollie = new \Mollie\Api\MollieApiClient();
             $mollie->setApiKey("test_4y6RH4mqcQBQjUPUsrrUeab7eTm83T");
             $method = $mollie->methods->get(\Mollie\Api\Types\PaymentMethod::IDEAL, ["include" => "issuers"]);
