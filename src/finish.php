@@ -11,7 +11,7 @@
     /*
     * Initialize variables needed for sending email (order_id and message)
     */
-    $order_id = $payment->metadata->order_id;
+    $order_id = $orderID;
     $customer_info = "";
     $message = "";
 
