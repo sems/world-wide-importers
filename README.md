@@ -44,9 +44,7 @@ First install required Node packages for development with:
   
 Install the by Composer required packages in `$ ~/world-wide-importers/src`:
 
-* `$ composer require mollie/mollie-api-php:^2.0`
-* `$ composer require "swiftmailer/swiftmailer:^6.0"`
-* `$ composer require mpdf/mpdf`
+* `$ composer install`
 
 ### Development
 
