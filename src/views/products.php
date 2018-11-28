@@ -26,7 +26,7 @@
             <div class="input-group-append">
               <button class="btn input-group-text" for="inputGroupSelect02" type='submit'>Zoek</button>
             </div>
-          </div> 
+          </div>
         </div>
       </div>
     </form>
@@ -55,11 +55,37 @@
       }
       print("</div>");
     } else { ?>
-      
+
       <div class="col-md-12">
         <h3>Geen resultaten</h3>
       </div>
       <?php
     }
+  ?>
+  <?php
+    for ($i=1; $i<=$totalPages; $i++) {
+      ?>
+      <div>
+        <form action="products.php" method="get">
+          <?php
+          if (isset($_GET['filter'])) {
+            // Check if filter isset, if so add hidden name and value of filter to form
+            print('<input type="hidden" name="filter" value="'.$_GET['filter'].'" />');
+          }
+          if (isset($_GET['order'])) {
+            // Check if filter isset, if so add hidden name and value of filter to form
+            print('<input type="hidden" name="order" value="'.$_GET['order'].'" />');
+          }
+          if (isset($_GET['search'])) {
+            // Check if filter isset, if so add hidden name and value of filter to form
+            print('<input type="hidden" name="search" value="'.$_GET['search'].'" />');
+          }
+          ?>
+          <input type="hidden" name="page" value="<?php print($i); ?>" />
+          <button class="btn input-group-text" for="inputGroupSelect02" type="submit"><?php print($i); ?></button>
+        </form>
+      </div>
+      <?php
+    };
   ?>
 </div>
