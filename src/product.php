@@ -1,38 +1,52 @@
 <?php
     require('inc/config.php');
 
-    // Define title variable
-    $title = "Product";
-
-    // lege StockItemID variabele die later ingevuld word (of niet)
-    $StockItemID = "";
-    // lege sql variabele die later ingevuld word
+    /*
+    * Define empty variables
+    */
+    $StockItemID = '';
     $sql = '';
-    // lege product variabele die later ingevuld word
     $product = '';
 
-    // Controleer of 'id' is geset
+    /*
+    * Set all variables that need to be set
+    */
+    $title = "Product";
+
     if (isset($_GET['id'])) {
-        // Wijs 'id' toe aan StockItemID variabele
+        /*
+        * Check if id is set in _GET, if set set StockItemID to _GET['id']
+        */
         $StockItemID = $_GET['id'];
-        // Wijs sql toe
+
+        /*
+        * Initialize sql
+        */
         $sql = 'SELECT * FROM stockitems s 
-            LEFT JOIN colors c 
-                ON s.ColorID = c.ColorID
-            LEFT JOIN stockitemholdings h
-                ON s.StockItemID = h.StockItemID
-            WHERE s.StockItemID = :stockItemID';
-        // Query wordt voorbereid
+                LEFT JOIN colors c 
+                    ON s.ColorID = c.ColorID
+                LEFT JOIN stockitemholdings h
+                    ON s.StockItemID = h.StockItemID
+                WHERE s.StockItemID = :stockItemID';
+
+        /*
+        * Prepare query
+        * After that, insert StockItemID from _GET in query
+        */
         $query = $db->prepare($sql);
-        // Insert StockItemID from _GET in query
         $query->bindParam(':stockItemID', $StockItemID, PDO::PARAM_STR);
-        // De query wordt uitgevoerd
+        
+        /*
+        * Execute query
+        */
         if ($query->execute()) {
             $product = $query->fetch();
         }
     }
 
-    // Edit title variable to good title
+    /*
+    * Make product name, title
+    */
     $title = $product['StockItemName'];
 
     // Defining view location

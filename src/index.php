@@ -1,7 +1,9 @@
 <?php
     require('inc/config.php');
 
-    // Define title variable
+    /*
+    * title variable (used in template)
+    */
     $title = "Home";
 
     // Defining view location

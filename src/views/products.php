@@ -1,4 +1,5 @@
 <?php print(getAlert()); ?>
+
 <div class="row">
   <div class="col-md-6">
     <?php //drop down form to choose filtering for products ?>
@@ -53,14 +54,17 @@
         print("<div class='col-md-4 products-top-margin '>
           <div class='card'>
             <a class='products-link' href='product.php?id=".$row['StockItemID']."'>
-              ".(strlen($row['Photo']) < 1 ? "<img class='card-img-top' src='img/image_not_found.png' />":"<img class='card-img-top' src='data:image/gif;base64,".base64_encode($row['Photo'])."'/>")."
+              ".(strlen($row['Photo']) < 1 ? 
+                "<img class='card-img-top' src='img/image_not_found.png' />":
+                "<img class='card-img-top' src='data:image/gif;base64,".base64_encode($row['Photo'])."'/>")."
             </a>");
 
         print("<div class='card-body'>");
         print("<table><tr><td><a class='products-link' href='product.php?id=".$row['StockItemID']."'>"
           .$row['StockItemName'].
-          "</a></td><td class='product-price'>".
-          "&euro;".$row['UnitPrice'].
+          "</a></td>
+          <td class='product-price'>
+          &euro;".$row['UnitPrice'].
           "</td></tr></table>");
 
         print("</div></div></div>");
@@ -82,19 +86,19 @@
           <?php
           if (isset($_GET['filter'])) {
             // Check if filter isset, if so add hidden name and value of filter to form
-            print('<input type="hidden" name="filter" value="'.$_GET['filter'].'" />');
+            print('<input type="hidden" name="filter" value="'.$request.'" />');
           }
           if (isset($_GET['order'])) {
             // Check if filter isset, if so add hidden name and value of filter to form
-            print('<input type="hidden" name="order" value="'.$_GET['order'].'" />');
+            print('<input type="hidden" name="order" value="'.$order.'" />');
           }
           if (isset($_GET['search'])) {
             // Check if filter isset, if so add hidden name and value of filter to form
-            print('<input type="hidden" name="search" value="'.$_GET['search'].'" />');
+            print('<input type="hidden" name="search" value="'.$search.'" />');
           }
           if (isset($_GET['resultsperpage'])) {
             // Check if filter isset, if so add hidden name and value of filter to form
-            print('<input type="hidden" name="resultsperpage" value="'.$_GET['resultsperpage'].'" />');
+            print('<input type="hidden" name="resultsperpage" value="'.$resultsPerPage.'" />');
           }
           ?>
           <input type="hidden" name="page" value="<?php print($i); ?>" />

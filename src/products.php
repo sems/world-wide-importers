@@ -106,7 +106,6 @@
                 WHERE si.StockItemName LIKE :search
                   AND sg.StockGroupName LIKE :request';
         
-        /* !!! HERE WAS THE TEXTEDIT.app CONTENT !!! */
         $products_sql =  'SELECT * 
                           FROM stockitems si 
                           JOIN stockitemstockgroups sisg 
@@ -115,7 +114,6 @@
                             ON sg.StockGroupID = sisg.StockGroupID 
                           WHERE si.StockItemName LIKE :search
                             AND sg.StockGroupName LIKE :request';
-          /* !!! ORDER !!! */
       } else {
         // User is not inside a categorie and thus cannot use this search function (display alert)
         setAlert("U zit niet in een categorie en kan deze zoek functie dus niet gebruiken. Gebruik de zoek functie in de navigatiebalk.", "info");
@@ -131,7 +129,6 @@
                 ON sg.StockGroupID = sisg.StockGroupID 
               WHERE sg.StockGroupName LIKE :request';
 
-      /* !!! HERE WAS THE TEXTEDIT.app CONTENT !!! */
       $products_sql =  'SELECT * 
                         FROM stockitems si 
                         JOIN stockitemstockgroups sisg 
@@ -139,7 +136,6 @@
                         JOIN stockgroups sg 
                           ON sg.StockGroupID = sisg.StockGroupID 
                         WHERE sg.StockGroupName LIKE :request';
-        /* !!! ORDER !!! */
     } else if(isset($_GET['global_search'])) {
       // Initialize sql statement
       $sql = 'SELECT COUNT(*) 
@@ -147,11 +143,9 @@
               FROM stockitems 
               WHERE SearchDetails LIKE :request';
 
-      /* !!! HERE WAS THE TEXTEDIT.app CONTENT !!! */
       $products_sql =  'SELECT * 
                         FROM stockitems 
                         WHERE SearchDetails LIKE :request';
-      /* !!! ORDER !!! */
     }
   } else {
     // Fallback, Initialize sql statement
@@ -164,6 +158,10 @@
   }
 
   if (strlen($sql) < 1 == false) {
+    /*
+    * Check if sql is initialized (length is < 0)
+    * Prepare query and bindparamaters (if needed)
+    */
     $query = $db->prepare($sql);
 
     if (strlen($request) < 1 == false) {
@@ -174,8 +172,15 @@
       $bindSearch = "%".$search."%";
       $query->bindParam(':search', $bindSearch, PDO::PARAM_STR);
     }
+    /*
+    * Execute and fetch query
+    */
+    $query->execute();
     $count = $query->fetch()['total'];
 
+    /*
+    * Calculate totalpages amount
+    */
     $totalPages = ceil($count / $resultsPerPage);
   }
 
@@ -185,7 +190,9 @@
     }
     $products_sql = $products_sql.' LIMIT :start, :resultsPerPage';
 
-    // query wordt voorbereid
+    /*
+    * Prepare query and bindparamaters (if needed)
+    */
     $query = $db->prepare($products_sql);
     if (strlen($request) < 1 == false) {
       $bindRequest = "%".$request."%";
@@ -198,8 +205,10 @@
     $query->bindParam(':start', $start, PDO::PARAM_INT);
     $query->bindParam(':resultsPerPage', $resultsPerPage, PDO::PARAM_INT);
 
-    // query wordt uitgevoerd, aantal resultaten worden geteld en als dit niet 0 is
-    // gaat hij de resultaten in de lege array hierboven zetten. In de views laat hij deze zien
+    /*
+    * Query is being executed, results (rows) are being counted and if that is above 0
+    * the results will be pushed to the arrayProducts, these are displayed in the view
+    */
     if($query->execute()) {
       $rowCount = $query->rowCount();
       if($rowCount !== 0) {
