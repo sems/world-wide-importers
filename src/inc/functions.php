@@ -1,8 +1,11 @@
 <?php
     require_once 'vendor/autoload.php';
     
-    function IsNullOrEmptyString($str){
+    function IsNullOrEmptyString($str) {
         return (!isset($str) || trim($str) === '' || strlen($str) == 0 || !is_null($str) || !empty($str));
+    }
+    function IsNotNullOrEmptyString($str) {
+        return (isset($str) || !trim($str) === '' || !strlen($str) < 1 || is_null($str) || empty($str));
     }
 
     function setAlert($message, $nature, $exception = null){
