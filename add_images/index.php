@@ -3,7 +3,7 @@ session_start();
 define('DBHOST','localhost');
 define('DBNAME','wideworldimporters');
 define('DBUSER','root');
-define('DBPASS','root');
+define('DBPASS','');
 
 $dbh = new PDO("mysql:host=".DBHOST.";dbname=".DBNAME, DBUSER, DBPASS);
 $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -137,3 +137,88 @@ $data24 = file_get_contents('foto_voor_kbs/diverse/snufjes/snuf_3.jpg');
 $stmt24 = $dbh->prepare("update stockitems set Photo=? where StockItemID IN (220, 221, 222, 223, 224, 225, 226, 227)");
 $stmt24->bindParam(1,$data24);
 $stmt24->execute();
+
+$stmt = $dbh->prepare("CREATE TABLE `pictures` (`StockItemID` int(11) NOT NULL,`Image` blob NOT NULL,KEY `StockItemID` (`StockItemID`),CONSTRAINT `pictures_ibfk_1` FOREIGN KEY (`StockItemID`) REFERENCES `stockitems` (`StockItemID`)) ENGINE=InnoDB DEFAULT CHARSET=latin1");
+$stmt->execute();
+$dbh = NULL;
+
+function addimages($param1, $param2, $param3, $param4){
+    $dbh = new PDO("mysql:host=".DBHOST.";dbname=".DBNAME, DBUSER, DBPASS);
+    $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $data = file_get_contents($param1);
+    $data1 = file_get_contents($param2);
+    $data2 = file_get_contents($param3);
+    $stmt = $dbh->prepare("insert into pictures values (".$param4.", ?), (".$param4.", ?), (".$param4.", ?)");
+    $stmt->bindParam(1,$data);
+    $stmt->bindParam(2,$data1);
+    $stmt->bindParam(3,$data2);
+    $stmt->execute();
+    $dbh = NULL;
+}
+
+function addimages4($param1, $param2, $param3, $param4, $param5){
+    $dbh = new PDO("mysql:host=".DBHOST.";dbname=".DBNAME, DBUSER, DBPASS);
+    $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $data = file_get_contents($param1);
+    $data1 = file_get_contents($param2);
+    $data2 = file_get_contents($param3);
+    $data3 = file_get_contents($param4);
+    $stmt = $dbh->prepare("insert into pictures values (".$param5.", ?), (".$param5.", ?), (".$param5.", ?), (".$param5.", ?)");
+    $stmt->bindParam(1,$data);
+    $stmt->bindParam(2,$data1);
+    $stmt->bindParam(3,$data2);
+    $stmt->bindParam(4,$data3);
+    $stmt->execute();
+    $dbh = NULL;
+}
+
+for($i = 1; $i < 16; $i++){
+    addimages('foto_voor_kbs/diverse/USB/usb_1.jpg', 'foto_voor_kbs/diverse/USB/usb_2.jpg', 'foto_voor_kbs/diverse/USB/usb_3.jpg', $i);
+}
+for($i = 16; $i < 58; $i++){
+    addimages('foto_voor_kbs/mokken/mok_1.jpg', 'foto_voor_kbs/mokken/mok_2.png', 'foto_voor_kbs/mokken/mok_3.jpg', $i);
+}
+
+for($i = 58; $i < 76; $i++){
+    addimages('foto_voor_kbs/speelgoed/rcauto/rc_1.jpg', 'foto_voor_kbs/speelgoed/rcauto/rc_2.jpg', 'foto_voor_kbs/speelgoed/rcauto/rc_3.jpg', $i);
+}
+
+for($i = 76; $i < 102; $i++){
+    addimages4('foto_voor_kbs/kleren/t-shirt/model_tshirt.jpg', 'foto_voor_kbs/kleren/t-shirt/voorkant_tshirt.jpg', 'foto_voor_kbs/kleren/t-shirt/achterkant_tshirt.jpg', 'foto_voor_kbs/kleren/t-shirt/zijkant_tshirt.jpg', $i);
+}
+
+for($i = 102; $i < 107; $i++){
+    addimages('foto_voor_kbs/kleren/hoodie/hoodie_2.jpg', 'foto_voor_kbs/kleren/hoodie/hoodie_0.jpg', 'foto_voor_kbs/kleren/hoodie/hoodie_1.jpg', $i);
+}
+
+for($i = 107; $i < 118; $i++){
+    addimages('foto_voor_kbs/kleren/jacket/jacket_3.jpg', 'foto_voor_kbs/kleren/jacket/jacket_1.jpg', 'foto_voor_kbs/kleren/jacket/jacket_2.jpg', $i);
+}
+
+for($i = 118; $i < 126; $i++){
+    addimages('foto_voor_kbs/kleren/pantoffel/pantoffel_1.jpg', 'foto_voor_kbs/kleren/pantoffel/pantoffel_2.jpg', 'foto_voor_kbs/kleren/pantoffel/pantoffel_3.jpg', $i);
+}
+
+for($i = 126; $i < 130; $i++){
+    addimages4('foto_voor_kbs/kleren/sokken/sok_4.jpg','foto_voor_kbs/kleren/sokken/sok_1.jpg', 'foto_voor_kbs/kleren/sokken/sok_2.jpg', 'foto_voor_kbs/kleren/sokken/sok_3.jpg', $i);
+}
+
+for($i = 142; $i < 150; $i++){
+    addimages('foto_voor_kbs/diverse/snufjes/snuf_1.jpg', 'foto_voor_kbs/diverse/snufjes/snuf_2.jpg', 'foto_voor_kbs/diverse/snufjes/snuf_3.jpg', $i);
+}
+
+for($i = 150; $i < 153; $i++){
+    addimages('foto_voor_kbs/speelgoed/actiefiguren/actionfigure_1.PNG', 'foto_voor_kbs/speelgoed/actiefiguren/actionfigure_2.jpg', 'foto_voor_kbs/speelgoed/actiefiguren/actionfigure_3.jpeg', $i);
+}
+
+for($i = 153; $i < 177; $i++){
+    addimages('foto_voor_kbs/verpakking/bubblewrap/bubble_1.jpg', 'foto_voor_kbs/verpakking/bubblewrap/bubble_2.jpg', 'foto_voor_kbs/verpakking/bubblewrap/bubble_3.jpg', $i);
+}
+
+for($i = 177; $i < 220; $i++){
+    addimages('foto_voor_kbs/verpakking/dozen/doos_1.jpg', 'foto_voor_kbs/verpakking/dozen/doos_2.jpg', 'foto_voor_kbs/verpakking/dozen/doos_3.jpg', $i);
+}
+
+for($i = 220; $i < 228; $i++){
+    addimages('foto_voor_kbs/diverse/snufjes/snuf_1.jpg', 'foto_voor_kbs/diverse/snufjes/snuf_2.jpg', 'foto_voor_kbs/diverse/snufjes/snuf_3.jpg', $i);
+}
