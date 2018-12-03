@@ -1,6 +1,7 @@
 <h4>Adressen</h4>
 <?php print(getAlert()); ?>
-<button class="btn btn-primary mb-10" type="button" data-toggle="collapse" data-target="#collapseAddAddress" aria-expanded="false" aria-controls="collapseAddAddress">
+<button class="btn btn-primary mb-10" type="button" data-toggle="collapse" data-target="#collapseAddAddress"
+    aria-expanded="false" aria-controls="collapseAddAddress">
     Toevoegen
 </button>
 <div class="collapse mb-10" id="collapseAddAddress">
@@ -49,9 +50,9 @@
                         <option selected>Kies...</option>
                         <?php
                             $stmt = $db->prepare("SELECT CountryID, CountryName FROM countries WHERE CountryName LIKE '%Netherlands%' ");
-                            $stmt->execute(); 
+                            $stmt->execute();
                             $results = $stmt->fetchAll();
-                            foreach ($results as $country){
+                            foreach ($results as $country) {
                                 print("<option selected value='".$country['CountryID']."'>".$country['CountryName']."</option>");
                             }
                         ?>
@@ -64,9 +65,9 @@
                         <?php
                             $countryID = 153;
                             $stmt = $db->prepare("SELECT StateProvinceName, StateProvinceID FROM stateprovinces WHERE CountryID =:country_id");
-                            $stmt->execute(['country_id' => $countryID]); 
+                            $stmt->execute(['country_id' => $countryID]);
                             $results = $stmt->fetchAll();
-                            foreach ($results as $provinsie){
+                            foreach ($results as $provinsie) {
                                 print("<option value='".$provinsie['StateProvinceID']."'>".$provinsie['StateProvinceName']."</option>");
                             }
                         ?>
@@ -79,23 +80,23 @@
 </div>
 <table class="table table-striped">
     <thead>
-    <tr>
-        <th scope="col">#</th>
-        <th scope="col">Naam</th>
-        <th scope="col">Afleveradres</th>
-        <th scope="col">Postcode</th>
-        <th scope="col">Plaats</th>
-        <th scope="col">Bewerken</th>
-        <th scope="col">Verwijderen</th>
-    </tr>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Naam</th>
+            <th scope="col">Afleveradres</th>
+            <th scope="col">Postcode</th>
+            <th scope="col">Plaats</th>
+            <th scope="col">Bewerken</th>
+            <th scope="col">Verwijderen</th>
+        </tr>
     </thead>
     <tbody>
-    <?php
+        <?php
         $personID = $_SESSION['PersonID'];
         $stmt = $db->prepare("SELECT C.CustomerID, C.CustomerName, C.DeliveryAddressLine1, C.DeliveryPostalCode, Cs.CityName FROM customers C JOIN cities Cs ON C.DeliveryCityID = Cs.CityID WHERE PrimaryContactPersonID =:person_id");
-        $stmt->execute(['person_id' => $personID]); 
+        $stmt->execute(['person_id' => $personID]);
         $results = $stmt->fetchAll();
-        foreach ($results as $CustomerName){
+        foreach ($results as $CustomerName) {
             print("<tr><th scope='row'>".$CustomerName['CustomerID']."</th>");
             print("<td>".$CustomerName['CustomerName']."</td>");
             print("<td>".$CustomerName['DeliveryAddressLine1']."</td>");

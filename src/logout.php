@@ -9,4 +9,3 @@
     // Redirect to index
     header("location: index.php");
     exit();
-?>

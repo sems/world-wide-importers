@@ -6,4 +6,3 @@
     $view = "payment.php";
     
     include_once $template;
-?>

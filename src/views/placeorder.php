@@ -46,9 +46,9 @@
                         <option selected>Kies...</option>
                         <?php
                             $stmt = $db->prepare("SELECT CountryID, CountryName FROM countries WHERE CountryName LIKE '%Netherlands%' ");
-                            $stmt->execute(); 
+                            $stmt->execute();
                             $results = $stmt->fetchAll();
-                            foreach ($results as $country){
+                            foreach ($results as $country) {
                                 print("<option selected value='".$country['CountryID']."'>".$country['CountryName']."</option>");
                             }
                             ?>
@@ -61,9 +61,9 @@
                         <?php
                             $countryID = 153;
                             $stmt = $db->prepare("SELECT StateProvinceName, StateProvinceID FROM stateprovinces WHERE CountryID =:country_id");
-                            $stmt->execute(['country_id' => $countryID]); 
+                            $stmt->execute(['country_id' => $countryID]);
                             $results = $stmt->fetchAll();
-                            foreach ($results as $provinsie){
+                            foreach ($results as $provinsie) {
                                 print("<option value='".$provinsie['StateProvinceID']."'>".$provinsie['StateProvinceName']."</option>");
                             }
                             ?>
@@ -71,7 +71,8 @@
                 </div>
             </div>
             <div class="progress">
-                <div class="progress-bar" role="progressbar" style="width: 33%" aria-valuenow="33" aria-valuemin="0" aria-valuemax="100"></div>
+                <div class="progress-bar" role="progressbar" style="width: 33%" aria-valuenow="33" aria-valuemin="0"
+                    aria-valuemax="100"></div>
             </div>
             <a class="btn btn-primary" href="basket.php">Terug</a>
             <input class="btn btn-success" type="submit" value="Volgende">

@@ -15,7 +15,7 @@
             ON O.CustomerID = C.CustomerID
         JOIN cities CI
           ON CI.CityID = C.DeliveryCityID
-        WHERE O.OrderID = '.$_GET['id'].' AND C.PrimaryContactPersonID = '.$_SESSION['PersonID'].''); 
+        WHERE O.OrderID = '.$_GET['id'].' AND C.PrimaryContactPersonID = '.$_SESSION['PersonID'].'');
 
         $order = $stmt->fetch();
 
@@ -23,10 +23,10 @@
 
         // query wordt uitgevoerd, aantal resultaten worden geteld en als dit niet 0 is
         // gaat hij de resultaten in de lege array hierboven zetten. In de views laat hij deze zien
-        if($stmt->execute()) {
+        if ($stmt->execute()) {
             $rowCount = $stmt->execute();
-            if($rowCount !== 0) {
-                while($products = $stmt->fetch()) {
+            if ($rowCount !== 0) {
+                while ($products = $stmt->fetch()) {
                     array_push($arrayOrders, $products);
                 }
             }
@@ -49,10 +49,9 @@
     };
 
     // if post does not exists redirect user.
-    if(!array_search($_GET['id'], $arrayOrders[0])){
+    if (!array_search($_GET['id'], $arrayOrders[0])) {
         header('Location: ./');
         exit;
     }
 
     include_once $template;
-?>

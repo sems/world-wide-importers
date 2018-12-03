@@ -26,7 +26,7 @@
                                 LEFT JOIN people P
                                     ON P.PersonID = C.PrimaryContactPersonID
                                 WHERE O.OrderID = :order_id");
-        $stmt2->execute(['order_id' => $orderID]); 
+        $stmt2->execute(['order_id' => $orderID]);
         $customer_info = $stmt2->fetch();
     }
     $message = $message."
@@ -36,9 +36,9 @@
     try {
         // This query needs to be to one on customertransactions
         $stmt = $db->prepare("SELECT InternalComments FROM invoices WHERE OrderID=:order_id");
-        $stmt->execute(['order_id' => $orderID]); 
+        $stmt->execute(['order_id' => $orderID]);
         $row = $stmt->fetch();
-    } catch(Exception $e) {
+    } catch (Exception $e) {
         setAlert("Error with getting status.", "info", $e);
         $view = "failed.php";
         header('Location: failed.php');
@@ -54,27 +54,27 @@
     if ($row['InternalComments'] == "paid") {
         $message = $message."
             De betaling is gelukt!";
-    } else if ($row['InternalComments'] == "open") {
+    } elseif ($row['InternalComments'] == "open") {
         $message = $message."
             Er is iets mis gegaan met de betaling.<br />
             Om de betaling opnieuw te starten drukt u <a href='"."#"/* hier moet url komen */."'>hier</a>.
             <br /><br />";
-    } else if ($row['InternalComments'] == "pending") {
+    } elseif ($row['InternalComments'] == "pending") {
         $message = $message."
             De betaling is in afwachting.
             <br /><br />";
-    } else if ($row['InternalComments'] == "failed") {
+    } elseif ($row['InternalComments'] == "failed") {
         $message = $message."
             De betaling is mislukt.
             <br /><br />";
-    } else if ($row['InternalComments'] == "expired") {
+    } elseif ($row['InternalComments'] == "expired") {
         $message = $message."
             De betaling is verlopen.";
-    } else if ($row['InternalComments'] == "canceled") {
+    } elseif ($row['InternalComments'] == "canceled") {
         $message = $message."
             De betaling is geannuleerd.
             <br /><br />";
-    } else if ($row['InternalComments'] == "refunded") {
+    } elseif ($row['InternalComments'] == "refunded") {
         $message = $message."
             De betaling is terug gestort.
             <br /><br />";
@@ -108,4 +108,3 @@
     unset($amount);
     unset($orderID);
     unset($invoiceID);
-?>

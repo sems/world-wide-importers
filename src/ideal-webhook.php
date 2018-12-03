@@ -1,5 +1,5 @@
 <?php
-    require('inc/config.php'); 
+    require('inc/config.php');
 
     /*
     * Only is called when of the following
@@ -17,7 +17,7 @@
         /*
         * Update the invoice with payment_id in the database.
         */
-        try { 
+        try {
             $queryInsertInvoice = ("UPDATE `invoices` SET `Comments` = :payment_id WHERE `InvoiceID` = :invoice_id");
 
             $dbUpdateInvoice = $db->prepare($queryInsertInvoice);
@@ -25,7 +25,7 @@
             $dbUpdateInvoice->bindParam(':invoice_id', $invoice_id, PDO::PARAM_STR);
 
             $dbUpdateInvoice-> execute();
-        } catch (Exception $e) { 
+        } catch (Exception $e) {
             print("Update payment error: ".$e);
         }
 
@@ -73,7 +73,7 @@
             */
         }
 
-        try { 
+        try {
             $queryUpdateInvoice = ("UPDATE `invoices` SET `InternalComments` = :payment_state WHERE `InvoiceID` = :invoice_id");
 
             $dbSetPaymentInvoice = $db->prepare($queryUpdateInvoice);
@@ -81,9 +81,9 @@
             $dbSetPaymentInvoice->bindParam(':invoice_id', $invoice_id, PDO::PARAM_STR);
 
             $dbSetPaymentInvoice-> execute();
-        } catch (Exception $e) { 
+        } catch (Exception $e) {
             print("Update transaction error: ".$e);
         }
-    } catch (\Mollie\Api\Exceptions\ApiException $e){
+    } catch (\Mollie\Api\Exceptions\ApiException $e) {
         print("API call failed: " . htmlspecialchars($e->getMessage()));
     }

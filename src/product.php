@@ -40,4 +40,3 @@
 
     // Including template
     include_once $template;
-?>

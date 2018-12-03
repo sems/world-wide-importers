@@ -9,4 +9,3 @@
     
     // Include template
     include_once $template;
-?>
