@@ -30,6 +30,13 @@
         if ($query->execute()) {
             $product = $query->fetch();
         }
+        //Fetch multiple pictures
+        $sqlquery = 'SELECT Image FROM pictures WHERE StockItemID = :stockItemID';
+        $query1 = $db->prepare($sqlquery);
+        $query1->bindParam(':stockItemID', $StockItemID, PDO::PARAM_STR);
+        if($query1->execute()){
+            $pictures = $query1->fetchAll();
+        }
     }
 
     // Edit title variable to good title

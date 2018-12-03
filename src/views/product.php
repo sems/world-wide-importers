@@ -7,13 +7,25 @@
         <div class='row'>
             <div class='col-md-3'>
                 <!--<div class='card'>-->
-                    <img id='productImage' src='
-                        <?php
-                            (strlen($product['Photo']) < 1 ? 
-                                print("img/image_not_found.png"):
-                                print("data:image/gif;base64,".base64_encode($product['Photo']))); 
-                        ?>
-                    '/>
+                    <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
+                        <div class="carousel-inner">
+                            <?php
+                            for($i = 0; $i < count($pictures); $i++){
+                                if($i == 0){
+                                    print("<div class = 'carousel-item active'>");
+                                }   
+                                else{
+                                    print("<div class = 'carousel-item'>");
+                                }
+                            $image = $pictures[$i][0];
+                            (strlen($image) < 1 ?
+                            print("<img class='d-block w-100' src='img/image_not_found.png' alt='Slide'>"):    
+                            print("<img class='d-block w-100' src='data:image/gif;base64,".base64_encode($image)."' alt='slide". $i ."'>"));
+                            print("</div>");
+                            }
+                            ?>
+                        </div>
+                    </div>
                 <!--</div>-->
             </div>
             <div class='col-md-5'>
