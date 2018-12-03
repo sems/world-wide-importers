@@ -225,3 +225,5 @@ for($i = 177; $i < 220; $i++){
 for($i = 220; $i < 228; $i++){
     addimages('foto_voor_kbs/diverse/snufjes/snuf_1.jpg', 'foto_voor_kbs/diverse/snufjes/snuf_2.jpg', 'foto_voor_kbs/diverse/snufjes/snuf_3.jpg', $i);
 }
+
+print("Done adding and setting images");
