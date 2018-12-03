@@ -62,8 +62,8 @@
                         // Autoincrement ID
                         $aiID = $maxID['id'] + 1;
             
-                        $query = "INSERT INTO user (`UserID`, `FullName`, `PreferredName`, `SearchName`, `IsPermittedToLogon`, `LogonName`, `HashedPassword`,  `LastEditedBy`) 
-                                VALUES (:id, :fullUsername, :userName, :userSearchName, :permittedTo, :userLogonMail, :userHashedPassword, :lastEdit )";
+                        $query = "INSERT INTO user (`UserID`, `FullName`, `PreferredName`, `SearchName`, `IsPermittedToLogon`, `LogonName`, `HashedPassword`, `EmailAddress`, `LastEditedBy`) 
+                                VALUES (:id, :fullUsername, :userName, :userSearchName, :permittedTo, :userLogonMail, :userHashedPassword, :userMailAddress, :lastEdit )";
                         
                         //Prepares statement and bind parameters
                         $dbinsert = $db->prepare($query);
@@ -75,6 +75,7 @@
                         $dbinsert->bindParam(':permittedTo', $IsPermittedToLogon, PDO::PARAM_STR);
                         $dbinsert->bindParam(':userLogonMail', $LogonName, PDO::PARAM_STR);
                         $dbinsert->bindParam(':userHashedPassword', $hashedPwd, PDO::PARAM_STR);
+                        $dbinsert->bindParam(':userMailAddress', $LogonName, PDO::PARAM_STR);
                         $dbinsert->bindParam(':lastEdit', $aiID, PDO::PARAM_STR);
                         
                         // Execute call
