@@ -1,16 +1,19 @@
 <?php
     require_once 'vendor/autoload.php';
     
-    function IsNullOrEmptyString($str){
+    function IsNullOrEmptyString($str)
+    {
         return (!isset($str) || trim($str) === '' || strlen($str) == 0 || !is_null($str) || !empty($str));
     }
 
-    function setAlert($message, $nature, $exception = null){
+    function setAlert($message, $nature, $exception = null)
+    {
         $_SESSION['alert'] = array($message, $nature, $exception);
     }
 
-    function getAlert(){
-        if(isset($_SESSION['alert'])) {
+    function getAlert()
+    {
+        if (isset($_SESSION['alert'])) {
             //Access your Session variable
             $temp = $_SESSION['alert'];
             $message = $temp[0];
@@ -23,7 +26,7 @@
             unset($_SESSION['alert']);
             
             $possibleNatures = array("primary", "secondary", "success", "danger", "warning", "info", "light", "dark");
-            if (in_array($nature, $possibleNatures) ) {
+            if (in_array($nature, $possibleNatures)) {
                 if (isset($exception)) {
                     return '<div class="alert alert-'.$nature.'" role="alert"> 
                                 <h4 class="alert-heading">Let op!</h4>
@@ -42,13 +45,13 @@
                             <p class="mb-0">'.$message.'</p>
                         </div>';
             }
-            
         }
     }
 
-    function sendEmail($to, $name, $subject, $body, $makePDFFromEmail = false) {
+    function sendEmail($to, $name, $subject, $body, $makePDFFromEmail = false)
+    {
         $content = '';
-        if ($makePDFFromEmail) { 
+        if ($makePDFFromEmail) {
             // Check if a PDF should be made.
             // Create PDF document from message as attachment
             $mpdf = new \Mpdf\Mpdf(); // Create new mPDF Document
@@ -61,7 +64,7 @@
             $html = ob_get_contents();
             ob_end_clean();
 
-            // Here convert the encode for UTF-8, if you prefer 
+            // Here convert the encode for UTF-8, if you prefer
             // the ISO-8859-1 just change for $mpdf->WriteHTML($html);
             $mpdf->WriteHTML(utf8_encode($html));
             $content = $mpdf->Output('', 'S');
@@ -81,7 +84,7 @@
         $message = '';
 
         // Create the new attachment
-        if ($makePDFFromEmail) { 
+        if ($makePDFFromEmail) {
             $attachment = new Swift_Attachment($content, 'order.pdf', 'application/pdf');
 
             // Create a message
@@ -109,4 +112,3 @@
         // Send the message
         $result = $mailer->send($message);
     }
-?>

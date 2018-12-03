@@ -65,9 +65,9 @@
                     <a class="btn btn-primary my-2 my-sm-0 basketBtn <?php print($title == "Winkelwagen" ? "basketActive":""); ?>" href="basket.php"><i class="fas fa-shopping-basket basket"></i></a>
                     <?php
                         // Checks if user is logged in or not.
-                        if(!isset($_SESSION['logged_in']) || ($_SESSION['logged_in'] == false)) {
+                        if (!isset($_SESSION['logged_in']) || ($_SESSION['logged_in'] == false)) {
                             print("<a class='btn btn-primary my-2 my-sm-0 basketBtn".($title == 'Login' ? 'basketActive':'')."' href='login.php'><i class='fas fa-sign-in-alt basket'></i></a></li>");
-                            //print("<a class='btn btn-primary my-2 my-sm-0 basketBtn".($title == 'Registreer' ? 'basketActive':'')."' href='register.php'><i class='fas fa-user basket'></i></a></li>");
+                        //print("<a class='btn btn-primary my-2 my-sm-0 basketBtn".($title == 'Registreer' ? 'basketActive':'')."' href='register.php'><i class='fas fa-user basket'></i></a></li>");
                         } else {
                             print("<a class='btn btn-primary my-2 my-sm-0 basketBtn".($title == 'Profiel' ? 'basketActive':'')."' href='profile.php'><i class='fas fa-user basket'></i></a></li>");
                             print("<a class='btn btn-primary my-2 my-sm-0 basketBtn".($title == 'Uitloggen' ? 'basketActive':'')."' href='logout.php'><i class='fas fa-sign-out-alt basket'></i></a></li>");
