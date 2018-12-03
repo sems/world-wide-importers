@@ -27,6 +27,7 @@
                             <?php } else { ?>
                                 <p>Er is iets mis gegaan met de betaling klik dan
                                     <form action="f_handler.php?form_handler=f_restart_payment.php" method="post">
+                                        <input type="hidden" name="orderId" value="<?php print($_GET['id']);?>">
                                         <input type="hidden" name="payment" value="<?php print($invoice['Comments']);?>">
                                         <button class="btn btn-primary" type="submit">hier</button>
                                     </form></a>

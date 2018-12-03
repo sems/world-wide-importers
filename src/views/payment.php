@@ -5,26 +5,26 @@
         <article class="card">
             <div class="card-body p-6">
                 <ul class="nav bg-light nav-pills rounded nav-fill mb-3" role="tablist">
-                    <li class="nav-item">
-                        <a class="nav-link active" data-toggle="pill" href="#nav-tab-card">
+                    <li class="nav-item disabled">
+                        <a class="nav-link " href="#nav-tab-card">
                         <i class="fa fa-credit-card"></i> Credit Card</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" data-toggle="pill" href="#nav-tab-paypal">
+                    <li class="nav-item disabled">
+                        <a class="nav-link" href="#nav-tab-paypal">
                         <i class="fab fa-paypal"></i> Paypal</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" data-toggle="pill" href="#nav-tab-ideal">
+                        <a class="nav-link active" data-toggle="pill" href="#nav-tab-ideal">
                         <i class="fa fa-money-bill-alt"></i> iDEAL</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" data-toggle="pill" href="#nav-tab-bank">
+                    <li class="nav-item disabled">
+                        <a class="nav-link" href="#nav-tab-bank">
                         <i class="fa fa-university"></i> Overschrijving</a>
                     </li>
                 </ul>
 
                 <div class="tab-content">
-                    <div class="tab-pane fade show active" id="nav-tab-card">
+                    <div class="tab-pane fade " id="nav-tab-card">
                         <form role="form">
                             <div class="form-group">
                                 <label for="username">Volledige naam (op de pas)</label>
@@ -78,7 +78,7 @@
                         </p>
                     </div>
                 
-                    <div class="tab-pane fade" id="nav-tab-ideal">
+                    <div class="tab-pane fade show active" id="nav-tab-ideal">
                         <p>iDEAL is een van nederlands grootste betaalmethodes.</p>
                         <p>Totale prijs: &euro; <?php print (isset($_SESSION['totalprice'])) ? $_SESSION['totalprice'] : '0'; ?></p>
                         <p>
