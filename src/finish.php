@@ -23,8 +23,8 @@
                                 FROM customers C
                                 LEFT JOIN orders O
                                     ON O.CustomerID = C.CustomerID
-                                LEFT JOIN people P
-                                    ON P.PersonID = C.PrimaryContactPersonID
+                                LEFT JOIN user P
+                                    ON P.UserID = C.PrimaryContactPersonID
                                 WHERE O.OrderID = :order_id");
         $stmt2->execute(['order_id' => $orderID]); 
         $customer_info = $stmt2->fetch();

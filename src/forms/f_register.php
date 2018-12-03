@@ -1,9 +1,9 @@
 <?php
     require('inc/config.php');
 
-    if($_SERVER['REQUEST_METHOD'] == 'POST') {
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         // Check of form is send
-        if(isset($_POST['g-recaptcha-response'])){
+        if (isset($_POST['g-recaptcha-response'])) {
             // If it is responding set a variable
             $captcha= $_POST['g-recaptcha-response'];
         }
@@ -13,15 +13,15 @@
 
         // Get the response from google api
         $cresponse = file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=".$secretKey."&response=".$captcha."&remoteip=".$ip);
-        $responseKeys = json_decode($cresponse,true);
+        $responseKeys = json_decode($cresponse, true);
     
-        if(intval($responseKeys["success"]) !== 1) {
-            // Something went wrong with the Captcha to redirect back w/ message. 
+        if (intval($responseKeys["success"]) !== 1) {
+            // Something went wrong with the Captcha to redirect back w/ message.
             setAlert("Er gaat wat mis met de Captcha.", "warning");
             header('location: register.php');
         } else {
             // If the Captcha is okay procceed
-            if( isset( $_POST['email'], $_POST['full_name'], $_POST['preferred_name'], $_POST['password'], $_POST['repassword'] )) {
+            if (isset($_POST['email'], $_POST['full_name'], $_POST['preferred_name'], $_POST['password'], $_POST['repassword'])) {
                 // Check if all fields are filled in.
     
                 // Getting values from form
@@ -42,8 +42,8 @@
                 $validUntil                 = "9999-12-31 23:59:59";
     
                 // check if user already exists with the email
-                $stmt = $db->prepare("SELECT PersonID FROM people WHERE LogonName=:mail");
-                $stmt->execute(['mail' => $LogonName]); 
+                $stmt = $db->prepare("SELECT UserID FROM user WHERE LogonName=:mail");
+                $stmt->execute(['mail' => $LogonName]);
                 $row = $stmt->fetch();
 
                 if (empty($row)) {
@@ -54,16 +54,16 @@
                         $userPassConfInput = $userPasswordInput;
                         $hashedPwd = password_hash($userPassConfInput, PASSWORD_DEFAULT);
     
-                        // Getting first next PerSonID before assigning new one 
-                        $qry = $db->prepare("SELECT max(PersonID) as id FROM people");
-                        $qry->execute(); 
+                        // Getting first next PerSonID before assigning new one
+                        $qry = $db->prepare("SELECT max(UserID) as id FROM user");
+                        $qry->execute();
                         $maxID = $qry->fetch();
             
                         // Autoincrement ID
                         $aiID = $maxID['id'] + 1;
             
-                        $query = "INSERT INTO people (`PersonId`, `FullName`, `PreferredName`, `SearchName`, `IsPermittedToLogon`, `LogonName`, `IsExternalLogonProvider`, `HashedPassword`, `IsSystemUser`, `IsEmployee`, `IsSalesperson`, `LastEditedBy`, `ValidFrom`, `ValidTo`) 
-                                VALUES (:id, :fullUsername, :userName, :userSearchName, :permittedTo, :userLogonMail, :externalLogon, :userHashedPassword, :userSystemUser, :userEmployee, :userSalesPerson, :lastEdit, :validFrom, :validUntil )";
+                        $query = "INSERT INTO user (`UserID`, `FullName`, `PreferredName`, `SearchName`, `IsPermittedToLogon`, `LogonName`, `HashedPassword`,  `LastEditedBy`) 
+                                VALUES (:id, :fullUsername, :userName, :userSearchName, :permittedTo, :userLogonMail, :userHashedPassword, :lastEdit )";
                         
                         //Prepares statement and bind parameters
                         $dbinsert = $db->prepare($query);
@@ -74,14 +74,8 @@
                         $dbinsert->bindParam(':userSearchName', $userFullnameInput, PDO::PARAM_STR);
                         $dbinsert->bindParam(':permittedTo', $IsPermittedToLogon, PDO::PARAM_STR);
                         $dbinsert->bindParam(':userLogonMail', $LogonName, PDO::PARAM_STR);
-                        $dbinsert->bindParam(':externalLogon', $IsExternalLogonProvider, PDO::PARAM_STR);
                         $dbinsert->bindParam(':userHashedPassword', $hashedPwd, PDO::PARAM_STR);
-                        $dbinsert->bindParam(':userSystemUser', $IsSystemUser, PDO::PARAM_STR);
-                        $dbinsert->bindParam(':userEmployee', $IsEmployee, PDO::PARAM_STR);
-                        $dbinsert->bindParam(':userSalesPerson', $IsSalesperson, PDO::PARAM_STR);
-                        $dbinsert->bindParam(':lastEdit', $lastEditedBy, PDO::PARAM_STR);
-                        $dbinsert->bindParam(':validFrom', $validFrom, PDO::PARAM_STR);
-                        $dbinsert->bindParam(':validUntil', $validUntil, PDO::PARAM_STR);
+                        $dbinsert->bindParam(':lastEdit', $aiID, PDO::PARAM_STR);
                         
                         // Execute call
                         $dbinsert-> execute();
@@ -110,5 +104,3 @@
         header('Location: register.php');
         exit();
     }
-
-?>

@@ -27,7 +27,7 @@
                 $sEmail = $_POST['logonMail'];
     
                 // Query for asking the data from entered user
-                $stmt = $db->prepare("SELECT PersonID, LogonName, HashedPassword, IsPermittedToLogon, PreferredName FROM people WHERE LogonName=:mail");
+                $stmt = $db->prepare("SELECT UserID, LogonName, HashedPassword, IsPermittedToLogon, PreferredName FROM user WHERE LogonName=:mail");
                 $stmt->execute(['mail' => $sEmail]); 
                 $row = $stmt->fetch();
     
@@ -42,7 +42,7 @@
                         // Check if password is the same as entered
                         $_SESSION['logged_in'] = true;
                         $_SESSION['user'] = $row['PreferredName'];
-                        $_SESSION['PersonID'] = $row['PersonID'];
+                        $_SESSION['PersonID'] = $row['UserID'];
                         header('Location: profile.php');
                     } else {
                         // Combination of pwd and usrname is wrong
