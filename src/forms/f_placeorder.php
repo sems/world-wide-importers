@@ -239,12 +239,12 @@
                                             Product: ".$data['Description']."<br />
                                             Stukprijs: &euro;".$data['UnitPrice']."<br />
                                             Aantal: ".$data['Quantity']."<br />
-                                            Subtotaal: &euro;".$subtotaal."</li>";
+                                            Subtotaal: &euro;".number_format($subtotaal, 2)."</li>";
                                     }
                                     $message = $message."</ol>
-                                        Totaal: &euro;".$totaal." euro
+                                        Totaal: &euro;".number_format($totaal, 2)." euro
                                         <br /><br />
-                                        Het openstaande bedrag van uw order is &euro;".$totaal." euro
+                                        Het openstaande bedrag van uw order is &euro;".number_format($totaal, 2)." euro
                                         <br /><br />
                                         Afleveradres:<ul>
                                             <li>".$result['CustomerName']."</li>

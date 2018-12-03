@@ -14,6 +14,12 @@
                 </div>
             </div>
             <div class="form-row">
+                <div class="form-group col-md-12">
+                    <label for="inputMail">E-mail</label>
+                    <input type="text" class="form-control" id="inputMail" name="inputMail" placeholder="test@example.com">
+                </div>
+            </div>
+            <div class="form-row">
                 <div class="form-group col-md-6">
                     <label for="inputAddress">Adres</label>
                     <input type="text" class="form-control" id="inputAddress" name="inputAddress" placeholder="Schoolstraat">
