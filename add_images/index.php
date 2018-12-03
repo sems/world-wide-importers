@@ -28,7 +28,7 @@ $stmt25 = $dbh->prepare("update stockitems set Photo=? where StockItemID IN (16,
 $stmt25->bindParam(1,$data25);
 $stmt25->execute();
 
-$data3 = file_get_contents('foto_voor_kbs/mokken/mok_2.png');
+$data3 = file_get_contents('foto_voor_kbs/mokken/mok_2.jpg');
 $stmt3 = $dbh->prepare("update stockitems set Photo=? where StockItemID IN (30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51)");
 $stmt3->bindParam(1,$data3);
 $stmt3->execute();
@@ -138,7 +138,10 @@ $stmt24 = $dbh->prepare("update stockitems set Photo=? where StockItemID IN (220
 $stmt24->bindParam(1,$data24);
 $stmt24->execute();
 
-$stmt = $dbh->prepare("CREATE TABLE `pictures` (`StockItemID` int(11) NOT NULL,`Image` blob NOT NULL,KEY `StockItemID` (`StockItemID`),CONSTRAINT `pictures_ibfk_1` FOREIGN KEY (`StockItemID`) REFERENCES `stockitems` (`StockItemID`)) ENGINE=InnoDB DEFAULT CHARSET=latin1");
+$stmt = $dbh->prepare("CREATE TABLE pictures ( 
+StockItemID int(11) NOT NULL,
+Image blob NOT NULL,
+FOREIGN KEY (StockItemID) REFERENCES stockitems (StockItemID))");
 $stmt->execute();
 $dbh = NULL;
 
@@ -176,7 +179,7 @@ for($i = 1; $i < 16; $i++){
     addimages('foto_voor_kbs/diverse/USB/usb_1.jpg', 'foto_voor_kbs/diverse/USB/usb_2.jpg', 'foto_voor_kbs/diverse/USB/usb_3.jpg', $i);
 }
 for($i = 16; $i < 58; $i++){
-    addimages('foto_voor_kbs/mokken/mok_1.jpg', 'foto_voor_kbs/mokken/mok_2.png', 'foto_voor_kbs/mokken/mok_3.jpg', $i);
+    addimages('foto_voor_kbs/mokken/mok_1.jpg', 'foto_voor_kbs/mokken/mok_2.jpg', 'foto_voor_kbs/mokken/mok_3.jpg', $i);
 }
 
 for($i = 58; $i < 76; $i++){
