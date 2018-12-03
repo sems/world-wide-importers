@@ -86,7 +86,7 @@
                               <div class='col-md-12'>
                                   <div class="row basket_product">
                                       <?php
-                                      ?> <div class='col-md-3'> <?php print(strlen($data['Photo']) < 1 ? "<img src='http://placehold.it/150x150' />":"<img src='data:image/gif;base64,".base64_encode($data['Photo'])."'/>");
+                                      ?> <div class='col-md-3'> <?php print(strlen($data['Photo']) < 1 ? "<img src='http://placehold.it/150x150' />":"<img class='basket-img' src='data:image/gif;base64,".base64_encode($data['Photo'])."'/>");
                                       ?> </div>
                                       <div class="col-md-5">
                                           <h6><?php print($data['Description']);?></h6>

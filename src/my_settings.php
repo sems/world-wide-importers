@@ -1,15 +1,17 @@
 <?php
     require('inc/config.php');
 
-    // Define title variable
+    /*
+    * title variable (used in template)
+    */
     $title = "Instellingen";
 
 
     if(!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] == false) {
-        // Check if logged_in isset
-        // Check if not logged in
+        /*
+        * Check if logged in, if not redirect to login.php
+        */
 
-        // Redirect to login
         header('Location: login.php');
         exit();
     } 

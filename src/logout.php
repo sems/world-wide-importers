@@ -1,7 +1,9 @@
 <?php
     require('inc/config.php');
 
-    // Start, Unset, Destroy session
+    /*
+    * Start, Unset, Destroy session
+    */
     session_start();
     session_unset();
     session_destroy();
