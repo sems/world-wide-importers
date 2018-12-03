@@ -9,26 +9,28 @@
 @import 'basket';
 @import 'order';
 
-html, body {
+html,
+body {
     height: 100%;
     margin: 0;
-  }
+}
 
-  .body {
-      margin-top: 2em;
-  }
+.body {
+    margin-top: 2em;
+}
 
 .start-shopping {
     width: 100%;
     padding: 30px;
     font-size: 80px;
+
     i {
         color: #007bff;
     }
 }
 
 .progress {
-   margin-bottom: 1rem; 
+    margin-bottom: 1rem;
 }
 
 .progress-payment {
