@@ -1,9 +1,9 @@
 <?php
     require('inc/config.php');
 
-    if($_SERVER['REQUEST_METHOD'] == 'POST') {
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         // Check if form is send/submitted
-        if(isset($_POST['g-recaptcha-response'])){
+        if (isset($_POST['g-recaptcha-response'])) {
             // If it is responding set a variable
             $captcha= $_POST['g-recaptcha-response'];
         }
@@ -13,22 +13,22 @@
         
         // Get the response from google api
         $cresponse = file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=".$secretKey."&response=".$captcha."&remoteip=".$ip);
-        $responseKeys = json_decode($cresponse,true);
+        $responseKeys = json_decode($cresponse, true);
     
-        if(intval($responseKeys["success"]) !== 1) {
-            // Something went wrong with the Captcha to redirect back w/ message. 
+        if (intval($responseKeys["success"]) !== 1) {
+            // Something went wrong with the Captcha to redirect back w/ message.
             setAlert("Er gaat was mis met de Captcha.", "warning");
             header('location: login.php');
         } else {
             // If the Captcha is okay procceed
-            if(isset($_POST['logonMail'], $_POST['password'])) {
+            if (isset($_POST['logonMail'], $_POST['password'])) {
                 // Check if other fields are filled in.
                 $sWachtwoord = trim($_POST['password']);
                 $sEmail = $_POST['logonMail'];
     
                 // Query for asking the data from entered user
                 $stmt = $db->prepare("SELECT PersonID, LogonName, HashedPassword, IsPermittedToLogon, PreferredName FROM people WHERE LogonName=:mail");
-                $stmt->execute(['mail' => $sEmail]); 
+                $stmt->execute(['mail' => $sEmail]);
                 $row = $stmt->fetch();
     
                 // Put data in vars
@@ -54,7 +54,7 @@
                     setAlert("Uw account is geblokeerd!", "warning");
                     header('Location: login.php');
                 }
-            } else{
+            } else {
                 // Some data is missing from the form
                 setAlert("Een vereist veld heeft geen informatie!", "warning");
                 header('Location: login.php');
@@ -64,4 +64,3 @@
         header('Location: login.php');
         exit();
     }
-?>

@@ -1,9 +1,9 @@
 <?php
     require('inc/config.php');
 
-    if($_SERVER['REQUEST_METHOD'] == 'POST') {
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         // Check of form is send
-        if(isset($_POST['g-recaptcha-response'])){
+        if (isset($_POST['g-recaptcha-response'])) {
             // If it is responding set a variable
             $captcha= $_POST['g-recaptcha-response'];
         }
@@ -13,15 +13,15 @@
 
         // Get the response from google api
         $cresponse = file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=".$secretKey."&response=".$captcha."&remoteip=".$ip);
-        $responseKeys = json_decode($cresponse,true);
+        $responseKeys = json_decode($cresponse, true);
     
-        if(intval($responseKeys["success"]) !== 1) {
-            // Something went wrong with the Captcha to redirect back w/ message. 
+        if (intval($responseKeys["success"]) !== 1) {
+            // Something went wrong with the Captcha to redirect back w/ message.
             setAlert("Er gaat wat mis met de Captcha.", "warning");
             header('location: register.php');
         } else {
             // If the Captcha is okay procceed
-            if( isset( $_POST['email'], $_POST['full_name'], $_POST['preferred_name'], $_POST['password'], $_POST['repassword'] )) {
+            if (isset($_POST['email'], $_POST['full_name'], $_POST['preferred_name'], $_POST['password'], $_POST['repassword'])) {
                 // Check if all fields are filled in.
     
                 // Getting values from form
@@ -43,7 +43,7 @@
     
                 // check if user already exists with the email
                 $stmt = $db->prepare("SELECT PersonID FROM people WHERE LogonName=:mail");
-                $stmt->execute(['mail' => $LogonName]); 
+                $stmt->execute(['mail' => $LogonName]);
                 $row = $stmt->fetch();
 
                 if (empty($row)) {
@@ -54,9 +54,9 @@
                         $userPassConfInput = $userPasswordInput;
                         $hashedPwd = password_hash($userPassConfInput, PASSWORD_DEFAULT);
     
-                        // Getting first next PerSonID before assigning new one 
+                        // Getting first next PerSonID before assigning new one
                         $qry = $db->prepare("SELECT max(PersonID) as id FROM people");
-                        $qry->execute(); 
+                        $qry->execute();
                         $maxID = $qry->fetch();
             
                         // Autoincrement ID
@@ -110,5 +110,3 @@
         header('Location: register.php');
         exit();
     }
-
-?>

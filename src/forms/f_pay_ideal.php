@@ -1,7 +1,7 @@
 <?php
     require('inc/config.php');
     
-    if($_SERVER['REQUEST_METHOD'] == 'POST') {
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         try {
             $mollie = new \Mollie\Api\MollieApiClient();
             $mollie->setApiKey("test_4y6RH4mqcQBQjUPUsrrUeab7eTm83T");
@@ -23,7 +23,7 @@
                     "redirectUrl" => $actual_link."/finish.php",
                     "webhookUrl"  => $actual_link."/ideal-webhook.php",
                     "method"      => \Mollie\Api\Types\PaymentMethod::IDEAL,
-                    "issuer"      => $selectedIssuerId, 
+                    "issuer"      => $selectedIssuerId,
                     "metadata" => [
                         "invoice_id" => $invoiceID,
                         "order_id" => $orderID,
@@ -33,7 +33,7 @@
                 $paymentUrl = $payment->getCheckoutUrl();
                 $defaultState = "open";
 
-                try { 
+                try {
                     $queryUpdateInvoice = ("UPDATE `invoices` SET `Comments` = :payment_url, `InternalComments` = :default_state WHERE `InvoiceID` = :invoice_id");
         
                     $dbSetPaymentInvoice = $db->prepare($queryUpdateInvoice);
@@ -42,7 +42,7 @@
                     $dbSetPaymentInvoice->bindParam(':invoice_id', $invoiceID, PDO::PARAM_STR);
         
                     $dbSetPaymentInvoice-> execute();
-                } catch (Exception $e) { 
+                } catch (Exception $e) {
                     print("Update transaction error: ".$e);
                 }
 
@@ -56,5 +56,3 @@
             header('Location: payment.php');
         }
     }
-   
-?>

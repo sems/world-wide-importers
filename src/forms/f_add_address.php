@@ -1,8 +1,8 @@
 <?php
     try {
-        require('inc/config.php'); 
-        if($_SERVER['REQUEST_METHOD'] == 'POST') {
-            if (isset($_POST['inputName'], $_POST['inputAddress'],$_POST['inputAddress2'],$_POST['inputAddress3'],$_POST['inputZip'],$_POST['inputCity'],$_POST['inputState'], $_POST['inputPhone'] )) {
+        require('inc/config.php');
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            if (isset($_POST['inputName'], $_POST['inputAddress'],$_POST['inputAddress2'],$_POST['inputAddress3'],$_POST['inputZip'],$_POST['inputCity'],$_POST['inputState'], $_POST['inputPhone'])) {
                 // If all fields are filled
 
                 $city = "%".$_POST['inputCity']."%";
@@ -11,23 +11,23 @@
                 // Values for queries
                 $cityName = $_POST['inputCity'];
                 $stateID = $_POST['inputState'];
-                $cityLocation = NULL;
-                $cityPopulation = NULL;
+                $cityLocation = null;
+                $cityPopulation = null;
                 $currentUser = $_SESSION['PersonID'];
                 $validFrom = "2013-01-01 00:00:00";
                 $validUntil = "9999-12-31 23:59:59";
                 
                 // Call if city exists
                 $stmt = $db->prepare("SELECT CityID, CityName FROM cities WHERE CityName LIKE ? AND StateProvinceID = $state ");
-                $stmt->execute(array($city)); 
+                $stmt->execute(array($city));
                 $row = $stmt->fetch();
                 $cityID = "";
                 if (empty($row)) {
                     // If city is not there
 
-                    // Getting first next CityID before assigning new one 
+                    // Getting first next CityID before assigning new one
                     $cityIdQuery = $db->prepare("SELECT max(CityID) as id FROM cities");
-                    $cityIdQuery->execute(); 
+                    $cityIdQuery->execute();
                     $maxID = $cityIdQuery->fetch();
         
                     // Autoincrement ID
@@ -48,14 +48,14 @@
 
                     $dbinsert-> execute();
                     $cityID = $aiID;
-                    // City has been added 
+                // City has been added
                 } else {
                     $cityID = $row['CityID'];
                 }
                 // The $cityID has been set propperly;
-                // Getting first next CityID before assigning new one 
+                // Getting first next CityID before assigning new one
                 $customerIdQuery = $db->prepare("SELECT max(CustomerID) as id FROM customers");
-                $customerIdQuery->execute(); 
+                $customerIdQuery->execute();
                 $maxID = $customerIdQuery->fetch();
 
                 // Autoincrement ID
@@ -161,7 +161,7 @@
             } else {
                 setAlert("Een verplicht veld is niet ingevuld.", "warning");
                 header('Location: address.php');
-            }  
+            }
         } else {
             setAlert("Er is geen formulier verstuurd.", "warning");
             header('Location: address.php');
@@ -170,4 +170,3 @@
         setAlert("Unkwown error.", "primary", $e);
         header('Location: address.php');
     }
-?>

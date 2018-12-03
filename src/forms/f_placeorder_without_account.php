@@ -1,32 +1,32 @@
 <?php
     require('inc/config.php');
 
-    if($_SERVER['REQUEST_METHOD'] == 'POST') {
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         if (isset($_COOKIE['basket'])) {
-            if (isset($_POST['inputName'], $_POST['inputAddress'],$_POST['inputAddress2'],$_POST['inputAddress3'],$_POST['inputZip'],$_POST['inputCity'],$_POST['inputState'], $_POST['inputPhone'] )) {
+            if (isset($_POST['inputName'], $_POST['inputAddress'],$_POST['inputAddress2'],$_POST['inputAddress3'],$_POST['inputZip'],$_POST['inputCity'],$_POST['inputState'], $_POST['inputPhone'])) {
                 $city = "%".$_POST['inputCity']."%";
                 $state = $_POST['inputState'];
 
                 // Values for queries
                 $cityName = $_POST['inputCity'];
                 $stateID = $_POST['inputState'];
-                $cityLocation = NULL;
-                $cityPopulation = NULL;
+                $cityLocation = null;
+                $cityPopulation = null;
                 $currentUser = 1;
                 $validFrom = "2013-01-01 00:00:00";
                 $validUntil = "9999-12-31 23:59:59";
                 
                 // Call if city exists
                 $stmt = $db->prepare("SELECT CityID, CityName FROM cities WHERE CityName LIKE ? AND StateProvinceID = $state ");
-                $stmt->execute(array($city)); 
+                $stmt->execute(array($city));
                 $row = $stmt->fetch();
                 $cityID = "";
                 if (empty($row)) {
                     # If city is not there
 
-                    // Getting first next CityID before assigning new one 
+                    // Getting first next CityID before assigning new one
                     $cityIdQuery = $db->prepare("SELECT max(CityID) as id FROM cities");
-                    $cityIdQuery->execute(); 
+                    $cityIdQuery->execute();
                     $maxID = $cityIdQuery->fetch();
         
                     // Autoincrement ID
@@ -47,15 +47,15 @@
 
                     $dbinsert-> execute();
                     $cityID = $aiID;
-                    // City has been added 
+                // City has been added
                 } else {
                     # Set cityID by one
                     $cityID = $row['CityID'];
                 }
                 // The $cityID has been set propperly;
-                // Getting first next CityID before assigning new one 
+                // Getting first next CityID before assigning new one
                 $customerIdQuery = $db->prepare("SELECT max(CustomerID) as id FROM customers");
-                $customerIdQuery->execute(); 
+                $customerIdQuery->execute();
                 $maxID = $customerIdQuery->fetch();
 
                 // Autoincrement ID
@@ -160,9 +160,9 @@
                     if (isset($customerAIID)) {
                         # Deliveryaddress has been set so start placing order
 
-                        // Getting first next orderID before assigning new one 
+                        // Getting first next orderID before assigning new one
                         $qry = $db->prepare("SELECT max(OrderID) as id FROM orders");
-                        $qry->execute(); 
+                        $qry->execute();
                         $maxID = $qry->fetch();
             
                         // Autoincrement ID
@@ -206,9 +206,9 @@
                             $_SESSION['orderid'] = $orderID;
 
                             try {
-                                // Getting first next invoiceID before assigning new one 
+                                // Getting first next invoiceID before assigning new one
                                 $maxInvoiceQry = $db->prepare("SELECT max(InvoiceID) as id FROM invoices");
-                                $maxInvoiceQry->execute(); 
+                                $maxInvoiceQry->execute();
                                 $maxInvoiceID = $maxInvoiceQry->fetch();
                     
                                 // Autoincrement ID
@@ -249,9 +249,8 @@
 
                             foreach ($basket as $article => $value) {
                                 try {
-                                    
                                     $stmt = $db->prepare("SELECT * FROM stockitems WHERE StockItemID=:item_id");
-                                    $stmt->execute(['item_id' => $article]); 
+                                    $stmt->execute(['item_id' => $article]);
                                     $item = $stmt->fetch();
 
                                     try {
@@ -285,12 +284,12 @@
                                         setcookie('basket', "", time()-3600);
                                         //setAlert("Order is geplaatst.", "success");
                                         header('Location: payment.php');
-                                    } catch (Exception $e) { 
+                                    } catch (Exception $e) {
                                         // Ty to make orderline
                                         setAlert("Orderline error.", "danger", $e);
                                         header('Location: placeorder.php');
                                     }
-                                } catch (Exception $e) { 
+                                } catch (Exception $e) {
                                     // Search for stockitems isnt working
                                     setAlert("Stockitems error.", "danger", $e);
                                     header('Location: placeorder.php');
@@ -313,7 +312,7 @@
                 # Required fields are not filled
                 setAlert("Een verplicht veld is niet ingevuld.", "warning");
                 header('Location: placeorder.php');
-            }   
+            }
         } else {
             # there is no basket.
             setAlert("Er waren geen producten in de winkelwagen gevonden.", "warning");
@@ -324,4 +323,3 @@
         setAlert("Er was geen POST op dit formulier.", "danger");
         header('Location: placeorder.php');
     }
-?>

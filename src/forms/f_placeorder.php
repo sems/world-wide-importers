@@ -1,7 +1,7 @@
 <?php
     require('inc/config.php');
     
-    if($_SERVER['REQUEST_METHOD'] == 'POST') {
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         // Check if form is send
         if (isset($_COOKIE['basket'])) {
             $personID = $_SESSION['PersonID'];
@@ -11,7 +11,7 @@
                 
                 // check if user already excits with the adrress
                 $stmt = $db->prepare("SELECT CustomerID, PrimaryContactPersonID FROM customers WHERE PrimaryContactPersonID=:person_id");
-                $stmt->execute(['person_id' => $personID]); 
+                $stmt->execute(['person_id' => $personID]);
                 $row = $stmt->fetch();
 
                 if (!empty($row)) {
@@ -21,9 +21,9 @@
                     if (isset($deliveryAddress)) {
                         # Deliveryaddress has been selected
 
-                        // Getting first next orderID before assigning new one 
+                        // Getting first next orderID before assigning new one
                         $qry = $db->prepare("SELECT max(OrderID) as id FROM orders");
-                        $qry->execute(); 
+                        $qry->execute();
                         $maxID = $qry->fetch();
             
                         // Autoincrement ID
@@ -67,9 +67,9 @@
                             $_SESSION['orderid'] = $orderID;
 
                             try {
-                                // Getting first next invoiceID before assigning new one 
+                                // Getting first next invoiceID before assigning new one
                                 $maxInvoiceQry = $db->prepare("SELECT max(InvoiceID) as id FROM invoices");
-                                $maxInvoiceQry->execute(); 
+                                $maxInvoiceQry->execute();
                                 $maxInvoiceID = $maxInvoiceQry->fetch();
                     
                                 // Autoincrement ID
@@ -109,9 +109,8 @@
                             }
                             foreach ($basket as $article => $value) {
                                 try {
-                                    
                                     $stmt = $db->prepare("SELECT * FROM stockitems WHERE StockItemID=:item_id");
-                                    $stmt->execute(['item_id' => $article]); 
+                                    $stmt->execute(['item_id' => $article]);
                                     $item = $stmt->fetch();
 
                                     try {
@@ -140,28 +139,28 @@
                                         $dbInsertOrderline->bindParam(':last_edited_when', $lastEdited, PDO::PARAM_STR);
     
                                         $dbInsertOrderline-> execute();
-                                    } catch (Exception $e) { 
+                                    } catch (Exception $e) {
                                         // Ty to make orderline
                                         setAlert("Orderline error.", "danger", $e);
                                         header('Location: orders.php');
                                     }
-                                } catch (Exception $e) { 
+                                } catch (Exception $e) {
                                     // Search for stockitems isnt working
                                     setAlert("Stockitems error.", "danger", $e);
                                     header('Location: orders.php');
                                 }
                             } // end foreach
-                                // clean basket
-                                setcookie('basket', "", time()-3600);
-                                //setAlert("Order is geplaatst.", "success");
+                            // clean basket
+                            setcookie('basket', "", time()-3600);
+                            //setAlert("Order is geplaatst.", "success");
 
-                                // Initialize variables for further use
-                                $arrayOrders = array();
-                                $result = '';
-                                $totaal = 0;
-                                $message = '';
+                            // Initialize variables for further use
+                            $arrayOrders = array();
+                            $result = '';
+                            $totaal = 0;
+                            $message = '';
 
-                                { // Get orderlines
+                            { // Get orderlines
                                     $stmt1 = $db->prepare('SELECT *
                                     FROM wideworldimporters.orders O
                                     JOIN orderlines OL
@@ -172,22 +171,22 @@
                                         ON O.CustomerID = C.CustomerID
                                     JOIN cities CI
                                     ON CI.CityID = C.DeliveryCityID
-                                    WHERE O.OrderID = '.$orderID.''); 
+                                    WHERE O.OrderID = '.$orderID.'');
 
                                     $order = $stmt1->fetch();
 
                                     // query wordt uitgevoerd, aantal resultaten worden geteld en als dit niet 0 is
                                     // gaat hij de resultaten in de lege array hierboven zetten. In de views laat hij deze zien
-                                    if($stmt1->execute()) {
+                                    if ($stmt1->execute()) {
                                         $rowCount = $stmt1->execute();
-                                        if($rowCount !== 0) {
-                                            while($products = $stmt1->fetch()) {
+                                        if ($rowCount !== 0) {
+                                            while ($products = $stmt1->fetch()) {
                                                 array_push($arrayOrders, $products);
                                             }
                                         }
                                     }
                                 }
-                                { // Get Customer info
+                            { // Get Customer info
                                     $stmt2 = $db->prepare("SELECT *
                                                             FROM customers C
                                                             LEFT JOIN orders O
@@ -195,10 +194,10 @@
                                                             LEFT JOIN people P
 										                        ON P.PersonID = C.PrimaryContactPersonID
                                                             WHERE O.OrderID = :order_id");
-                                    $stmt2->execute(['order_id' => $orderID]); 
+                                    $stmt2->execute(['order_id' => $orderID]);
                                     $result = $stmt2->fetch();
                                 }
-                                { // Creating email
+                            { // Creating email
                                     $message = "
                                         Beste ".$result['CustomerName']."
                                         <br /><br />
@@ -245,11 +244,11 @@
                                         <br /><br /><br />";
                                 }
 
-                                // Sending email
-                                sendEmail($result['LogonName'], $result['CustomerName'], "Order: ".$result['OrderID'], $message, true);
+                            // Sending email
+                            sendEmail($result['LogonName'], $result['CustomerName'], "Order: ".$result['OrderID'], $message, true);
 
-                                // Redirect to payment.php after email is send
-                                header('Location: payment.php');
+                            // Redirect to payment.php after email is send
+                            header('Location: payment.php');
                         } catch (Exception $e) {
                             // Making order
                             setAlert("Error at making order.", "danger", $e);
@@ -259,7 +258,7 @@
                         // No develivery address selected
                         setAlert("Selecteer een afleveradres.", "primary");
                         header('Location: basket.php');
-                    }    
+                    }
                 } else {
                     setAlert("Er ging iets mis, er wordt aangeraden opnieuw in te loggen.", "warning");
                     header('Location: basket.php');
@@ -279,4 +278,3 @@
         setAlert("Er was geen POST op dit formulier.", "danger");
         header('Location: basket.php');
     }
-?>

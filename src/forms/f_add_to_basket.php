@@ -1,17 +1,16 @@
 <?php
-    require('inc/config.php'); 
+    require('inc/config.php');
 
-    if($_SERVER['REQUEST_METHOD'] == 'POST') {
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         // Check if form is send by post
-        if(isset($_POST['itemID'])) {
+        if (isset($_POST['itemID'])) {
             // Check if post has the right data
-            if(!isset($_COOKIE['basket'])) {
+            if (!isset($_COOKIE['basket'])) {
                 // Add an acc. item to the new made basket.
-                if(!empty($_POST['itemAmount'])){
-                    $itemAmount = $_POST['itemAmount'];        
-                }
-                else{
-                    $itemAmount = 1; 
+                if (!empty($_POST['itemAmount'])) {
+                    $itemAmount = $_POST['itemAmount'];
+                } else {
+                    $itemAmount = 1;
                 }
                 $cleanArrayOfIDs = array($_POST['itemID'] => $itemAmount);
                 $encodedArray = json_encode($cleanArrayOfIDs);
@@ -23,11 +22,10 @@
                 header('location: basket.php');
             } else {
                 // Add item to existing basket
-                if(!empty($_POST['itemAmount'])){
-                    $itemAmount = $_POST['itemAmount'];        
-                }
-                else{
-                    $itemAmount = 1; 
+                if (!empty($_POST['itemAmount'])) {
+                    $itemAmount = $_POST['itemAmount'];
+                } else {
+                    $itemAmount = 1;
                 }
                 $itemID = $_POST['itemID'];
                 $data = json_decode($_COOKIE['basket'], true);
@@ -55,4 +53,3 @@
         setAlert("Onbekende fout.", "warning");
         header('Location: basket.php');
     }
-?>
