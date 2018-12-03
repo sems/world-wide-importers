@@ -73,6 +73,8 @@
                 $customerDeliveryAddressLine = $_POST['inputAddress']." ".$_POST['inputAddress2'].$_POST['inputAddress3'];
                 $customerPostalCode = $_POST['inputZip'];
 
+                $customerEmail = $_POST['inputMail'];
+
                 try {
                     $insertCustomerQuery = "INSERT INTO customers (
                         `CustomerID`, 
@@ -280,11 +282,6 @@
                                         $dbInsertOrderline->bindParam(':last_edited_when', $lastEdited, PDO::PARAM_STR);
     
                                         $dbInsertOrderline-> execute();
-                                        
-                                        // clean basket
-                                        setcookie('basket', "", time()-3600);
-                                        //setAlert("Order is geplaatst.", "success");
-                                        header('Location: payment.php');
                                     } catch (Exception $e) { 
                                         // Ty to make orderline
                                         setAlert("Orderline error.", "danger", $e);
@@ -296,6 +293,116 @@
                                     header('Location: placeorder.php');
                                 }
                             } // end foreach
+
+                            // clean basket
+                            setcookie('basket', "", time()-3600);
+                            //setAlert("Order is geplaatst.", "success");
+
+                            // Initialize variables for further use
+                            $arrayOrders = array();
+                            $result = '';
+                            $totaal = 0;
+                            $message = '';
+
+                            { // Get orderlines
+                                $stmt1 = $db->prepare('SELECT *
+                                FROM wideworldimporters.orders O
+                                JOIN orderlines OL
+                                    ON O.OrderID = OL.OrderID
+                                JOIN stockitems SI
+                                ON SI.stockItemID = OL.StockItemID
+                                JOIN customers C
+                                    ON O.CustomerID = C.CustomerID
+                                JOIN cities CI
+                                ON CI.CityID = C.DeliveryCityID
+                                WHERE O.OrderID = '.$orderID.''); 
+
+                                $order = $stmt1->fetch();
+
+                                // query wordt uitgevoerd, aantal resultaten worden geteld en als dit niet 0 is
+                                // gaat hij de resultaten in de lege array hierboven zetten. In de views laat hij deze zien
+                                if($stmt1->execute()) {
+                                    $rowCount = $stmt1->execute();
+                                    if($rowCount !== 0) {
+                                        while($products = $stmt1->fetch()) {
+                                            array_push($arrayOrders, $products);
+                                        }
+                                    }
+                                }
+                            }
+                            { // Change QuantityOnHand
+                                foreach ($arrayOrders as $data) {
+                                    $item_id = $data['StockItemID'];
+                                    $qoh1 = $db->prepare("SELECT h.QuantityOnHand
+                                                            FROM stockitems s
+                                                            LEFT JOIN stockitemholdings h
+                                                                ON s.StockItemID = h.StockItemID
+                                                            WHERE h.StockItemID = :item_id");
+                                    $qoh1->bindParam(':item_id', $item_id, PDO::PARAM_INT);
+                                    $qoh1->execute();
+                                    $qoh_result = $qoh1->fetch();
+                                    $qoh = $qoh_result['QuantityOnHand'] - $data['Quantity'];
+                                    
+                                    $qoh2 = $db->prepare("UPDATE stockitemholdings
+                                                            SET QuantityOnHand=:qoh
+                                                            WHERE StockItemID=:qoh2");
+                                    $qoh2->bindParam(':qoh', $qoh, PDO::PARAM_INT);
+                                    $qoh2->bindParam(':qoh2', $item_id, PDO::PARAM_INT);
+                                    $qoh2->execute();
+                                }
+                            }
+                            { // Creating email
+                                $message = "
+                                    Beste ".$customerName."
+                                    <br /><br />
+                                    Vriendelijk dank voor uw order.
+                                    <br /><br />
+                                    Ordernummer: ".$orderID."<br />
+                                    (Klant)nummer: ".$customerAIID."
+                                    <br /><br />
+                                    Verzendmethode: ...<br />
+                                    Betaalmethode: ...
+                                    <br /><br />
+                                    Bestelde producten:<br /><ol>";
+                                foreach ($arrayOrders as $data) {
+                                    $subtotaal = ($data['Quantity']*$data['UnitPrice']);
+                                    $totaal += $subtotaal;
+                                    $message = $message."<li>
+                                        Product: ".$data['Description']."<br />
+                                        Stukprijs: &euro;".$data['UnitPrice']."<br />
+                                        Aantal: ".$data['Quantity']."<br />
+                                        Subtotaal: &euro;".number_format($subtotaal, 2)."</li>";
+                                }
+                                $message = $message."</ol>
+                                    Totaal: &euro;".number_format($totaal, 2)." euro
+                                    <br /><br />
+                                    Het openstaande bedrag van uw order is &euro;".number_format($totaal, 2)." euro
+                                    <br /><br />
+                                    Afleveradres:<ul>
+                                        <li>".$result['CustomerName']."</li>
+                                        <li>".$arrayOrders[0]['DeliveryAddressLine1']."</li>
+                                        <li>".$arrayOrders[0]['DeliveryPostalCode']."</li>
+                                        <li>".$arrayOrders[0]['CityName']."</li>
+                                    </ul>
+                                    Postadres:<ul>
+                                        <li>".$customerName."</li>
+                                        <li>".$arrayOrders[0]['PostalAddressLine1']."</li>
+                                        <li>".$arrayOrders[0]['PostalPostalCode']."</li>
+                                        <li>".$arrayOrders[0]['CityName']."</li>
+                                    </ul><br />
+                                    U kunt de status van uw order bekijken door in te loggen op de website van WorldWideImporters.
+                                    <br />
+                                    Dit doet u met uw emailadres en wachtwoord mits u met een account heeft besteld.
+                                    <br /><br />
+                                    Met vriendelijke groet.World Wide Importers
+                                    <br /><br /><br />";
+                            }
+
+                            // Sending email
+                            sendEmail($customerEmail, $customerName, "Order: ".$orderID, $message, true);
+
+                            // Redirect to payment.php after email is send
+                            header('Location: payment.php');
                         } catch (Exception $e) {
                             // Making order
                             setAlert("Error at making order.", "danger", $e);
