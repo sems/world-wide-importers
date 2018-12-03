@@ -1,5 +1,10 @@
 .basket_product {
     margin-bottom: 1rem;
+    .col-md-3 {
+        img {
+            max-width: 150px;
+        }
+    }
 }
 
 .basket_title {
