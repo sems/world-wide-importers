@@ -1,13 +1,14 @@
 <?php
   require('inc/config.php');
 
-  /* 
+  /*
   * Define empty variables
   */
   $request = '';
   $sql = '';
   $products_sql = '';
   $search = '';
+  $global_search = '';
   $arrayProducts = array();
 
   /*
@@ -82,6 +83,11 @@
       // Check if search is set, if so degine variable
       $search = filter_input(INPUT_GET, 'search', FILTER_SANITIZE_STRING);
     }
+
+    if (isset($_GET['global_search'])) {
+      // Check if search is set, if so degine variable
+      $global_search = filter_input(INPUT_GET, 'global_search', FILTER_SANITIZE_STRING);
+    }
   }
 
   /*
@@ -96,22 +102,22 @@
     if(isset($_GET['search'])) {
       if(isset($_GET['filter'])) {
         // Initialize sql statement
-        $sql = 'SELECT COUNT(*) 
-                  AS total 
+        $sql = 'SELECT COUNT(*)
+                  AS total
                 FROM stockitems si
                 JOIN stockitemstockgroups sisg
-                  ON sisg.StockItemID = si.StockItemID 
+                  ON sisg.StockItemID = si.StockItemID
                 JOIN stockgroups sg
                   ON sg.StockGroupID = sisg.StockGroupID
                 WHERE si.StockItemName LIKE :search
                   AND sg.StockGroupName LIKE :request';
-        
-        $products_sql =  'SELECT * 
-                          FROM stockitems si 
-                          JOIN stockitemstockgroups sisg 
-                            ON sisg.StockItemID = si.StockItemID 
-                          JOIN stockgroups sg 
-                            ON sg.StockGroupID = sisg.StockGroupID 
+
+        $products_sql =  'SELECT *
+                          FROM stockitems si
+                          JOIN stockitemstockgroups sisg
+                            ON sisg.StockItemID = si.StockItemID
+                          JOIN stockgroups sg
+                            ON sg.StockGroupID = sisg.StockGroupID
                           WHERE si.StockItemName LIKE :search
                             AND sg.StockGroupName LIKE :request';
       } else {
@@ -122,38 +128,38 @@
       // Initialize sql statement
       $sql = 'SELECT COUNT(*)
                 AS total
-              FROM stockitems si 
-              JOIN stockitemstockgroups sisg 
-                ON sisg.StockItemID = si.StockItemID 
-              JOIN stockgroups sg 
-                ON sg.StockGroupID = sisg.StockGroupID 
+              FROM stockitems si
+              JOIN stockitemstockgroups sisg
+                ON sisg.StockItemID = si.StockItemID
+              JOIN stockgroups sg
+                ON sg.StockGroupID = sisg.StockGroupID
               WHERE sg.StockGroupName LIKE :request';
 
-      $products_sql =  'SELECT * 
-                        FROM stockitems si 
-                        JOIN stockitemstockgroups sisg 
-                          ON sisg.StockItemID = si.StockItemID 
-                        JOIN stockgroups sg 
-                          ON sg.StockGroupID = sisg.StockGroupID 
+      $products_sql =  'SELECT *
+                        FROM stockitems si
+                        JOIN stockitemstockgroups sisg
+                          ON sisg.StockItemID = si.StockItemID
+                        JOIN stockgroups sg
+                          ON sg.StockGroupID = sisg.StockGroupID
                         WHERE sg.StockGroupName LIKE :request';
     } else if(isset($_GET['global_search'])) {
       // Initialize sql statement
-      $sql = 'SELECT COUNT(*) 
-                AS total 
-              FROM stockitems 
-              WHERE SearchDetails LIKE :request';
+      $sql = 'SELECT COUNT(*)
+                AS total
+              FROM stockitems
+              WHERE SearchDetails LIKE :global_search';
 
-      $products_sql =  'SELECT * 
-                        FROM stockitems 
-                        WHERE SearchDetails LIKE :request';
+      $products_sql =  'SELECT *
+                        FROM stockitems
+                        WHERE SearchDetails LIKE :global_search';
     }
   } else {
     // Fallback, Initialize sql statement
-    $sql = 'SELECT COUNT(*) 
-              AS total 
+    $sql = 'SELECT COUNT(*)
+              AS total
             FROM stockitems';
-    
-    $products_sql =  'SELECT * 
+
+    $products_sql =  'SELECT *
                       FROM stockitems';
   }
 
@@ -171,6 +177,10 @@
     if (IsNotNullOrEmptyString($search) && isset($_GET['search'])) {
       $bindSearch = "%".$search."%";
       $query->bindParam(':search', $bindSearch, PDO::PARAM_STR);
+    }
+    if (IsNotNullOrEmptyString($global_search) && isset($_GET['global_search'])) {
+      $bindGlobalSearch = "%".$global_search."%";
+      $query->bindParam(':global_search', $bindGlobalSearch, PDO::PARAM_STR);
     }
     /*
     * Execute and fetch query
@@ -201,6 +211,10 @@
     if (IsNotNullOrEmptyString($search) && isset($_GET['search'])) {
       $bindSearch = "%".$search."%";
       $query->bindParam(':search', $bindSearch, PDO::PARAM_STR);
+    }
+    if (IsNotNullOrEmptyString($global_search) && isset($_GET['global_search'])) {
+      $bindGlobalSearch = "%".$global_search."%";
+      $query->bindParam(':global_search', $bindGlobalSearch, PDO::PARAM_STR);
     }
     $query->bindParam(':start', $start, PDO::PARAM_INT);
     $query->bindParam(':resultsPerPage', $resultsPerPage, PDO::PARAM_INT);
