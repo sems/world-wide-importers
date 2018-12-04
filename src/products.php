@@ -150,7 +150,7 @@
               WHERE SearchDetails LIKE :global_search';
 
       $products_sql =  'SELECT * 
-                        FROM stockitems 
+                        FROM stockitems
                         WHERE SearchDetails LIKE :global_search';
     }
   } else {
