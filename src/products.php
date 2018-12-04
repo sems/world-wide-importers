@@ -85,7 +85,7 @@
     }
 
     if (isset($_GET['global_search'])) {
-      // Check if search is set, if so degine variable
+      // Check if global_search is set, if so define variable
       $global_search = filter_input(INPUT_GET, 'global_search', FILTER_SANITIZE_STRING);
     }
   }
@@ -122,7 +122,7 @@
                             AND sg.StockGroupName LIKE :request';
       } else {
         // User is not inside a categorie and thus cannot use this search function (display alert)
-        setAlert("U zit niet in een categorie en kan deze zoek functie dus niet gebruiken. Gebruik de zoek functie in de navigatiebalk.", "info");
+        header('Location: products.php');
       }
     } else if(isset($_GET['filter'])){
       // Initialize sql statement
@@ -144,13 +144,13 @@
                         WHERE sg.StockGroupName LIKE :request';
     } else if(isset($_GET['global_search'])) {
       // Initialize sql statement
-      $sql = 'SELECT COUNT(*)
-                AS total
-              FROM stockitems
+      $sql = 'SELECT COUNT(*) 
+                AS total 
+              FROM stockitems 
               WHERE SearchDetails LIKE :global_search';
 
-      $products_sql =  'SELECT *
-                        FROM stockitems
+      $products_sql =  'SELECT * 
+                        FROM stockitems 
                         WHERE SearchDetails LIKE :global_search';
     }
   } else {
@@ -161,6 +161,8 @@
 
     $products_sql =  'SELECT *
                       FROM stockitems';
+      
+    setAlert("U zit niet in een categorie en kan daarom geen gebruik maken van de sorteer en producten per pagina functie. Gebruik de zoek functie in de navigatiebalk zonder deze functies OF zoek binnen een categorie.", "info");
   }
 
   if (strlen($sql) < 1 == false) {
@@ -182,12 +184,12 @@
       $bindGlobalSearch = "%".$global_search."%";
       $query->bindParam(':global_search', $bindGlobalSearch, PDO::PARAM_STR);
     }
+    
     /*
     * Execute and fetch query
     */
     $query->execute();
     $count = $query->fetch()['total'];
-
     /*
     * Calculate totalpages amount
     */

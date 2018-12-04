@@ -100,7 +100,6 @@
                         } 
                         if (!isset($_SESSION['logged_in']) && isset($_COOKIE['basket'])) {
                             // When no user is logged in
-                            setAlert("Weet u zeker dat u geen account wil aanmaken? Zo nee, klik dan <strong><a href='register.php' class=''>hier</a></strong>.", "warning");
                         ?>  
                             <a href="placeorder.php" class="btn btn-success">Bestel zonder account</a>
                         <?php
