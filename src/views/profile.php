@@ -28,13 +28,13 @@
             </div>
           </div>
           <div class="card">
-            <a href="my_settings.php">
+            <a href="settings.php">
               <img class="card-img-top" src="img/image_not_found.png" alt="Card image cap">
             </a>
             <div class="card-body">
               <h5 class="card-title">Account instellingen</h5>
               <p class="card-text">Wijzig hier alle instellingen binnen je account.</p>
-              <a href="my_settings.php" class="btn btn-primary disabled" role="button" aria-disabled="true">Naar instellingen</a>
+              <a href="settings.php" class="btn btn-primary disabled" role="button" aria-disabled="true">Naar instellingen</a>
             </div>
           </div>
       </div>
