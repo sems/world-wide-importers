@@ -1,7 +1,7 @@
 <?php
   require('inc/config.php');
 
-  /* 
+  /*
   * Define empty variables
   */
   $request = '';
@@ -102,22 +102,22 @@
     if(isset($_GET['search'])) {
       if(isset($_GET['filter'])) {
         // Initialize sql statement
-        $sql = 'SELECT COUNT(*) 
-                  AS total 
+        $sql = 'SELECT COUNT(*)
+                  AS total
                 FROM stockitems si
                 JOIN stockitemstockgroups sisg
-                  ON sisg.StockItemID = si.StockItemID 
+                  ON sisg.StockItemID = si.StockItemID
                 JOIN stockgroups sg
                   ON sg.StockGroupID = sisg.StockGroupID
                 WHERE si.StockItemName LIKE :search
                   AND sg.StockGroupName LIKE :request';
-        
-        $products_sql =  'SELECT * 
-                          FROM stockitems si 
-                          JOIN stockitemstockgroups sisg 
-                            ON sisg.StockItemID = si.StockItemID 
-                          JOIN stockgroups sg 
-                            ON sg.StockGroupID = sisg.StockGroupID 
+
+        $products_sql =  'SELECT *
+                          FROM stockitems si
+                          JOIN stockitemstockgroups sisg
+                            ON sisg.StockItemID = si.StockItemID
+                          JOIN stockgroups sg
+                            ON sg.StockGroupID = sisg.StockGroupID
                           WHERE si.StockItemName LIKE :search
                             AND sg.StockGroupName LIKE :request';
       } else {
@@ -128,19 +128,19 @@
       // Initialize sql statement
       $sql = 'SELECT COUNT(*)
                 AS total
-              FROM stockitems si 
-              JOIN stockitemstockgroups sisg 
-                ON sisg.StockItemID = si.StockItemID 
-              JOIN stockgroups sg 
-                ON sg.StockGroupID = sisg.StockGroupID 
+              FROM stockitems si
+              JOIN stockitemstockgroups sisg
+                ON sisg.StockItemID = si.StockItemID
+              JOIN stockgroups sg
+                ON sg.StockGroupID = sisg.StockGroupID
               WHERE sg.StockGroupName LIKE :request';
 
-      $products_sql =  'SELECT * 
-                        FROM stockitems si 
-                        JOIN stockitemstockgroups sisg 
-                          ON sisg.StockItemID = si.StockItemID 
-                        JOIN stockgroups sg 
-                          ON sg.StockGroupID = sisg.StockGroupID 
+      $products_sql =  'SELECT *
+                        FROM stockitems si
+                        JOIN stockitemstockgroups sisg
+                          ON sisg.StockItemID = si.StockItemID
+                        JOIN stockgroups sg
+                          ON sg.StockGroupID = sisg.StockGroupID
                         WHERE sg.StockGroupName LIKE :request';
     } else if(isset($_GET['global_search'])) {
       // Initialize sql statement
@@ -155,11 +155,11 @@
     }
   } else {
     // Fallback, Initialize sql statement
-    $sql = 'SELECT COUNT(*) 
-              AS total 
+    $sql = 'SELECT COUNT(*)
+              AS total
             FROM stockitems';
-    
-    $products_sql =  'SELECT * 
+
+    $products_sql =  'SELECT *
                       FROM stockitems';
       
     setAlert("U zit niet in een categorie en kan daarom geen gebruik maken van de sorteer en producten per pagina functie. Gebruik de zoek functie in de navigatiebalk zonder deze functies OF zoek binnen een categorie.", "info");
