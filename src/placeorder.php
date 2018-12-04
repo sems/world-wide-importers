@@ -12,7 +12,9 @@
         */
         header('Location: profile.php');
         exit();
-    } 
+    } else {
+        setAlert("Weet u zeker dat u geen account wil aanmaken? Zo nee, klik dan <strong><a href='register.php' class=''>hier</a></strong>.", "warning");
+    }
     $view = "placeorder.php";
     
     include_once $template;
