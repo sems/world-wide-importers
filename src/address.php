@@ -3,8 +3,10 @@
 
     /*
     * title variable (used in template)
+    * checkForNav variable (used in navigation.php)
     */
     $title = "Mijn adressen";
+    $checkForNav = "Profiel";
 
     if(!isset($_SESSION['logged_in']) || ($_SESSION['logged_in'] == false)) {
         /*

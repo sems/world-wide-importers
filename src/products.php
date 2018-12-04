@@ -86,7 +86,6 @@
 
     if (isset($_GET['global_search'])) {
       // Check if global_search is set, if so define variable
-
       $global_search = filter_input(INPUT_GET, 'global_search', FILTER_SANITIZE_STRING);
     }
   }
@@ -151,8 +150,7 @@
               WHERE SearchDetails LIKE :global_search';
 
       $products_sql =  'SELECT * 
-                        FROM stockitems 
-
+                        FROM stockitems
                         WHERE SearchDetails LIKE :global_search';
     }
   } else {
