@@ -113,7 +113,7 @@
             // Send the message
             $result = $mailer->send($message);
         } catch (Exception $e) {
-            setAlert("Er is wat mis gegaan tijdens het verzenden van de email.", "warning", $e);
+            setAlert("Er is wat mis gegaan tijdens het verzenden van de email.", "warning");
         }
     }
 ?>
