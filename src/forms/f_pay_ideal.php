@@ -17,7 +17,7 @@
                 $payment = $mollie->payments->create([
                     "amount" => [
                         "currency" => "EUR",
-                        "value" => $amount
+                        "value" => str_replace(',', '', $amount)
                     ],
                     "description" => "Betaling order: ".$orderID,
                     "redirectUrl" => $actual_link."/finish.php",
