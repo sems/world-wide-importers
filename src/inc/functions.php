@@ -50,70 +50,66 @@
     }
 
     function sendEmail($to, $name, $subject, $body, $makePDFFromEmail = false) {
-        try {
-            $content = '';
-            if ($makePDFFromEmail) { 
-                // Check if a PDF should be made.
-                // Create PDF document from message as attachment
-                $mpdf = new \Mpdf\Mpdf(); // Create new mPDF Document
-                
-                // Beginning Buffer to save PHP variables and HTML tags
-                ob_start();
+        $content = '';
+        if ($makePDFFromEmail) { 
+            // Check if a PDF should be made.
+            // Create PDF document from message as attachment
+            $mpdf = new \Mpdf\Mpdf(); // Create new mPDF Document
+            
+            // Beginning Buffer to save PHP variables and HTML tags
+            ob_start();
 
-                print($body);
+            print($body);
 
-                $html = ob_get_contents();
-                ob_end_clean();
+            $html = ob_get_contents();
+            ob_end_clean();
 
-                // Here convert the encode for UTF-8, if you prefer 
-                // the ISO-8859-1 just change for $mpdf->WriteHTML($html);
-                $mpdf->WriteHTML(utf8_encode($html));
-                $content = $mpdf->Output('', 'S');
-            }
-            // https://swiftmailer.symfony.com/docs/messages.html
-            // Initialize variables
-            $from = "worldwideimporters8@gmail.com";
-            $fromName = "World Wide Importers";
-            // Create the Transport
-            $transport = (new Swift_SmtpTransport('smtp.gmail.com', 465, 'ssl'))
-            ->setUsername('worldwideimporters8@gmail.com')
-            ->setPassword(file_get_contents('inc/password.php'))
-            ;
-
-            // Create the Mailer using your created Transport
-            $mailer = new Swift_Mailer($transport);
-            $message = '';
-
-            // Create the new attachment
-            if ($makePDFFromEmail) { 
-                $attachment = new Swift_Attachment($content, 'order.pdf', 'application/pdf');
-
-                // Create a message
-                $message = (new Swift_Message($subject))
-                ->setFrom([$from => $fromName])
-                ->setBcc([$from => $fromName])
-                ->setTo([$to => $name])
-                ->setBody($body, 'text/html')
-                ->setContentType("text/html; charset=ISO-8859-1")
-                ->setReplyTo([$from => $fromName])
-                ->attach($attachment)
-                ;
-            } else {
-                // Create a message
-                $message = (new Swift_Message($subject))
-                ->setFrom([$from => $fromName])
-                ->setBcc([$from => $fromName])
-                ->setTo([$to => $name])
-                ->setBody($body, 'text/html')
-                ->setContentType("text/html; charset=ISO-8859-1")
-                ->setReplyTo($from)
-                ;
-            }
-
-            // Send the message
-            $result = $mailer->send($message);
-        } catch (Exception $e) {
-            setAlert("Er is wat mis gegaan tijdens het verzenden van de email.", "warning");
+            // Here convert the encode for UTF-8, if you prefer 
+            // the ISO-8859-1 just change for $mpdf->WriteHTML($html);
+            $mpdf->WriteHTML(utf8_encode($html));
+            $content = $mpdf->Output('', 'S');
         }
+        // https://swiftmailer.symfony.com/docs/messages.html
+        // Initialize variables
+        $from = "worldwideimporters8@gmail.com";
+        $fromName = "World Wide Importers";
+        // Create the Transport
+        $transport = (new Swift_SmtpTransport('smtp.gmail.com', 465, 'ssl'))
+        ->setUsername('worldwideimporters8@gmail.com')
+        ->setPassword(file_get_contents('inc/password.php'))
+        ;
+
+        // Create the Mailer using your created Transport
+        $mailer = new Swift_Mailer($transport);
+        $message = '';
+
+        // Create the new attachment
+        if ($makePDFFromEmail) { 
+            $attachment = new Swift_Attachment($content, 'order.pdf', 'application/pdf');
+
+            // Create a message
+            $message = (new Swift_Message($subject))
+            ->setFrom([$from => $fromName])
+            ->setBcc([$from => $fromName])
+            ->setTo([$to => $name])
+            ->setBody($body, 'text/html')
+            ->setContentType("text/html; charset=ISO-8859-1")
+            ->setReplyTo([$from => $fromName])
+            ->attach($attachment)
+            ;
+        } else {
+            // Create a message
+            $message = (new Swift_Message($subject))
+            ->setFrom([$from => $fromName])
+            ->setBcc([$from => $fromName])
+            ->setTo([$to => $name])
+            ->setBody($body, 'text/html')
+            ->setContentType("text/html; charset=ISO-8859-1")
+            ->setReplyTo($from)
+            ;
+        }
+
+        // Send the message
+        $result = $mailer->send($message);
     }
 ?>
