@@ -83,7 +83,7 @@
   <?php
     for ($i=1; $i<=$totalPages; $i++) {
       ?>
-      <div>
+      <div class="d-inline-block products_page-nav">
         <form action="products.php" method="get">
           <?php
           if (isset($_GET['filter'])) {
