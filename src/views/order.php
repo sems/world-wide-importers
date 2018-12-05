@@ -31,7 +31,7 @@
                                         <input type="hidden" name="orderId" value="<?php print($_GET['id']);?>">
                                         <input type="hidden" name="payment" value="<?php print($invoice['Comments']);?>">
                                         <button class="btn btn-primary" type="submit">hier</button>
-                                    </form></a>
+                                    </form>
                                 </p> 
                             <?php }
                         ?>
