@@ -3,6 +3,7 @@
         <h4>Order <?php print($_GET['id']);?></h4>
         <div class="accordion" id="accordion_order">
             <div class="card">
+
                 <div class="card-header" id="heading_payment">
                     <h5 class="mb-0">
                     <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapse_payment" aria-expanded="true" aria-controls="collapse_payment">
@@ -38,6 +39,7 @@
                   </div>
                 </div>
             </div>
+
             <div class="card">
                 <div class="card-header" id="heading_address">
                     <h5 class="mb-0">
@@ -46,6 +48,7 @@
                     </button>
                     </h5>
                 </div>
+
                 <div id="collapse_delivery" class="collapse" aria-labelledby="heading_address" data-parent="#accordion_order">
                   <div class="md-col-12">
                     <div class="card-body row">
@@ -69,6 +72,7 @@
                   </div>
                 </div>
             </div>
+
             <div class="card">
                 <div class="card-header" id="heading_content">
                     <h5 class="mb-0">
@@ -120,7 +124,8 @@
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-    </div>
-</div>
+            </div> <!-- End card-order -->
+        </div> <!-- End accordion -->
+        <a href="orders.php" class="btn btn-primary order_button-back">&laquo; Terug naar overzicht</a>
+    </div> <!-- End column -->
+</div> <!-- End row -->

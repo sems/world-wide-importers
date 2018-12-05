@@ -1,16 +1,16 @@
 <?php print(getAlert()); ?>
 
 <div class="row">
-  <div class="col-md-6">
+  <div class="col-md-12">
     <?php //drop down form to choose filtering for products ?>
-    <form action='products.php' method='get' class="form-inline my-2 my-lg-0">
+    <form action='products.php' method='get' class="form-inline">
       <?php
         if (isset($_GET['filter'])) {
           // Check if filter isset, if so add hidden name and value of filter to form
           print('<input type="hidden" name="filter" value="'.$_GET['filter'].'" />');
         }
       ?>
-      <div class="row">
+      <div class="row filter-style">
         <div class="col">
           <div class="input-group mb-3">
             <select name='order' class="custom-select" id="inputGroupSelect02" onchange="this.form.submit()">
@@ -21,7 +21,7 @@
           </div>
         </div>
       </div>
-      <div class="row">
+      <div class="row filter-style">
         <div class="col">
           <div class="input-group mb-3">
             <select name='resultsperpage' class="custom-select" id="inputGroupSelect02" onchange="this.form.submit()">
@@ -34,17 +34,19 @@
         </div>
       </div>
       <?php // new search input ?>
-      <div class="col">
-        <div class="input-group mb-3">
-          <input class="form-control" name="search" type="search" placeholder="Zoeken" aria-label="Zoeken" value="<?php print(isset($_GET['search']) ? $_GET['search'] : '') ?>">
-          <div class="input-group-append">
-            <button class="btn input-group-text" for="inputGroupSelect02" type='submit'>Zoek</button>
+      <div class="row filter-style">
+        <div class="col">
+          <div class="input-group mb-3">
+            <input class="form-control" name="search" type="search" placeholder="Zoeken" aria-label="Zoeken" value="<?php print(isset($_GET['search']) ? $_GET['search'] : '') ?>">
+            <div class="input-group-append">
+              <button class="btn input-group-text" for="inputGroupSelect02" type='submit'>Zoek</button>
+            </div>
           </div>
         </div>
       </div>
     </form>
   </div>
-
+  <div class="col-md-12">
   <?php
     // For each product print product photo (or fallback photo) and add product name
     if(sizeOf($arrayProducts) >= 1) {
@@ -81,7 +83,7 @@
   <?php
     for ($i=1; $i<=$totalPages; $i++) {
       ?>
-      <div>
+      <div class="d-inline-block products_page-nav">
         <form action="products.php" method="get">
           <?php
           if (isset($_GET['filter'])) {
@@ -108,4 +110,5 @@
       <?php
     };
   ?>
+  </div>
 </div>
