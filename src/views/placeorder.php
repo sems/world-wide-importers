@@ -6,27 +6,27 @@
             <div class="form-row">
                 <div class="form-group col-md-8">
                     <label for="inputName">Volledige naam</label>
-                    <input type="text" class="form-control" id="inputName" name="inputName" placeholder="Jan Jansen">
+                    <input type="text" class="form-control" id="inputName" name="inputName" placeholder="Jan Jansen" required>
                 </div>
                 <div class="form-group col-md-4">
                     <label for="inputPhone">Telefoonnummer</label>
-                    <input type="text" class="form-control" id="inputPhone" name="inputPhone" placeholder="0612345678">
+                    <input type="text" class="form-control" id="inputPhone" name="inputPhone" placeholder="0612345678" required>
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-group col-md-12">
                     <label for="inputMail">E-mail</label>
-                    <input type="text" class="form-control" id="inputMail" name="inputMail" placeholder="test@example.com">
+                    <input type="email" class="form-control" id="inputMail" name="inputMail" placeholder="test@example.com" required>
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label for="inputAddress">Adres</label>
-                    <input type="text" class="form-control" id="inputAddress" name="inputAddress" placeholder="Schoolstraat">
+                    <input type="text" class="form-control" id="inputAddress" name="inputAddress" placeholder="Schoolstraat" required>
                 </div>
                 <div class="form-group col-md-2">
                     <label for="inputAddress2">Huisnummer</label>
-                    <input type="text" class="form-control" id="inputAddress2" name="inputAddress2" placeholder="14">
+                    <input type="text" class="form-control" id="inputAddress2" name="inputAddress2" placeholder="14" required>
                 </div>
                 <div class="form-group col-md-1">
                     <label for="inputAddress3">Toevoeging</label>
@@ -40,11 +40,11 @@
             <div class="form-row">
                 <div class="form-group col-md-2">
                     <label for="inputZip">Postcode</label>
-                    <input type="text" class="form-control" id="inputZip" name="inputZip" placeholder="8017 CA">
+                    <input type="text" class="form-control" id="inputZip" name="inputZip" placeholder="8017 CA" required>
                 </div>
                 <div class="form-group col-md-4">
                     <label for="inputCity">Stad</label>
-                    <input type="text" class="form-control" id="inputCity" name="inputCity" placeholder="Zwolle">
+                    <input type="text" class="form-control" id="inputCity" name="inputCity" placeholder="Zwolle" required>
                 </div>
                 <div class="form-group col-md-3">
                     <label for="inputCountry">Land</label>
@@ -62,7 +62,7 @@
                 </div>
                 <div class="form-group col-md-3">
                     <label for="inputState">Provincie</label>
-                    <select id="inputState" class="form-control state_selection" name="inputState">
+                    <select id="inputState" class="form-control state_selection" name="inputState" required>
                         <option selected>Kies...</option>
                         <?php
                             $countryID = 153;
