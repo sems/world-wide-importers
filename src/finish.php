@@ -57,22 +57,27 @@
     } else if ($row['InternalComments'] == "open") {
         $message = $message."
             Er is iets mis gegaan met de betaling.<br />
-            Om de betaling opnieuw te starten drukt u <a href='"."#"/* hier moet url komen */."'>hier</a>.
+            Om de betaling opnieuw te starten drukt u <a href='http://worldwideimporters.shop/f_handler.php?form_handler=f_restart_payment.php&orderId=".$order_id."&payment=".$row['InternalComments']."'>hier</a>.
             <br /><br />";
     } else if ($row['InternalComments'] == "pending") {
         $message = $message."
             De betaling is in afwachting.
+            Om de betaling opnieuw te starten drukt u <a href='http://worldwideimporters.shop/f_handler.php?form_handler=f_restart_payment.php&orderId=".$order_id."&payment=".$row['InternalComments']."'>hier</a>.
             <br /><br />";
     } else if ($row['InternalComments'] == "failed") {
         $message = $message."
             De betaling is mislukt.
+            Om de betaling opnieuw te starten drukt u <a href='http://worldwideimporters.shop/f_handler.php?form_handler=f_restart_payment.php&orderId=".$order_id."&payment=".$row['InternalComments']."'>hier</a>.
             <br /><br />";
     } else if ($row['InternalComments'] == "expired") {
         $message = $message."
-            De betaling is verlopen.";
+            De betaling is verlopen.
+            Om de betaling opnieuw te starten drukt u <a href='http://worldwideimporters.shop/f_handler.php?form_handler=f_restart_payment.php&orderId=".$order_id."&payment=".$row['InternalComments']."'>hier</a>.
+            <br /><br />";
     } else if ($row['InternalComments'] == "canceled") {
         $message = $message."
             De betaling is geannuleerd.
+            Om de betaling opnieuw te starten drukt u <a href='http://worldwideimporters.shop/f_handler.php?form_handler=f_restart_payment.php&orderId=".$order_id."&payment=".$row['InternalComments']."'>hier</a>.
             <br /><br />";
     } else if ($row['InternalComments'] == "refunded") {
         $message = $message."
