@@ -300,7 +300,6 @@
 
                             // Initialize variables for further use
                             $arrayOrders = array();
-                            $result = '';
                             $totaal = 0;
                             $message = '';
 
@@ -379,7 +378,7 @@
                                     Het openstaande bedrag van uw order is &euro;".number_format($totaal, 2)." euro
                                     <br /><br />
                                     Afleveradres:<ul>
-                                        <li>".$result['CustomerName']."</li>
+                                        <li>".$customerName."</li>
                                         <li>".$arrayOrders[0]['DeliveryAddressLine1']."</li>
                                         <li>".$arrayOrders[0]['DeliveryPostalCode']."</li>
                                         <li>".$arrayOrders[0]['CityName']."</li>
