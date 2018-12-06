@@ -14,10 +14,36 @@
     $order_id = $orderID;
     $customer_info = "";
     $message = "";
+    $customerEmail = "";
 
     /*
     * Get customer info
     */
+    if (isset($_SESSION['noAccountEmail'])) {
+        $customerEmail = $_SESSION['noAccountEmail'];
+
+        $stmt2 = $db->prepare("SELECT *
+                                FROM customers C
+                                LEFT JOIN orders O
+                                    ON O.CustomerID = C.CustomerID
+                                WHERE O.OrderID = :order_id");
+        $stmt2->execute(['order_id' => $orderID]); 
+        $customer_info = $stmt2->fetch();
+
+        unset($_SESSION['noAccountEmail']);
+    } else {
+        $stmt2 = $db->prepare("SELECT *
+                                FROM customers C
+                                LEFT JOIN orders O
+                                    ON O.CustomerID = C.CustomerID
+                                LEFT JOIN user u
+                                    ON c.PrimaryContactPresonID = u.userID
+                                WHERE O.OrderID = :order_id");
+        $stmt2->execute(['order_id' => $orderID]); 
+        $customer_info = $stmt2->fetch();
+
+        $customerEmail = $customer_info['LogonName'];
+    }
     {
         $stmt2 = $db->prepare("SELECT *
                                 FROM customers C
@@ -97,7 +123,6 @@
     /*
     * Sending email
     */
-    $customerEmail = $_SESSION['noAccountEmail'];
     sendEmail($customerEmail, $customer_info['CustomerName'], "Betaling: ".$customer_info['OrderID'], $message, true);
 
     // destory the sessions
@@ -105,7 +130,6 @@
     $orderID = $_SESSION['orderid'];
     $invoiceID = $_SESSION['invoiceID'];
 
-    
     // Include template
     include_once $template;
     
