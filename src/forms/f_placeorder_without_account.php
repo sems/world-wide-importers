@@ -182,8 +182,8 @@
                         $IsUndersupplyBackordered = 0;
                         
                         try {
-                            $query = "INSERT INTO orders (OrderID, CustomerID, SalespersonPersonID, PickedByPersonID, ContactPersonID, BackorderOrderID, OrderDate, ExpectedDeliveryDate, CustomerPurchaseOrderNumber, IsUndersupplyBackordered, PickingCompletedWhen, LastEditedBy, LastEditedWhen)
-                                    VALUES (:order_id, :customer_id, :salesperson_id, :picked_by_person_id, :contactperson_id, :backorder_id, :order_date, :expected_delivery_date, :purchase_order_number, :under_supply, :picking_completed_at, :last_edited_by, :last_edit_when) ";
+                            $query = "INSERT INTO orders (OrderID, CustomerID, SalespersonPersonID, PickedByPersonID, ContactPersonID, BackorderOrderID, OrderDate, ExpectedDeliveryDate, CustomerPurchaseOrderNumber, IsUndersupplyBackordered, PickingCompletedWhen, LastEditedBy, LastEditedWhen, InternalComments)
+                                    VALUES (:order_id, :customer_id, :salesperson_id, :picked_by_person_id, :contactperson_id, :backorder_id, :order_date, :expected_delivery_date, :purchase_order_number, :under_supply, :picking_completed_at, :last_edited_by, :last_edit_when, :internal_comments) ";
                             
                             //Prepares statement and bind parameters
                             $dbinsert = $db->prepare($query);
@@ -201,6 +201,7 @@
                             $dbinsert->bindParam(':picking_completed_at', $currentDate, PDO::PARAM_STR);
                             $dbinsert->bindParam(':last_edited_by', $currentUser, PDO::PARAM_STR);
                             $dbinsert->bindParam(':last_edit_when', $currentDate, PDO::PARAM_STR);
+                            $dbinsert->bindParam(':internal_comments', $customerEmail, PDO::PARAM_STR);
             
                             // Execute call
                             $dbinsert-> execute();
@@ -398,7 +399,6 @@
                             }
 
                             // Sending email
-                            $_SESSION['noAccountEmail'] = $customerEmail;
                             sendEmail($customerEmail, $customerName, "Order: ".$orderID, $message, true);
 
                             // Redirect to payment.php after email is send

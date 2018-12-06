@@ -41,8 +41,21 @@
                         $IsUndersupplyBackordered = 0;
                         
                         try {
-                            $query = "INSERT INTO orders (OrderID, CustomerID, SalespersonPersonID, PickedByPersonID, ContactPersonID, BackorderOrderID, OrderDate, ExpectedDeliveryDate, CustomerPurchaseOrderNumber, IsUndersupplyBackordered, PickingCompletedWhen, LastEditedBy, LastEditedWhen)
-                                    VALUES (:order_id, :customer_id, :salesperson_id, :picked_by_person_id, :contactperson_id, :backorder_id, :order_date, :expected_delivery_date, :purchase_order_number, :under_supply, :picking_completed_at, :last_edited_by, :last_edit_when) ";
+                            $result = '';
+                            { // Get Customer info ALSO needed when sending email
+                                $stmt2 = $db->prepare("SELECT *
+                                                        FROM customers C
+                                                        LEFT JOIN orders O
+                                                            ON O.CustomerID = C.CustomerID
+                                                        LEFT JOIN user P
+                                                            ON P.UserID = C.PrimaryContactPersonID
+                                                        WHERE O.OrderID = :order_id");
+                                $stmt2->execute(['order_id' => $orderID]); 
+                                $result = $stmt2->fetch();
+                            }
+
+                            $query = "INSERT INTO orders (OrderID, CustomerID, SalespersonPersonID, PickedByPersonID, ContactPersonID, BackorderOrderID, OrderDate, ExpectedDeliveryDate, CustomerPurchaseOrderNumber, IsUndersupplyBackordered, PickingCompletedWhen, LastEditedBy, LastEditedWhen, InternalComments)
+                                    VALUES (:order_id, :customer_id, :salesperson_id, :picked_by_person_id, :contactperson_id, :backorder_id, :order_date, :expected_delivery_date, :purchase_order_number, :under_supply, :picking_completed_at, :last_edited_by, :last_edit_when, :internal_comments) ";
                             
                             //Prepares statement and bind parameters
                             $dbinsert = $db->prepare($query);
@@ -60,6 +73,7 @@
                             $dbinsert->bindParam(':picking_completed_at', $currentDate, PDO::PARAM_STR);
                             $dbinsert->bindParam(':last_edited_by', $personID, PDO::PARAM_STR);
                             $dbinsert->bindParam(':last_edit_when', $currentDate, PDO::PARAM_STR);
+                            $dbinsert->bindParam(':internal_comments', $result['LogonName'], PDO::PARAM_STR);
             
                             // Execute call
                             $dbinsert-> execute();
@@ -157,7 +171,6 @@
 
                                 // Initialize variables for further use
                                 $arrayOrders = array();
-                                $result = '';
                                 $totaal = 0;
                                 $message = '';
 
@@ -186,17 +199,6 @@
                                             }
                                         }
                                     }
-                                }
-                                { // Get Customer info
-                                    $stmt2 = $db->prepare("SELECT *
-                                                            FROM customers C
-                                                            LEFT JOIN orders O
-                                                                ON O.CustomerID = C.CustomerID
-                                                            LEFT JOIN user P
-										                        ON P.UserID = C.PrimaryContactPersonID
-                                                            WHERE O.OrderID = :order_id");
-                                    $stmt2->execute(['order_id' => $orderID]); 
-                                    $result = $stmt2->fetch();
                                 }
                                 { // Change QuantityOnHand
                                     foreach ($arrayOrders as $data) {
