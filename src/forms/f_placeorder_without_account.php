@@ -398,6 +398,7 @@
                             }
 
                             // Sending email
+                            $_SESSION['noAccountEmail'] = $customerEmail;
                             sendEmail($customerEmail, $customerName, "Order: ".$orderID, $message, true);
 
                             // Redirect to payment.php after email is send
