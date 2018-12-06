@@ -93,6 +93,7 @@
   /*
   * After checking for _GET, calculate start
   */
+  
   $start = $resultsPerPage * ($page-1);
 
   /*

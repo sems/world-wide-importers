@@ -23,8 +23,6 @@
                                 FROM customers C
                                 LEFT JOIN orders O
                                     ON O.CustomerID = C.CustomerID
-                                LEFT JOIN user P
-                                    ON P.UserID = C.PrimaryContactPersonID
                                 WHERE O.OrderID = :order_id");
         $stmt2->execute(['order_id' => $orderID]); 
         $customer_info = $stmt2->fetch();
@@ -99,7 +97,8 @@
     /*
     * Sending email
     */
-    sendEmail($customer_info['LogonName'], $customer_info['CustomerName'], "Betaling: ".$customer_info['OrderID'], $message, true);
+    $customerEmail = $_SESSION['noAccountEmail'];
+    sendEmail($customerEmail, $customer_info['CustomerName'], "Betaling: ".$customer_info['OrderID'], $message, true);
 
     // destory the sessions
     $amount = $_SESSION['totalprice'];
