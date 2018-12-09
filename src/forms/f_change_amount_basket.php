@@ -5,7 +5,7 @@
     $basket = json_decode($_COOKIE['basket'], true);
     
     foreach($basket as $key => $value){
-        $data = $db->prepare("SELECT QuantityOnHand FROM Stockitemholdings WHERE StockItemID = ($key)");
+        $data = $db->prepare("SELECT QuantityOnHand FROM stockitemholdings WHERE StockItemID = ($key)");
         $data->execute();
         $data = $data->fetch();
         // Check if value from the invisible field matches the key from basket
