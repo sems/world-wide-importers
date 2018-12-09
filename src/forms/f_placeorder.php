@@ -9,11 +9,15 @@
             if (isset($_SESSION['PersonID'])) {
                 # for users with an account
                 
-                // check if user already excits with the adrress
-                $stmt = $db->prepare("SELECT CustomerID, PrimaryContactPersonID FROM customers WHERE PrimaryContactPersonID=:person_id");
+                // check if user already exists with the adrress
+                $stmt = $db->prepare("SELECT CustomerID, PrimaryContactPersonID, LogonName
+                                        FROM customers C
+                                        LEFT JOIN user P
+                                            ON P.UserID = C.PrimaryContactPersonID
+                                        WHERE PrimaryContactPersonID=:person_id");
                 $stmt->execute(['person_id' => $personID]); 
                 $row = $stmt->fetch();
-
+                
                 if (!empty($row)) {
                     # if customer has address
                     $basket = json_decode($_COOKIE['basket'], true);
@@ -41,7 +45,7 @@
                         $IsUndersupplyBackordered = 0;
                         
                         try {
-                            $result = '';
+                            /*
                             { // Get Customer info ALSO needed when sending email
                                 $stmt2 = $db->prepare("SELECT *
                                                         FROM customers C
@@ -53,6 +57,7 @@
                                 $stmt2->execute(['order_id' => $orderID]); 
                                 $result = $stmt2->fetch();
                             }
+                            */
 
                             $query = "INSERT INTO orders (OrderID, CustomerID, SalespersonPersonID, PickedByPersonID, ContactPersonID, BackorderOrderID, OrderDate, ExpectedDeliveryDate, CustomerPurchaseOrderNumber, IsUndersupplyBackordered, PickingCompletedWhen, LastEditedBy, LastEditedWhen, InternalComments)
                                     VALUES (:order_id, :customer_id, :salesperson_id, :picked_by_person_id, :contactperson_id, :backorder_id, :order_date, :expected_delivery_date, :purchase_order_number, :under_supply, :picking_completed_at, :last_edited_by, :last_edit_when, :internal_comments) ";
@@ -73,7 +78,7 @@
                             $dbinsert->bindParam(':picking_completed_at', $currentDate, PDO::PARAM_STR);
                             $dbinsert->bindParam(':last_edited_by', $personID, PDO::PARAM_STR);
                             $dbinsert->bindParam(':last_edit_when', $currentDate, PDO::PARAM_STR);
-                            $dbinsert->bindParam(':internal_comments', $result['LogonName'], PDO::PARAM_STR);
+                            $dbinsert->bindParam(':internal_comments', $row['LogonName'], PDO::PARAM_STR);
             
                             // Execute call
                             $dbinsert-> execute();
@@ -173,6 +178,7 @@
                                 $arrayOrders = array();
                                 $totaal = 0;
                                 $message = '';
+                                $result = '';
 
                                 { // Get orderlines
                                     $stmt1 = $db->prepare('SELECT *
@@ -199,6 +205,17 @@
                                             }
                                         }
                                     }
+                                }
+                                { // Get Customer info ALSO needed when sending email
+                                    $stmt2 = $db->prepare("SELECT *
+                                                            FROM customers C
+                                                            LEFT JOIN orders O
+                                                                ON O.CustomerID = C.CustomerID
+                                                            LEFT JOIN user P
+                                                                ON P.UserID = C.PrimaryContactPersonID
+                                                            WHERE O.OrderID = :order_id");
+                                    $stmt2->execute(['order_id' => $orderID]); 
+                                    $result = $stmt2->fetch();
                                 }
                                 { // Change QuantityOnHand
                                     foreach ($arrayOrders as $data) {
@@ -270,7 +287,6 @@
 
                                 // Sending email
                                 sendEmail($result['LogonName'], $result['CustomerName'], "Order: ".$result['OrderID'], $message, true);
-
                                 // Redirect to payment.php after email is send
                                 header('Location: payment.php');
                         } catch (Exception $e) {
