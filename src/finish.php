@@ -23,8 +23,6 @@
                             FROM customers C
                             LEFT JOIN orders O
                                 ON O.CustomerID = C.CustomerID
-                            LEFT JOIN user u
-                                ON c.PrimaryContactPresonID = u.userID
                             WHERE O.OrderID = :order_id");
     $stmt2->execute(['order_id' => $orderID]); 
     $customer_info = $stmt2->fetch();
@@ -55,7 +53,8 @@
 
     if ($row['InternalComments'] == "paid") {
         $message = $message."
-            De betaling is gelukt!";
+            De betaling is gelukt!
+            <br /><br />";
     } else if ($row['InternalComments'] == "open") {
         $message = $message."
             Er is iets mis gegaan met de betaling.<br />
